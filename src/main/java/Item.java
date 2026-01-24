@@ -1,6 +1,7 @@
 public class Item {
     private String text;
     private boolean done = false;
+    private TaskType type;
 
     // Constructor Class
     public Item(String text){
@@ -9,7 +10,7 @@ public class Item {
 
     // Overriding in-built toString method
     public String toString() {
-        return this.string_done() + " " + this.get_text();
+        return this.string_type() + this.string_done() + " " + this.get_text();
     }
 
     // Getter and Setter Methods
@@ -27,14 +28,38 @@ public class Item {
 
     String string_done(){
         if (this.get_done()) {
-            return "[ X ]";
+            return "[X]";
         } else {
-            return "[   ]";
+            return "[ ]";
         }
     }
 
     void set_done(Boolean val){
         this.done = val;
     }
+
+    void set_type(TaskType tasktype){
+        this.type = tasktype;
+    }
+
+    TaskType get_type(){
+        return this.type;
+    }
+
+    String string_type(){
+        if (this.get_type() == TaskType.ToDos) {
+            return "[T]";
+        } else {
+            if (this.get_type() == TaskType.Events) {
+                return "[E]";
+            } else {
+                if (this.get_type() == TaskType.Deadlines) {
+                    return "[D]";
+                }
+            }
+        }
+        return "[ ]";
+    }
+
 
 }
