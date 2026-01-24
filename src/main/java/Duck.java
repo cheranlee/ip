@@ -6,12 +6,15 @@ public class Duck {
         System.out.println("Quack! I'm Duck. \nWhat can I do for you?");
         System.out.println("-------------------------------------------------------------");
 
+        NewList MasterList = new NewList();
         Scanner new_object = new Scanner(System.in);
         String command = new_object.nextLine();
-        while (!command.contains("bye")){
-            System.out.println("\t-------------------------------------------------------------");
-            System.out.println('\t'+ command);
-            System.out.println("\t-------------------------------------------------------------");
+        while (!command.contains("bye")) {
+            if (command.contains("list")) {
+                System.out.println(MasterList.toString());
+            } else {
+                MasterList.addItem(new Item(command));
+            }
             command = new_object.nextLine();
         }
         System.out.println("\t-------------------------------------------------------------");
