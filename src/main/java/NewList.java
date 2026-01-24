@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.nio.channels.IllegalChannelGroupException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -20,4 +22,35 @@ public class NewList {
         }
         return total_str;
     }
+
+    public void markUnmarkItem(boolean mark, int idx){
+        if (idx <= list.size()) {
+            Item i = list.get(idx - 1);
+            if (mark) {     // mark as done
+                if (!i.get_done()) {
+                    i.set_done(true);
+                    System.out.println("\t-------------------------------------------------------------");
+                    System.out.println("\tQuack-ity! I've marked this task as done:");
+                    System.out.println("\t"+ i.toString());
+                    System.out.println("\t-------------------------------------------------------------");
+                } else {
+                    throw new IllegalArgumentException(("Item Already Marked as Done!"));
+                }
+            } else {         // unmark to show not done
+                if (i.get_done()) {
+                    i.set_done(false);
+                    System.out.println("\t-------------------------------------------------------------");
+                    System.out.println("\tAww! I've marked this task as not done yet:");
+                    System.out.println("\t"+ i.toString());
+                    System.out.println("\t-------------------------------------------------------------");
+                } else {
+                    throw new IllegalArgumentException(("Item Already Marked as Not Done!"));
+                }
+            }
+        } else {
+            throw new IndexOutOfBoundsException("Invalid Item Number");
+        }
+    }
+
+
 }
