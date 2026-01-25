@@ -46,28 +46,46 @@ ERROR! Event task must have a start and end date (keywords: start, end). It also
 ERROR! Description / End / Start cannot be empty
 	-------------------------------------------------------------
 	Quack! I've added this task:
-		[E][ ] school  (start: 3pm) (end: 5pm)
+		[E][ ] school  (start:  3pm) (end:  5pm)
 	Now you have 3 tasks in the list
 	-------------------------------------------------------------
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
 	2. [D][ ] return book  (by:  4pm)
-	3. [E][ ] school  (start: 3pm) (end: 5pm)
+	3. [E][ ] school  (start:  3pm) (end:  5pm)
 
 	-------------------------------------------------------------
 	Quack-ity! I've marked this task as done:
-	[E][X] school  (start: 3pm) (end: 5pm)
+	[E][X] school  (start:  3pm) (end:  5pm)
 	-------------------------------------------------------------
+ERROR! Index not a valid number
+ERROR! Item Number out of range
 	Item already marked as not done!
-	Invalid Item Number
+ERROR! Item Number out of range
+	Here are the tasks in your list:
+	1. [T][ ] borrow book
+	2. [D][ ] return book  (by:  4pm)
+	3. [E][X] school  (start:  3pm) (end:  5pm)
+
 	-------------------------------------------------------------
 	Aww! I've marked this task as not done yet:
-	[E][ ] school  (start: 3pm) (end: 5pm)
+	[E][ ] school  (start:  3pm) (end:  5pm)
 	-------------------------------------------------------------
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
 	2. [D][ ] return book  (by:  4pm)
-	3. [E][ ] school  (start: 3pm) (end: 5pm)
+	3. [E][ ] school  (start:  3pm) (end:  5pm)
+
+ERROR! Item Number out of range
+ERROR! Index not a valid number
+	-------------------------------------------------------------
+	Quack! I've removed this task:
+		[T][ ] borrow book
+	Now you have 2 tasks in the list
+	-------------------------------------------------------------
+	Here are the tasks in your list:
+	1. [D][ ] return book  (by:  4pm)
+	2. [E][ ] school  (start:  3pm) (end:  5pm)
 
 	-------------------------------------------------------------
 	Bye Quack! Hope to see you again soon!
