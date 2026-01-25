@@ -24,17 +24,41 @@ public class Duck {
                         } else {                             // MARK
                             MasterList.markUnmarkItem(true, item_num);
                         }
-                    } catch(IllegalArgumentException ex) {
+                    } catch (IllegalArgumentException ex) {
                         if (ex.getMessage().contains("Not")) {
                             System.out.println("\tItem already marked as not done!");
                         } else {
                             System.out.println("\tItem already marked as done!");
                         }
-                    } catch(IndexOutOfBoundsException ex2) {
+                    } catch (IndexOutOfBoundsException ex2) {
                         System.out.println("\tInvalid Item Number");
                     }
                 } else {
-                    MasterList.addItem(new Item(command));
+                    command = command.trim();
+                    int space_pos = command.indexOf(" ");
+                    String sub_command = command.substring(space_pos + 1);
+                    sub_command = sub_command.trim();
+                    if (command.contains("todo")) {  // no date or time attached
+                        MasterList.addItem(new Item(sub_command, TaskType.ToDos));
+                    } else {
+                        if (command.contains("deadline")) {  // /by date & time
+                            int by_datetime_pos = sub_command.indexOf("by ");
+                            String by_datetime = sub_command.substring(by_datetime_pos + 3);
+                            String description = sub_command.substring(0, by_datetime_pos);
+                            String new_string = description + " (by: " + by_datetime + ")";
+                            MasterList.addItem(new Item(new_string, TaskType.Deadlines));
+                        } else {
+                            if (command.contains("event")) {   // /start /end date & time
+                                int start_datetime_pos = sub_command.indexOf("start ");
+                                int end_datetime_pos = sub_command.indexOf("end ");
+                                String start_datetime = sub_command.substring(start_datetime_pos + 6, end_datetime_pos-1);
+                                String end_datetime = sub_command.substring(end_datetime_pos + 4);
+                                String description = sub_command.substring(0, start_datetime_pos);
+                                String new_string = description + " (start: " +  start_datetime + ") (end: " + end_datetime + ")";
+                                MasterList.addItem(new Item(new_string, TaskType.Events));
+                            }
+                        }
+                    }
                 }
             }
             command = new_object.nextLine();

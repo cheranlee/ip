@@ -9,8 +9,14 @@ public class NewList {
     public void addItem(Item item) {
         list.add(item);
         System.out.println("\t-------------------------------------------------------------");
-        System.out.println("\tadded: "+ item.toString());
+        System.out.println("\tQuack! I've added this task: ");
+        System.out.println("\t\t"+ item.toString());
+        System.out.println("\tNow you have " + this.size() + " tasks in the list");
         System.out.println("\t-------------------------------------------------------------");
+    }
+
+    public int size(){
+        return this.list.size();
     }
 
     public String toString() {

@@ -4,8 +4,9 @@ public class Item {
     private TaskType type;
 
     // Constructor Class
-    public Item(String text){
+    public Item(String text, TaskType type){
         this.set_text(text);
+        this.set_type(type);
     }
 
     // Overriding in-built toString method
@@ -60,6 +61,4 @@ public class Item {
         }
         return "[ ]";
     }
-
-
 }
