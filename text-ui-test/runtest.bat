@@ -56,9 +56,9 @@ echo [√] Compilation successful
 echo.
 
 echo [4/4] Running tests...
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+java -classpath ..\bin Duck < input.txt > ACTUAL.TXT
 
-FC ACTUAL.TXT EXPECTED.TXT > nul
+FC ACTUAL.TXT EXPECTED.TXT
 if ERRORLEVEL 1 (
     echo.
     echo =============== ERROR ===============
@@ -71,3 +71,4 @@ if ERRORLEVEL 1 (
     echo         All tests passed           
     echo ===================================
     exit /b 0
+)

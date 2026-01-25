@@ -1,7 +1,44 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+-------------------------------------------------------------
+Quack! I'm Duck.
+What can I do for you?
+-------------------------------------------------------------
+	-------------------------------------------------------------
+	Quack! I've added this task:
+		[T][ ] borrow book
+	Now you have 1 tasks in the list
+	-------------------------------------------------------------
+	-------------------------------------------------------------
+	Quack! I've added this task:
+		[D][ ] return book  (by: Thursday)
+	Now you have 2 tasks in the list
+	-------------------------------------------------------------
+	-------------------------------------------------------------
+	Quack! I've added this task:
+		[E][ ] school camp  (start:  thursday) (end:  saturday)
+	Now you have 3 tasks in the list
+	-------------------------------------------------------------
+	Here are the tasks in your list:
+	1. [T][ ] borrow book
+	2. [D][ ] return book  (by: Thursday)
+	3. [E][ ] school camp  (start:  thursday) (end:  saturday)
 
+	Invalid Item Number
+	-------------------------------------------------------------
+	Quack-ity! I've marked this task as done:
+	[D][X] return book  (by: Thursday)
+	-------------------------------------------------------------
+	Item already marked as not done!
+	Item already marked as done!
+	-------------------------------------------------------------
+	Aww! I've marked this task as not done yet:
+	[D][ ] return book  (by: Thursday)
+	-------------------------------------------------------------
+	Invalid Item Number
+	Here are the tasks in your list:
+	1. [T][ ] borrow book
+	2. [D][ ] return book  (by: Thursday)
+	3. [E][ ] school camp  (start:  thursday) (end:  saturday)
+
+	-------------------------------------------------------------
+	Bye Quack! Hope to see you again soon!
+	-------------------------------------------------------------

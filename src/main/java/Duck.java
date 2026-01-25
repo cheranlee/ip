@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Duck {
     public static void main(String[] args) {
         System.out.println("-------------------------------------------------------------");
-        System.out.println("Quack! I'm Duck. \nWhat can I do for you?");
+        System.out.println("Quack! I'm Duck.\nWhat can I do for you?");
         System.out.println("-------------------------------------------------------------");
 
         NewList MasterList = new NewList();
@@ -12,7 +12,7 @@ public class Duck {
         String command = new_object.nextLine();
         while (!command.contains("bye")) {
             if (command.contains("list")) {
-                System.out.println("\tHere are the tasks in your list: ");
+                System.out.println("\tHere are the tasks in your list:");
                 System.out.println(MasterList.toString());
             } else {
                 if (command.contains("mark") || command.contains("unmark")) {
@@ -49,8 +49,8 @@ public class Duck {
                             MasterList.addItem(new Item(new_string, TaskType.Deadlines));
                         } else {
                             if (command.contains("event")) {   // /start /end date & time
-                                int start_datetime_pos = sub_command.indexOf("start ");
-                                int end_datetime_pos = sub_command.indexOf("end ");
+                                int start_datetime_pos = sub_command.indexOf("start");
+                                int end_datetime_pos = sub_command.indexOf("end");
                                 String start_datetime = sub_command.substring(start_datetime_pos + 6, end_datetime_pos-1);
                                 String end_datetime = sub_command.substring(end_datetime_pos + 4);
                                 String description = sub_command.substring(0, start_datetime_pos);
