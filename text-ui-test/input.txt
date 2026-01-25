@@ -16,8 +16,13 @@ event start 3pm end 5pm
 event school start 3pm end 5pm
 List
 mark 3
+mark 2a
+mark -2
 unmark 2
 mark 5
 unmark 3
 list
+delete 5
+delete 5-
+delete 1
 bye

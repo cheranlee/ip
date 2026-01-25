@@ -1,11 +1,13 @@
 /**
  * Error Detection
+ * Note: Refer to input.txt in text-ui-test folder to see examples of the following errors
  * 1. Commands are not case sensitive (ie List will be recognised as list)
  * 2. Command not recognised (list/todo/deadline/...)
  * 3. Missing / Wrong keyword for the wrong command (e.g. using start/end for deadline)
  * 4. Missing description / deadline / start & end
- * 5. Mark/Unmark invalid task number
- * 6. Mark task that has been marked (& vice versa)
+ * 5. Mark/Unmark/Delete item number out of range (task index does not exist in list)
+ * 6. Mark/Unmark/Delete invalid task number (e.g. mark 2a, mark   , mark -1)
+ * 7. Mark task that has been marked (& vice versa)
  */
 
 import java.io.IOException;
@@ -33,22 +35,36 @@ public class Duck {
             if (command.contains("list")) {
                 System.out.println(MasterList.toString());
             } else if (command.contains("mark") || command.contains("unmark")) {
-                String int_str = command.replaceAll("[^0-9]", "");
-                int item_num = Integer.parseInt(int_str);
-                try {
-                    if (command.contains("unmark")) {    //UNMARK
-                        MasterList.markUnmarkItem(false, item_num);
-                    } else {                             // MARK
-                        MasterList.markUnmarkItem(true, item_num);
+                command = command.trim();
+                int space_pos = command.indexOf(" ");
+                if (space_pos == -1) {
+                    System.out.println("ERROR! Mark/Unmark command must have an integer index behind");
+                } else {
+                    String sub_command = command.substring(space_pos + 1);
+                    sub_command = sub_command.trim();
+                    try {
+                        int idx = Integer.parseInt(sub_command);
+                        idx = idx - 1;
+                        if (idx < MasterList.size() && idx >= 0) {
+                            try {
+                                if (command.contains("unmark")) {    //UNMARK
+                                    MasterList.markUnmarkItem(false, idx);
+                                } else {                             // MARK
+                                    MasterList.markUnmarkItem(true, idx);
+                                }
+                            } catch (IllegalArgumentException ex) {
+                                if (ex.getMessage().contains("Not")) {
+                                    System.out.println("\tItem already marked as not done!");
+                                } else {
+                                    System.out.println("\tItem already marked as done!");
+                                }
+                            }
+                        } else {
+                            System.out.println("ERROR! Item Number out of range");
+                        }
+                    } catch (NumberFormatException ex2) {
+                        System.out.println("ERROR! Index not a valid number");
                     }
-                } catch (IllegalArgumentException ex) {
-                    if (ex.getMessage().contains("Not")) {
-                        System.out.println("\tItem already marked as not done!");
-                    } else {
-                        System.out.println("\tItem already marked as done!");
-                    }
-                } catch (IndexOutOfBoundsException ex2) {
-                    System.out.println("\tInvalid Item Number");
                 }
             } else if (command.contains("todo") || command.contains("deadline") || command.contains("event")) {
                 command = command.trim();
@@ -82,8 +98,8 @@ public class Duck {
                         }
                     } else if (command.contains("event")) {   // (start) (end) date & time
                         if (by_datetime_pos == -1 && start_datetime_pos != -1 && end_datetime_pos != -1) {
-                            String start_datetime = sub_command.substring(start_datetime_pos + 6, end_datetime_pos - 1);
-                            String end_datetime = sub_command.substring(end_datetime_pos + 4);
+                            String start_datetime = sub_command.substring(start_datetime_pos + 5, end_datetime_pos - 1);
+                            String end_datetime = sub_command.substring(end_datetime_pos + 3);
                             String description = sub_command.substring(0, start_datetime_pos);
                             if (start_datetime.isBlank() || end_datetime.isBlank() || description.isBlank()) {   // check if description / start / end field are blank
                                 System.out.println("ERROR! Description / End / Start cannot be empty");
@@ -94,6 +110,26 @@ public class Duck {
                         } else { // error if (by) appears or if (start) or (end) are not in the user input
                             System.out.println("ERROR! Event task must have a start and end date (keywords: start, end). It also should not have a deadline");
                         }
+                    }
+                }
+            } else if (command.contains("delete")){
+                command = command.trim();
+                int space_pos = command.indexOf(" ");
+                if (space_pos == -1) {
+                    System.out.println("ERROR! Delete command must have an integer index behind");
+                } else {
+                    String sub_command = command.substring(space_pos + 1);
+                    sub_command = sub_command.trim();
+                    try {
+                        int idx = Integer.parseInt(sub_command);
+                        idx = idx - 1;
+                        if (idx < MasterList.size() && idx >= 0) {
+                            MasterList.deleteItem(idx);
+                        } else {
+                            System.out.println("ERROR! Item Number out of range");
+                        }
+                    } catch (NumberFormatException ex3) {
+                        System.out.println("ERROR! Index not a valid number");
                     }
                 }
             } else {
