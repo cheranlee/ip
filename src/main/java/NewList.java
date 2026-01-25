@@ -21,10 +21,15 @@ public class NewList {
 
     public String toString() {
         String total_str = "";
-        int count = 0;
-        for (Item i : list) {
-            count++;
-            total_str = total_str + '\t' + Integer.toString(count) + ". " + i.toString() + '\n';
+        if (this.size() > 0) {
+            int count = 0;
+            System.out.println("\tHere are the tasks in your list:");
+            for (Item i : list) {
+                count++;
+                total_str = total_str + '\t' + Integer.toString(count) + ". " + i.toString() + '\n';
+            }
+        } else {
+            total_str = "Relax! You have no tasks";
         }
         return total_str;
     }
@@ -54,7 +59,7 @@ public class NewList {
                 }
             }
         } else {
-            throw new IndexOutOfBoundsException("Invalid Item Number");
+            throw new IndexOutOfBoundsException("Invalid Item Number. You do not have this task.");
         }
     }
 

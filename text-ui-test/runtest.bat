@@ -58,7 +58,7 @@ echo.
 echo [4/4] Running tests...
 java -classpath ..\bin Duck < input.txt > ACTUAL.TXT
 
-FC ACTUAL.TXT EXPECTED.TXT
+FC ACTUAL.TXT EXPECTED.TXT > nul
 if ERRORLEVEL 1 (
     echo.
     echo =============== ERROR ===============

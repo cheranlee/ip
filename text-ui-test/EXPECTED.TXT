@@ -2,42 +2,72 @@
 Quack! I'm Duck.
 What can I do for you?
 -------------------------------------------------------------
+Enter any of the following commands:
+1. list : Print out task list
+2. mark X : Mark task X (integer) as done
+3. unmark X : Mark task X (integer) as not done
+4. todo task : Add tasks without any date/time attached to it
+5. deadline task by date : Add task that needs to be done by a specific date/time
+6. event task start date1 end date2 : Add task that start and end at specific dates/times
+-------------------------------------------------------------
+
+Relax! You have no tasks
+ERROR! Description of Task cannot be empty
+ERROR! Todo task should not have deadline, start or end date
 	-------------------------------------------------------------
 	Quack! I've added this task:
 		[T][ ] borrow book
 	Now you have 1 tasks in the list
 	-------------------------------------------------------------
+ERROR! Todo task should not have deadline, start or end date
+ERROR! Description of Task cannot be empty
+ERROR! Description / Deadline of Task cannot be empty
+ERROR! Deadline task must have a Deadline (keyword: by). It also should not have a start or end date
+ERROR! Deadline task must have a Deadline (keyword: by). It also should not have a start or end date
 	-------------------------------------------------------------
 	Quack! I've added this task:
-		[D][ ] return book  (by: Thursday)
+		[D][ ] return book  (by:  4pm)
 	Now you have 2 tasks in the list
 	-------------------------------------------------------------
+ERROR! Invalid Command. Use one of the following commands:
+-------------------------------------------------------------
+Enter any of the following commands:
+1. list : Print out task list
+2. mark X : Mark task X (integer) as done
+3. unmark X : Mark task X (integer) as not done
+4. todo task : Add tasks without any date/time attached to it
+5. deadline task by date : Add task that needs to be done by a specific date/time
+6. event task start date1 end date2 : Add task that start and end at specific dates/times
+-------------------------------------------------------------
+
+ERROR! Description of Task cannot be empty
+ERROR! Event task must have a start and end date (keywords: start, end). It also should not have a deadline
+ERROR! Event task must have a start and end date (keywords: start, end). It also should not have a deadline
+ERROR! Description / End / Start cannot be empty
 	-------------------------------------------------------------
 	Quack! I've added this task:
-		[E][ ] school camp  (start:  thursday) (end:  saturday)
+		[E][ ] school  (start: 3pm) (end: 5pm)
 	Now you have 3 tasks in the list
 	-------------------------------------------------------------
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
-	2. [D][ ] return book  (by: Thursday)
-	3. [E][ ] school camp  (start:  thursday) (end:  saturday)
+	2. [D][ ] return book  (by:  4pm)
+	3. [E][ ] school  (start: 3pm) (end: 5pm)
 
-	Invalid Item Number
 	-------------------------------------------------------------
 	Quack-ity! I've marked this task as done:
-	[D][X] return book  (by: Thursday)
+	[E][X] school  (start: 3pm) (end: 5pm)
 	-------------------------------------------------------------
 	Item already marked as not done!
-	Item already marked as done!
+	Invalid Item Number
 	-------------------------------------------------------------
 	Aww! I've marked this task as not done yet:
-	[D][ ] return book  (by: Thursday)
+	[E][ ] school  (start: 3pm) (end: 5pm)
 	-------------------------------------------------------------
-	Invalid Item Number
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
-	2. [D][ ] return book  (by: Thursday)
-	3. [E][ ] school camp  (start:  thursday) (end:  saturday)
+	2. [D][ ] return book  (by:  4pm)
+	3. [E][ ] school  (start: 3pm) (end: 5pm)
 
 	-------------------------------------------------------------
 	Bye Quack! Hope to see you again soon!

@@ -1,12 +1,23 @@
-todo borrow book
-deadline return book by Thursday
-event school camp starts thursday ends saturday
 list
-mark 4
-mark 2
-unmark 1
-mark 2
+todo
+todo borrow book by 3pm
+todo borrow book
+todo by 3pm
+deadline
+deadline by
+deadline return book
+deadline return book start 3pm end 5pm
+deadline return book by 4pm
+blah blah
+event
+event school from 3pm to 5pm
+event buy food by 4pm
+event start 3pm end 5pm
+event school start 3pm end 5pm
+List
+mark 3
 unmark 2
-unmark 5
+mark 5
+unmark 3
 list
 bye
