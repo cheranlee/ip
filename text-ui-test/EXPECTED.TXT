@@ -9,6 +9,8 @@ Enter any of the following commands:
 4. todo task : Add tasks without any date/time attached to it
 5. deadline task by date : Add task that needs to be done by a specific date/time
 6. event task start date1 end date2 : Add task that start and end at specific dates/times
+7. delete X : Delete task X (integer) from list
+8. bye : End the Program
 -------------------------------------------------------------
 
 Relax! You have no tasks
@@ -38,6 +40,8 @@ Enter any of the following commands:
 4. todo task : Add tasks without any date/time attached to it
 5. deadline task by date : Add task that needs to be done by a specific date/time
 6. event task start date1 end date2 : Add task that start and end at specific dates/times
+7. delete X : Delete task X (integer) from list
+8. bye : End the Program
 -------------------------------------------------------------
 
 ERROR! Description of Task cannot be empty

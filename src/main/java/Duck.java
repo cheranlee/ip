@@ -25,6 +25,8 @@ public class Duck {
         System.out.println("4. todo task : Add tasks without any date/time attached to it");
         System.out.println("5. deadline task by date : Add task that needs to be done by a specific date/time");
         System.out.println("6. event task start date1 end date2 : Add task that start and end at specific dates/times");
+        System.out.println("7. delete X : Delete task X (integer) from list");
+        System.out.println("8. bye : End the Program");
         System.out.println("-------------------------------------------------------------\n");
 
         NewList MasterList = new NewList();
@@ -142,6 +144,8 @@ public class Duck {
                 System.out.println("4. todo task : Add tasks without any date/time attached to it");
                 System.out.println("5. deadline task by date : Add task that needs to be done by a specific date/time");
                 System.out.println("6. event task start date1 end date2 : Add task that start and end at specific dates/times");
+                System.out.println("7. delete X : Delete task X (integer) from list");
+                System.out.println("8. bye : End the Program");
                 System.out.println("-------------------------------------------------------------\n");
             }
             command = new_object.nextLine();
