@@ -2,9 +2,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Manages a list of all tasks
+ */
 public class NewList {
     private List<Item> list = new ArrayList<>();
 
+    /**
+     * Add a new task to the list
+     * @param item
+     */
     public void addItem(Item item) {
         this.list.add(item);
         System.out.println("\t-------------------------------------------------------------");
@@ -14,6 +21,10 @@ public class NewList {
         System.out.println("\t-------------------------------------------------------------");
     }
 
+    /**
+     * Deletes task at index idx from list
+     * @param idx
+     */
     public void deleteItem(int idx){
         Item i = this.list.get(idx);
         this.list.remove(idx);
@@ -24,10 +35,18 @@ public class NewList {
         System.out.println("\t-------------------------------------------------------------");
     }
 
+    /**
+     * returns number of tasks in list
+     * @return size (integer)
+     */
     public int size(){
         return this.list.size();
     }
 
+    /**
+     * uses toString method in item class to print the whole list of tasks
+     * @return total_str
+     */
     public String toString() {
         String total_str = "";
         if (this.size() > 0) {
@@ -43,6 +62,11 @@ public class NewList {
         return total_str;
     }
 
+    /**
+     * Marks / Unmarks item at idx as done / not done
+     * @param mark
+     * @param idx
+     */
     public void markUnmarkItem(boolean mark, int idx){
         Item i = this.list.get(idx);
         if (mark) {     // mark as done

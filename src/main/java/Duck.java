@@ -14,6 +14,11 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Duck {
+    /**
+     * Request user input and process request as Todo, Deadline or Event
+     * Mark/Unmark an item as done
+     * Allow deletion of item
+     */
     public static void main(String[] args) {
         System.out.println("-------------------------------------------------------------");
         System.out.println("Quack! I'm Duck.\nWhat can I do for you?");
