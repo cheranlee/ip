@@ -22,12 +22,21 @@ public class NewList {
     }
 
     /**
-     * Deletes task at index idx from list
-     * @param idx
+     * Retrieves item at specific index
+     * @param index
+     * @return Item (at specific index)
      */
-    public void deleteItem(int idx){
-        Item i = this.list.get(idx);
-        this.list.remove(idx);
+    public Item getItem(int index){
+        return this.list.get(index);
+    }
+
+    /**
+     * Deletes task at index index from list
+     * @param index
+     */
+    public void deleteItem(int index){
+        Item i = this.list.get(index);
+        this.list.remove(index);
         System.out.println("\t-------------------------------------------------------------");
         System.out.println("\tQuack! I've removed this task:");
         System.out.println("\t\t"+ i.toString());
@@ -67,7 +76,7 @@ public class NewList {
      * @param mark
      * @param idx
      */
-    public void markUnmarkItem(boolean mark, int idx){
+    public String markUnmarkItem(boolean mark, int idx){
         Item i = this.list.get(idx);
         if (mark) {     // mark as done
             if (!i.get_done()) {
@@ -76,6 +85,7 @@ public class NewList {
                 System.out.println("\tQuack-ity! I've marked this task as done:");
                 System.out.println("\t"+ i.toString());
                 System.out.println("\t-------------------------------------------------------------");
+                return i.toStringFile();
             } else {
                 throw new IllegalArgumentException(("Item Already Marked as Done!"));
             }
@@ -86,6 +96,7 @@ public class NewList {
                 System.out.println("\tAww! I've marked this task as not done yet:");
                 System.out.println("\t"+ i.toString());
                 System.out.println("\t-------------------------------------------------------------");
+                return i.toStringFile();
             } else {
                 throw new IllegalArgumentException(("Item Already Marked as Not Done!"));
             }

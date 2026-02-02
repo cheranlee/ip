@@ -18,7 +18,15 @@ public class Item {
      * @return a string  e.g. [ ] [X] Do Homework
      */
     public String toString() {
-        return this.string_type() + this.string_done() + " " + this.get_text();
+        return "[" + this.string_type() + "]" + this.string_done() + " " + this.get_text();
+    }
+
+    /**
+     * String format all information about Item to save on hard disk
+     * @return a string e.g. T | 0 | Do Homework
+     */
+    public String toStringFile(){
+        return this.string_type() + " | " + string_done_int() + " | " + this.get_text();
     }
 
     /**
@@ -58,11 +66,23 @@ public class Item {
     }
 
     /**
-     * Setter method for done
-     * @param val
+     * Helper function for toStringFile which formats 'done' (mark/unmark) as 1 or 0
+     * @return string (either "1" if done=true or "0" if done=false)
      */
-    void set_done(Boolean val){
-        this.done = val;
+    String string_done_int(){
+        if (this.get_done()) {
+            return "1";
+        } else {
+            return "0";
+        }
+    }
+
+    /**
+     * Setter method for done
+     * @param isDone
+     */
+    void set_done(Boolean isDone){
+        this.done = isDone;
     }
 
     /**
@@ -87,16 +107,16 @@ public class Item {
      */
     String string_type(){
         if (this.get_type() == TaskType.ToDos) {
-            return "[T]";
+            return "T";
         } else {
             if (this.get_type() == TaskType.Events) {
-                return "[E]";
+                return "E";
             } else {
                 if (this.get_type() == TaskType.Deadlines) {
-                    return "[D]";
+                    return "D";
                 }
             }
         }
-        return "[ ]";
+        return " ";
     }
 }

@@ -1,3 +1,5 @@
+CREATING FILE
+SETUP COMPLETE -- DUCK.TXT file in data src/main/data
 -------------------------------------------------------------
 Quack! I'm Duck.
 What can I do for you?
