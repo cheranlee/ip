@@ -6,14 +6,14 @@ todo by 3pm
 deadline
 deadline by
 deadline return book
-deadline return book start 3pm end 5pm
-deadline return book by 4pm
+deadline return book start 24-02-2026 end 5pm
+deadline return book by 25-02-2025 13:00
 blah blah
 event
 event school from 3pm to 5pm
 event buy food by 4pm
 event start 3pm end 5pm
-event school start 3pm end 5pm
+event school start 13:00 end 16:00
 List
 mark 3
 mark 2a
