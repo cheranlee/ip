@@ -9,10 +9,12 @@ Enter any of the following commands:
 2. mark X : Mark task X (integer) as done
 3. unmark X : Mark task X (integer) as not done
 4. todo task : Add tasks without any date/time attached to it
-5. deadline task by date : Add task that needs to be done by a specific date/time
-6. event task start date1 end date2 : Add task that start and end at specific dates/times
+5. deadline task by DATE TIME: Add task that needs to be done by a specific date/time
+6. event task start DATE1 TIME1 end DATE2 TIME2 : Add task that start and end at specific dates/times
 7. delete X : Delete task X (integer) from list
 8. bye : End the Program
+DATE format: DD-MM-YYYY 	 TIME format: HH:MM (24-hr clock)
+May input 1) TIME ONLY ; 2) DATE ONLY ; 3) TIME & DATE
 -------------------------------------------------------------
 
 Relax! You have no tasks
@@ -30,7 +32,7 @@ ERROR! Deadline task must have a Deadline (keyword: by). It also should not have
 ERROR! Deadline task must have a Deadline (keyword: by). It also should not have a start or end date
 	-------------------------------------------------------------
 	Quack! I've added this task:
-		[D][ ] return book  (by:  4pm)
+		[D][ ] return book (by: Feb 25 2025 01:00 pm)
 	Now you have 2 tasks in the list
 	-------------------------------------------------------------
 ERROR! Invalid Command. Use one of the following commands:
@@ -40,10 +42,12 @@ Enter any of the following commands:
 2. mark X : Mark task X (integer) as done
 3. unmark X : Mark task X (integer) as not done
 4. todo task : Add tasks without any date/time attached to it
-5. deadline task by date : Add task that needs to be done by a specific date/time
-6. event task start date1 end date2 : Add task that start and end at specific dates/times
+5. deadline task by DATE TIME: Add task that needs to be done by a specific date/time
+6. event task start DATE1 TIME1 end DATE2 TIME2 : Add task that start and end at specific dates/times
 7. delete X : Delete task X (integer) from list
 8. bye : End the Program
+DATE format: DD-MM-YYYY 	 TIME format: HH:MM (24-hr clock)
+May input 1) TIME ONLY ; 2) DATE ONLY ; 3) TIME & DATE
 -------------------------------------------------------------
 
 ERROR! Description of Task cannot be empty
@@ -52,17 +56,17 @@ ERROR! Event task must have a start and end date (keywords: start, end). It also
 ERROR! Description / End / Start cannot be empty
 	-------------------------------------------------------------
 	Quack! I've added this task:
-		[E][ ] school  (start:  3pm) (end:  5pm)
+		[E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
 	Now you have 3 tasks in the list
 	-------------------------------------------------------------
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
-	2. [D][ ] return book  (by:  4pm)
-	3. [E][ ] school  (start:  3pm) (end:  5pm)
+	2. [D][ ] return book (by: Feb 25 2025 01:00 pm)
+	3. [E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
 
 	-------------------------------------------------------------
 	Quack-ity! I've marked this task as done:
-	[E][X] school  (start:  3pm) (end:  5pm)
+	[E][X] school (start: null 01:00 pm) (end: null 04:00 pm)
 	-------------------------------------------------------------
 ERROR! Index not a valid number
 ERROR! Item Number out of range
@@ -70,17 +74,17 @@ ERROR! Item Number out of range
 ERROR! Item Number out of range
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
-	2. [D][ ] return book  (by:  4pm)
-	3. [E][X] school  (start:  3pm) (end:  5pm)
+	2. [D][ ] return book (by: Feb 25 2025 01:00 pm)
+	3. [E][X] school (start: null 01:00 pm) (end: null 04:00 pm)
 
 	-------------------------------------------------------------
 	Aww! I've marked this task as not done yet:
-	[E][ ] school  (start:  3pm) (end:  5pm)
+	[E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
 	-------------------------------------------------------------
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
-	2. [D][ ] return book  (by:  4pm)
-	3. [E][ ] school  (start:  3pm) (end:  5pm)
+	2. [D][ ] return book (by: Feb 25 2025 01:00 pm)
+	3. [E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
 
 ERROR! Item Number out of range
 ERROR! Index not a valid number
@@ -90,8 +94,8 @@ ERROR! Index not a valid number
 	Now you have 2 tasks in the list
 	-------------------------------------------------------------
 	Here are the tasks in your list:
-	1. [D][ ] return book  (by:  4pm)
-	2. [E][ ] school  (start:  3pm) (end:  5pm)
+	1. [D][ ] return book (by: Feb 25 2025 01:00 pm)
+	2. [E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
 
 	-------------------------------------------------------------
 	Bye Quack! Hope to see you again soon!

@@ -10,7 +10,7 @@ public class NewList {
 
     /**
      * Add a new task to the list
-     * @param item
+     * @param item instance of Item class
      */
     public void addItem(Item item) {
         this.list.add(item);
@@ -23,7 +23,7 @@ public class NewList {
 
     /**
      * Retrieves item at specific index
-     * @param index
+     * @param index integer
      * @return Item (at specific index)
      */
     public Item getItem(int index){
@@ -32,7 +32,7 @@ public class NewList {
 
     /**
      * Deletes task at index index from list
-     * @param index
+     * @param index integer
      */
     public void deleteItem(int index){
         Item i = this.list.get(index);
@@ -72,12 +72,12 @@ public class NewList {
     }
 
     /**
-     * Marks / Unmarks item at idx as done / not done
-     * @param mark
-     * @param idx
+     * Marks / Unmarks item at index as done / not done
+     * @param mark mark w X if true ; leave blank if false
+     * @param index integer (row number)
      */
-    public String markUnmarkItem(boolean mark, int idx){
-        Item i = this.list.get(idx);
+    public String markUnmarkItem(boolean mark, int index){
+        Item i = this.list.get(index);
         if (mark) {     // mark as done
             if (!i.get_done()) {
                 i.set_done(true);
