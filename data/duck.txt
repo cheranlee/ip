@@ -1,15 +1,1 @@
-D | 0 | return book | May 24 2026 | null
-D | 0 | return book | Apr 23 2026 | null
-D | 1 | return book | null | 03:45 am
-E | 0 | school | null | 12:00 pm | null | 02:00 pm
-E | 0 | school | Mar 23 2024 | 12:00 pm | Apr 24 2025 | 01:00 pm
-E | 0 | school | null | 12:00 pm | Apr 23 2026 | 01:00 pm
-E | 0 | school | May 24 2026 | 01:00 pm | null | 02:00 pm
-D | 0 | school | Feb 03 2026 | null
-D | 0 | school | Feb 03 2026 | null
-D | 0 | school | null | 11:12 am
-E | 0 | task | Feb 04 2025 | 01:00 pm | Mar 05 2025 | null
-D | 0 | return book | Feb 24 2026 | 03:00 am
 T | 0 | borrow book
-D | 0 | return book | Feb 25 2025 | 01:00 pm
-E | 0 | school | null | 01:00 pm | null | 04:00 pm
