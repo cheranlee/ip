@@ -1,101 +1,236 @@
 CREATING FILE
-SETUP COMPLETE -- DUCK.TXT file in data src/main/data
+FILE SETUP COMPLETE -- DUCK.TXT file in data folder
 -------------------------------------------------------------
 Quack! I'm Duck.
 What can I do for you?
 -------------------------------------------------------------
-Enter any of the following commands:
-1. list : Print out task list
-2. mark X : Mark task X (integer) as done
-3. unmark X : Mark task X (integer) as not done
-4. todo task : Add tasks without any date/time attached to it
-5. deadline task by DATE TIME: Add task that needs to be done by a specific date/time
-6. event task start DATE1 TIME1 end DATE2 TIME2 : Add task that start and end at specific dates/times
-7. delete X : Delete task X (integer) from list
-8. bye : End the Program
-DATE format: DD-MM-YYYY 	 TIME format: HH:MM (24-hr clock)
-May input 1) TIME ONLY ; 2) DATE ONLY ; 3) TIME & DATE
+-------------------------------------------------------------
+
+Enter Command:
 -------------------------------------------------------------
 
 Relax! You have no tasks
-ERROR! Description of Task cannot be empty
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Todo task should not have deadline, start or end date
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 	-------------------------------------------------------------
 	Quack! I've added this task:
 		[T][ ] borrow book
 	Now you have 1 tasks in the list
 	-------------------------------------------------------------
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Todo task should not have deadline, start or end date
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Description of Task cannot be empty
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
+ERROR! Description of Task cannot be empty
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Description / Deadline of Task cannot be empty
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Deadline task must have a Deadline (keyword: by). It also should not have a start or end date
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Deadline task must have a Deadline (keyword: by). It also should not have a start or end date
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 	-------------------------------------------------------------
 	Quack! I've added this task:
 		[D][ ] return book (by: Feb 25 2025 01:00 pm)
 	Now you have 2 tasks in the list
 	-------------------------------------------------------------
-ERROR! Invalid Command. Use one of the following commands:
 -------------------------------------------------------------
-Enter any of the following commands:
-1. list : Print out task list
-2. mark X : Mark task X (integer) as done
-3. unmark X : Mark task X (integer) as not done
-4. todo task : Add tasks without any date/time attached to it
-5. deadline task by DATE TIME: Add task that needs to be done by a specific date/time
-6. event task start DATE1 TIME1 end DATE2 TIME2 : Add task that start and end at specific dates/times
-7. delete X : Delete task X (integer) from list
-8. bye : End the Program
-DATE format: DD-MM-YYYY 	 TIME format: HH:MM (24-hr clock)
-May input 1) TIME ONLY ; 2) DATE ONLY ; 3) TIME & DATE
+
+Enter Command:
+-------------------------------------------------------------
+
+ERROR! Invalid Command.
+-------------------------------------------------------------
+
+Enter Command:
 -------------------------------------------------------------
 
 ERROR! Description of Task cannot be empty
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Event task must have a start and end date (keywords: start, end). It also should not have a deadline
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Event task must have a start and end date (keywords: start, end). It also should not have a deadline
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Description / End / Start cannot be empty
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 	-------------------------------------------------------------
 	Quack! I've added this task:
 		[E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
 	Now you have 3 tasks in the list
 	-------------------------------------------------------------
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
+Error! Time Info Missing
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
+Error! Start Date cannot be after End Date
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
 	2. [D][ ] return book (by: Feb 25 2025 01:00 pm)
 	3. [E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
+
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
 
 	-------------------------------------------------------------
 	Quack-ity! I've marked this task as done:
 	[E][X] school (start: null 01:00 pm) (end: null 04:00 pm)
 	-------------------------------------------------------------
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Index not a valid number
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Item Number out of range
-	Item already marked as not done!
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
+	-------------------------------------------------------------
+	Quack-ity! I've marked this task as done:
+	[D][X] return book (by: Feb 25 2025 01:00 pm)
+	-------------------------------------------------------------
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Item Number out of range
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
-	2. [D][ ] return book (by: Feb 25 2025 01:00 pm)
+	2. [D][X] return book (by: Feb 25 2025 01:00 pm)
 	3. [E][X] school (start: null 01:00 pm) (end: null 04:00 pm)
 
-	-------------------------------------------------------------
-	Aww! I've marked this task as not done yet:
-	[E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
-	-------------------------------------------------------------
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
+	Item already marked as done!
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 	Here are the tasks in your list:
 	1. [T][ ] borrow book
-	2. [D][ ] return book (by: Feb 25 2025 01:00 pm)
-	3. [E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
+	2. [D][X] return book (by: Feb 25 2025 01:00 pm)
+	3. [E][X] school (start: null 01:00 pm) (end: null 04:00 pm)
+
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
 
 ERROR! Item Number out of range
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 ERROR! Index not a valid number
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 	-------------------------------------------------------------
 	Quack! I've removed this task:
 		[T][ ] borrow book
 	Now you have 2 tasks in the list
 	-------------------------------------------------------------
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
+
 	Here are the tasks in your list:
-	1. [D][ ] return book (by: Feb 25 2025 01:00 pm)
-	2. [E][ ] school (start: null 01:00 pm) (end: null 04:00 pm)
+	1. [D][X] return book (by: Feb 25 2025 01:00 pm)
+	2. [E][X] school (start: null 01:00 pm) (end: null 04:00 pm)
+
+-------------------------------------------------------------
+
+Enter Command:
+-------------------------------------------------------------
 
 	-------------------------------------------------------------
 	Bye Quack! Hope to see you again soon!
