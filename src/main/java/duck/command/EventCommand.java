@@ -1,3 +1,14 @@
+package duck.command;
+
+import duck.Duck;
+import duck.DuckException;
+import duck.Item;
+import duck.Parser;
+import duck.Storage;
+import duck.TaskList;
+import duck.TaskType;
+import duck.Ui;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -128,11 +139,6 @@ public class EventCommand extends Command{
     /**
      * Helper function to add an item in list as a 'Event' item
      * Called by main function when user inputs Event keyword
-     * @param by_datetime_pos used for deadline
-     * @param start_datetime_pos used for event -- identifies index of 'start' keyword
-     * @param end_datetime_pos used for event -- identifies index of 'end' keyword
-     * @param sub_command user input without the 'event' keyword
-     * @param MasterList list for storing task items
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{

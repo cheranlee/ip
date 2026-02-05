@@ -1,4 +1,15 @@
+package duck;
+
 import java.util.Scanner;
+
+import duck.command.ByeCommand;
+import duck.command.Command;
+import duck.command.DeadlineCommand;
+import duck.command.DeleteCommand;
+import duck.command.EventCommand;
+import duck.command.ListCommand;
+import duck.command.MarkUnmarkCommand;
+import duck.command.TodoCommand;
 
 public class Ui {
     private Scanner newObject;
