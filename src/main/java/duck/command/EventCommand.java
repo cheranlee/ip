@@ -89,8 +89,10 @@ public class EventCommand extends Command{
             } else {
                 throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
             }
+        } else {
+            throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
         }
-        String[] splitStringTwo = datetimeTwo.split("\\s");
+            String[] splitStringTwo = datetimeTwo.split("\\s");
         LocalDate dateTwo = null;
         LocalTime timeTwo = null;
         if (splitStringTwo.length == 2) {
@@ -111,8 +113,10 @@ public class EventCommand extends Command{
             } else {
                 throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
             }
+        } else {
+            throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
         }
-        if (dateOne == null || dateTwo == null) {
+            if (dateOne == null || dateTwo == null) {
             dateOne = (dateTwo == null) ? dateOne : dateTwo;
             dateTwo = (dateOne == null) ? dateTwo : dateOne;
         }

@@ -87,7 +87,10 @@ public class DeadlineCommand extends Command{
             } else {
                 throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
             }
+        } else {
+            throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
         }
+
         return new Item(description, date, time);
     }
 

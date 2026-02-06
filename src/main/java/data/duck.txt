@@ -1,1 +1,11 @@
 T | 0 | borrow book
+D | 0 | walk dog | null | null
+D | 0 | walk dog | null | null
+D | 0 | walk dog | null | null
+D | 0 | walk dog | null | null
+D | 0 | walk dog | null | null
+D | 0 | walk dog | null | null
+D | 0 | walk dog | null | null
+D | 0 | walk dog | null | null
+D | 0 | walk dog | null | null
+D | 0 | walk dog | null | null
