@@ -12,6 +12,8 @@ import duck.command.EventCommand;
 import duck.command.ListCommand;
 import duck.command.MarkUnmarkCommand;
 import duck.command.TodoCommand;
+import duck.command.FindCommand;
+import duck.command.CheerCommand;
 
 /**
  * Class which makes sense of user input
