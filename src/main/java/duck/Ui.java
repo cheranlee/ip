@@ -70,4 +70,11 @@ public class Ui {
     public void showList(String string){
          System.out.println(string);
     }
+
+    public void showWord(String string){
+         System.out.println("\t-------------------------------------------------------------");
+         System.out.println("\tHere are the matching tasks in your list: ");
+         System.out.println(string);
+         System.out.println("\t-------------------------------------------------------------");
+    }
 }
