@@ -1,6 +1,5 @@
 package duck;
 
-import duck.command.*;
 import jdk.jfr.Event;
 
 import java.util.Scanner;
@@ -88,6 +87,8 @@ public class Parser {
                     subCommand = subCommand.trim();
                     return new FindCommand(subCommand);
                 }
+            } else if (command.contains("cheer")) {
+                return new CheerCommand();
             } else {
                 throw new DuckException("ERROR! Invalid Command.");
             }

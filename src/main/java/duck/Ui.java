@@ -104,4 +104,10 @@ public class Ui {
          System.out.println(string);
          System.out.println("\t-------------------------------------------------------------");
     }
+
+    public void showCheer(String string){
+         System.out.println("\t-------------------------------------------------------------");
+         System.out.println(string);
+         System.out.println("\t-------------------------------------------------------------");
+    }
 }
