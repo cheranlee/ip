@@ -9,19 +9,23 @@ import duck.TaskList;
 import duck.TaskType;
 import duck.Ui;
 
+import java.util.List;
+
 /**
  * Class created by Parser when user input = 'mark' or 'unmark'
  */
 public class MarkUnmarkCommand extends Command{
 
     private String fullCommand;
+    private Boolean mark;
 
     /**
      * Constructor Class for MarkUnmarkCommand
      * @param fullCommand e.g. mark 3
      */
-    public MarkUnmarkCommand(String fullCommand){
+    public MarkUnmarkCommand(String fullCommand, Boolean unmark){
         this.fullCommand = fullCommand;
+        this.mark = !unmark;
     }
 
     /**
@@ -42,8 +46,11 @@ public class MarkUnmarkCommand extends Command{
             index = index - 1;
             if (index < tasks.size() && index >= 0) {
                 try {
-                    String editedItemString = tasks.markUnmarkItem(!this.fullCommand.contains("unmark"), index);
+                    System.out.println(this.fullCommand);
+                    List<String> returnArray = tasks.markUnmarkItem(this.mark, index);
+                    String editedItemString = returnArray.get(1);
                     storage.editFile(index, editedItemString);
+                    ui.showOperationOutput(returnArray.get(0));
                 } catch (IllegalArgumentException ex) {
                     if (ex.getMessage().contains("Not")) {
                         throw new DuckException("\tItem already marked as not done!");

@@ -34,7 +34,7 @@ public class TaskList {
     /**
      * Constructor Class where there is pre-existing data from hard disk
      * Creates tasklist and loads data to tasklist using loadTasks() method
-     * @param oldTasks
+     * @param oldTasks data from hard disk (data format: list of strings)
      */
     public TaskList(List<String> oldTasks){
         this.tasklist = new ArrayList<>();
@@ -91,13 +91,13 @@ public class TaskList {
      * Add a new task to the list
      * @param item instance of Item class
      */
-    public void addItem(Item item) {
+    public String addItem(Item item) {
+        String totalStr = "";
         this.tasklist.add(item);
-        System.out.println("\t-------------------------------------------------------------");
-        System.out.println("\tQuack! I've added this task:");
-        System.out.println("\t\t"+ item.toString());
-        System.out.println("\tNow you have " + this.size() + " tasks in the list");
-        System.out.println("\t-------------------------------------------------------------");
+        totalStr = totalStr + "\tQuack! I've added this task:" + '\n';
+        totalStr = totalStr + "\t\t"+ item.toString() + '\n';
+        totalStr = totalStr + "\tNow you have " + this.size() + " tasks in the list" + '\n';
+        return totalStr;
     }
 
     /**
@@ -113,14 +113,14 @@ public class TaskList {
      * Deletes task at index index from list
      * @param index integer
      */
-    public void deleteItem(int index){
+    public String deleteItem(int index){
+        String totalStr = "";
         Item i = this.tasklist.get(index);
         this.tasklist.remove(index);
-        System.out.println("\t-------------------------------------------------------------");
-        System.out.println("\tQuack! I've removed this task:");
-        System.out.println("\t\t"+ i.toString());
-        System.out.println("\tNow you have " + this.size() + " tasks in the list");
-        System.out.println("\t-------------------------------------------------------------");
+        totalStr = totalStr + "\tQuack! I've removed this task:" + '\n';
+        totalStr = totalStr + "\t\t"+ i.toString() + '\n';
+        totalStr = totalStr + "\tNow you have " + this.size() + " tasks in the list" + '\n';
+        return totalStr;
     }
 
     /**
@@ -155,27 +155,29 @@ public class TaskList {
      * @param mark mark w X if true ; leave blank if false
      * @param index integer (row number)
      */
-    public String markUnmarkItem(boolean mark, int index){
+    public List<String> markUnmarkItem(boolean mark, int index){
+        List<String> returnArray = new ArrayList<>();
+        String totalStr = "";
         Item i = this.tasklist.get(index);
         if (mark) {     // mark as done
             if (!i.getDone()) {
                 i.setDone(true);
-                System.out.println("\t-------------------------------------------------------------");
-                System.out.println("\tQuack-ity! I've marked this task as done:");
-                System.out.println("\t"+ i.toString());
-                System.out.println("\t-------------------------------------------------------------");
-                return i.toStringFile();
+                totalStr = totalStr + "\tQuack-ity! I've marked this task as done:\n";
+                totalStr = totalStr + "\t"+ i.toString() + '\n';
+                returnArray.add(totalStr);
+                returnArray.add(i.toStringFile());
+                return returnArray;
             } else {
                 throw new IllegalArgumentException(("Item Already Marked as Done!"));
             }
         } else {         // unmark to show not done
             if (i.getDone()) {
                 i.setDone(false);
-                System.out.println("\t-------------------------------------------------------------");
-                System.out.println("\tAww! I've marked this task as not done yet:");
-                System.out.println("\t"+ i.toString());
-                System.out.println("\t-------------------------------------------------------------");
-                return i.toStringFile();
+                totalStr = totalStr + "\tAww! I've marked this task as not done yet:\n";
+                totalStr = totalStr + "\t"+ i.toString() + '\n';
+                returnArray.add(totalStr);
+                returnArray.add(i.toStringFile());
+                return returnArray;
             } else {
                 throw new IllegalArgumentException(("Item Already Marked as Not Done!"));
             }
@@ -185,7 +187,7 @@ public class TaskList {
     /**
      * Traverse through tasks tasklist and extract Items with the keyword word
      * @param word keyword
-     * @return string (with formatting) of 'find' results 
+     * @return string (with formatting) of 'find' results
      */
     public String findWord(String word){
         String totalStr = "";

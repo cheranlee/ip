@@ -99,6 +99,16 @@ public class Ui {
     }
 
     /**
+     * Print Output of TaskList Operation
+     * @param string output
+     */
+    public void showOperationOutput(String string){
+        System.out.println("\t-------------------------------------------------------------");
+        System.out.println(string);
+        System.out.println("\t-------------------------------------------------------------");
+    }
+
+    /**
      * Wrapper for printing list of results when 'find' keyword is used
      * @param string list of 'find' results from FindCommand.execute()
      */

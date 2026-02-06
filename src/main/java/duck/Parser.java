@@ -48,7 +48,7 @@ public class Parser {
                 } else {
                     String subCommand = command.substring(spacePos + 1);
                     subCommand = subCommand.trim();
-                    return new MarkUnmarkCommand(subCommand);
+                    return new MarkUnmarkCommand(subCommand, command.contains("unmark"));
                 }
             } else if (command.contains("todo") || command.contains("deadline") || command.contains("event")) {
                 command = command.trim();

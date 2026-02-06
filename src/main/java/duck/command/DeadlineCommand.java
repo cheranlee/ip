@@ -122,9 +122,10 @@ public class DeadlineCommand extends Command{
                 throw new DuckException("ERROR! Description / Deadline of Task cannot be empty");
             } else {
                 try {
-                    tasks.addItem(this.generateDeadlineItem(description.trim(), byDatetime.trim()));
+                    String result = tasks.addItem(this.generateDeadlineItem(description.trim(), byDatetime.trim()));
                     Item newItem = tasks.getItem(tasks.size() - 1);
                     storage.addToFile(newItem.toStringFile() + '\n');
+                    ui.showOperationOutput(result);
                 } catch (IllegalArgumentException wrongFormat) {
                     throw new DuckException("Error! DateTime format should be dd-MM-yyyy HH:mm");
                 }

@@ -37,8 +37,9 @@ public class DeleteCommand extends Command{
             int index = Integer.parseInt(this.fullCommand);
             index = index - 1;
             if (index < tasks.size() && index >= 0) {
-                tasks.deleteItem(index);
+                String result = tasks.deleteItem(index);
                 storage.deleteFromFile(index);
+                ui.showOperationOutput(result);
             } else {
                 throw new DuckException("ERROR! Item Number out of range");
             }

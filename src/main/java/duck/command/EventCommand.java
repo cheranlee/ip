@@ -169,9 +169,10 @@ public class EventCommand extends Command{
                 System.out.println("ERROR! Description / End / Start cannot be empty");
             } else {
                 try {
-                    tasks.addItem(generateEventItem(description.trim(), startDatetime.trim(), endDatetime.trim()));
+                    String result = tasks.addItem(generateEventItem(description.trim(), startDatetime.trim(), endDatetime.trim()));
                     Item newItem = tasks.getItem(tasks.size() - 1);
                     storage.addToFile(newItem.toStringFile() + '\n');
+                    ui.showOperationOutput(result);
                 } catch (IllegalArgumentException datetimeException) {
                     if (datetimeException.getMessage().contains("format")) {
                         throw new DuckException("Error! DateTime format should be dd-MM-yyyy HH:mm");
