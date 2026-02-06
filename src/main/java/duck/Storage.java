@@ -5,27 +5,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import duck.command.ByeCommand;
-import duck.command.Command;
-import duck.command.DeadlineCommand;
-import duck.command.DeleteCommand;
-import duck.command.EventCommand;
-import duck.command.ListCommand;
-import duck.command.MarkUnmarkCommand;
-import duck.command.TodoCommand;
+import java.util.Random;
 
 public class Storage {
     private Path folderPath;
     private Path filePath;
+    private Path filePathCheer;
 
     public Storage(String home){
         this.folderPath = Paths.get(home, "data");
         this.filePath = this.folderPath.resolve("duck.txt");
+        this.filePathCheer = this.folderPath.resolve("cheer.txt");
         onStartup();
     }
 
@@ -119,6 +111,18 @@ public class Storage {
         } catch (IOException editError) {
             System.out.println("Unable to edit file: " + editError.getMessage());
         }
+    }
+
+    public String cheer() throws DuckException, IOException {
+        Random rand = new Random();
+        if (Files.size(this.filePathCheer) == 0) {
+            throw new DuckException("Error! Cheer File is Empty");
+        } else {
+            List<String> lines = Files.readAllLines(this.filePathCheer);
+            int randomBoundedInt = rand.nextInt(lines.size());
+            return lines.get(randomBoundedInt);
+        }
+
     }
 
 }

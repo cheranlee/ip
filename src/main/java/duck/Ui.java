@@ -70,4 +70,10 @@ public class Ui {
     public void showList(String string){
          System.out.println(string);
     }
+
+    public void showCheer(String string){
+         System.out.println("\t-------------------------------------------------------------");
+         System.out.println(string);
+         System.out.println("\t-------------------------------------------------------------");
+    }
 }

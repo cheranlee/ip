@@ -1,0 +1,7 @@
+“ Those who can imagine anything, can create the impossible.” - Alan Turing
+“ Sometimes it is the people who no one imagined anything of who do the things that no one can imagine” - Alan Turing
+“ Logic will get you from A to Z; imagination will get you everywhere.” - Albert Einstein
+“ Anyone who has never made a mistake has never tried anything new.” - Albert Einstein
+“ Any sufficiently advanced technology is equivalent to magic.” - Arthur C. Clarke
+“ If it's a good idea, go ahead and do it. It's much easier to apologize than it is to get permission.” - Grace Hopper
+“ Programs must be written for people to read, and only incidentally for machines to execute.” - Harold Abelson

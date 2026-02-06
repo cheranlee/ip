@@ -1,17 +1,9 @@
 package duck;
 
+import duck.command.*;
 import jdk.jfr.Event;
 
 import java.util.Scanner;
-
-import duck.command.ByeCommand;
-import duck.command.Command;
-import duck.command.DeadlineCommand;
-import duck.command.DeleteCommand;
-import duck.command.EventCommand;
-import duck.command.ListCommand;
-import duck.command.MarkUnmarkCommand;
-import duck.command.TodoCommand;
 
 
 public class Parser {
@@ -64,6 +56,8 @@ public class Parser {
                     subCommand = subCommand.trim();
                     return new DeleteCommand(subCommand);
                 }
+            } else if (command.contains("cheer")) {
+                return new CheerCommand();
             } else {
                 throw new DuckException("ERROR! Invalid Command.");
             }
