@@ -1,5 +1,6 @@
 package duck;
 
+import duck.command.*;
 import jdk.jfr.Event;
 
 import java.util.Scanner;
@@ -76,6 +77,16 @@ public class Parser {
                     String subCommand = command.substring(spacePos + 1);
                     subCommand = subCommand.trim();
                     return new DeleteCommand(subCommand);
+                }
+            } else if (command.contains("find")){
+                command = command.trim();
+                int space_pos = command.indexOf(" ");
+                if (space_pos == -1) {
+                    throw new DuckException("ERROR! Find command must have keyword(s) behind");
+                } else {
+                    String subCommand = command.substring(space_pos + 1);
+                    subCommand = subCommand.trim();
+                    return new FindCommand(subCommand);
                 }
             } else {
                 throw new DuckException("ERROR! Invalid Command.");

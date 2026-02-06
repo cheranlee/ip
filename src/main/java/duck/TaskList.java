@@ -182,5 +182,18 @@ public class TaskList {
         }
     }
 
+    public String findWord(String word){
+        String totalStr = "";
+        int count = 0;
+        for (int i=0; i < this.size(); i++) {
+            Item item = this.getItem(i);
+            if (item.get_text().contains(word.trim())) {
+                count = count + 1;
+                totalStr = totalStr + '\t' + count + ". " + item + '\n';
+            }
+        }
+        return totalStr;
+    }
+
 
 }
