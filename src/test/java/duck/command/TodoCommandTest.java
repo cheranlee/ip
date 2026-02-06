@@ -14,7 +14,7 @@ public class TodoCommandTest {
         try {
             TaskList tasks = new TaskList();
             Ui ui = new Ui();
-            Storage storage = new Storage("test.txt");
+            Storage storage = new Storage("test");
             TodoCommand todo = new TodoCommand(-1, -1, -1,"borrow book");
             todo.execute(tasks, ui, storage);
             assertEquals("borrow book", tasks.getItem(tasks.size()-1).get_text());
@@ -27,7 +27,7 @@ public class TodoCommandTest {
     public void error(){
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("test.txt");
+        Storage storage = new Storage("test");
         TodoCommand todo = new TodoCommand(3, -1, -1,"borrow book");
         DuckException e = assertThrows(DuckException.class,
                 () -> todo.execute(tasks, ui, storage));

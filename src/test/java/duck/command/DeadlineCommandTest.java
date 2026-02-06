@@ -16,7 +16,7 @@ public class DeadlineCommandTest {
         try {
             TaskList tasks = new TaskList();
             Ui ui = new Ui();
-            Storage storage = new Storage("test.txt");
+            Storage storage = new Storage("test");
             DeadlineCommand deadline = new DeadlineCommand(9, -1, -1,"walk dog by 23-04-2025 13:00");
             deadline.execute(tasks, ui, storage);
             assertEquals("[D][ ] walk dog (by: Apr 23 2025 01:00 pm)", tasks.getItem(tasks.size()-1).toString());
@@ -29,7 +29,7 @@ public class DeadlineCommandTest {
     public void missingInfoError(){
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("test.txt");
+        Storage storage = new Storage("test");
         DeadlineCommand deadline = new DeadlineCommand(9, -1, -1,"walk dog by ");
         DuckException e = assertThrows(DuckException.class,
                 () -> deadline.execute(tasks, ui, storage));
@@ -40,7 +40,7 @@ public class DeadlineCommandTest {
     public void wrongDateFormatError(){
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("test.txt");
+        Storage storage = new Storage("test");
         DeadlineCommand deadline = new DeadlineCommand(9, -1, -1,"walk dog by 14 APR 2025");
         DuckException e = assertThrows(DuckException.class,
                 () -> deadline.execute(tasks, ui, storage));
@@ -51,7 +51,7 @@ public class DeadlineCommandTest {
     public void noByKeyword(){
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
-        Storage storage = new Storage("test.txt");
+        Storage storage = new Storage("test");
         DeadlineCommand deadline = new DeadlineCommand(-1, -1, -1,"walk dog start 14-02-2025 end 24-02-2025");
         DuckException e = assertThrows(DuckException.class,
                 () -> deadline.execute(tasks, ui, storage));
