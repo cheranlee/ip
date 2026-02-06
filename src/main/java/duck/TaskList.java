@@ -50,13 +50,13 @@ public class TaskList {
         int count = 0;
         for (String line : oldTasks) {
             String[] splitString = line.split("\\s\\|\\s");
-            String taskType_char = splitString[0].trim();
-            String done_char = splitString[1].trim();
+            String taskTypeChar = splitString[0].trim();
+            String doneChar = splitString[1].trim();
             String description = splitString[2].trim();
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
 
-            switch (taskType_char) {
+            switch (taskTypeChar) {
                 case "T" -> {
                     this.addItem(new Item(description));
                 }
@@ -80,7 +80,7 @@ public class TaskList {
                 }
             }
 
-            if (done_char.equals("1")) {
+            if (doneChar.equals("1")) {
                 this.markUnmarkItem(true, count);
             }
             count = count + 1;
@@ -136,18 +136,18 @@ public class TaskList {
      * @return total_str list of tasks (with string formatting)
      */
     public String toString() {
-        String total_str = "";
+        String totalStr = "";
         if (this.size() > 0) {
             int count = 0;
             System.out.println("\tHere are the tasks in your list:");
             for (Item i : this.tasklist) {
                 count++;
-                total_str = total_str + '\t' + Integer.toString(count) + ". " + i.toString() + '\n';
+                totalStr = totalStr + '\t' + Integer.toString(count) + ". " + i.toString() + '\n';
             }
         } else {
-            total_str = "Relax! You have no tasks";
+            totalStr = "Relax! You have no tasks";
         }
-        return total_str;
+        return totalStr;
     }
 
     /**
@@ -158,8 +158,8 @@ public class TaskList {
     public String markUnmarkItem(boolean mark, int index){
         Item i = this.tasklist.get(index);
         if (mark) {     // mark as done
-            if (!i.get_done()) {
-                i.set_done(true);
+            if (!i.getDone()) {
+                i.setDone(true);
                 System.out.println("\t-------------------------------------------------------------");
                 System.out.println("\tQuack-ity! I've marked this task as done:");
                 System.out.println("\t"+ i.toString());
@@ -169,8 +169,8 @@ public class TaskList {
                 throw new IllegalArgumentException(("Item Already Marked as Done!"));
             }
         } else {         // unmark to show not done
-            if (i.get_done()) {
-                i.set_done(false);
+            if (i.getDone()) {
+                i.setDone(false);
                 System.out.println("\t-------------------------------------------------------------");
                 System.out.println("\tAww! I've marked this task as not done yet:");
                 System.out.println("\t"+ i.toString());

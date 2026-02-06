@@ -40,40 +40,40 @@ public class Parser {
                 return new ListCommand();
             } else if (command.contains("mark") || command.contains("unmark")) {
                 command = command.trim();
-                int space_pos = command.indexOf(" ");
-                if (space_pos == -1) {
+                int spacePos = command.indexOf(" ");
+                if (spacePos == -1) {
                     throw new DuckException("ERROR! Mark/Unmark command must have an integer index behind");
                 } else {
-                    String subCommand = command.substring(space_pos + 1);
+                    String subCommand = command.substring(spacePos + 1);
                     subCommand = subCommand.trim();
                     return new MarkUnmarkCommand(subCommand);
                 }
             } else if (command.contains("todo") || command.contains("deadline") || command.contains("event")) {
                 command = command.trim();
-                int space_pos = command.indexOf(" ");
-                if (space_pos == -1) {
+                int spacePos = command.indexOf(" ");
+                if (spacePos == -1) {
                     throw new DuckException("ERROR! Description of Task cannot be empty");  // to catch cases where only todo deadline event are the input
                 } else {
-                    String subCommand = command.substring(space_pos + 1);
+                    String subCommand = command.substring(spacePos + 1);
                     subCommand = subCommand.trim();
-                    int by_datetime_pos = subCommand.indexOf("by");
-                    int start_datetime_pos = subCommand.indexOf("start");
-                    int end_datetime_pos = subCommand.indexOf("end");
+                    int byDatetimePos = subCommand.indexOf("by");
+                    int startDatetimePos = subCommand.indexOf("start");
+                    int endDatetimePos = subCommand.indexOf("end");
                     if (command.contains("todo")) {  // no date or time attached
-                        return new TodoCommand(by_datetime_pos, start_datetime_pos, end_datetime_pos, subCommand);
+                        return new TodoCommand(byDatetimePos, startDatetimePos, endDatetimePos, subCommand);
                     } else if (command.contains("deadline")) {  // (by) date & time
-                        return new DeadlineCommand(by_datetime_pos, start_datetime_pos, end_datetime_pos, subCommand);
+                        return new DeadlineCommand(byDatetimePos, startDatetimePos, endDatetimePos, subCommand);
                     } else if (command.contains("event")) {   // (start) (end) date & time
-                        return new EventCommand(by_datetime_pos, start_datetime_pos, end_datetime_pos, subCommand);
+                        return new EventCommand(byDatetimePos, startDatetimePos, endDatetimePos, subCommand);
                     }
                 }
             } else if (command.contains("delete")){
                 command = command.trim();
-                int space_pos = command.indexOf(" ");
-                if (space_pos == -1) {
+                int spacePos = command.indexOf(" ");
+                if (spacePos == -1) {
                     throw new DuckException("ERROR! Delete command must have an integer index behind");
                 } else {
-                    String subCommand = command.substring(space_pos + 1);
+                    String subCommand = command.substring(spacePos + 1);
                     subCommand = subCommand.trim();
                     return new DeleteCommand(subCommand);
                 }

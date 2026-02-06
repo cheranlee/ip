@@ -13,22 +13,22 @@ import duck.Ui;
  * Class created by Parser when user input = 'todo'
  */
 public class TodoCommand extends Command{
-    private int by_datetime_pos;
-    private int start_datetime_pos;
-    private int end_datetime_pos;
+    private int byDatetimePos;
+    private int startDatetimePos;
+    private int endDatetimePos;
     private String subCommand;
 
     /**
      * Constructor Class for TodoCommand
-     * @param by_datetime_pos index of 'by' keyword [should be equal to -1 for deadline task]
-     * @param start_datetime_pos index of 'start' keyword [should be equal to -1 for deadline task]
-     * @param end_datetime_pos index of 'end' keyword [should be equal to -1 for deadline task]
+     * @param byDatetimePos index of 'by' keyword [should be equal to -1 for deadline task]
+     * @param startDatetimePos index of 'start' keyword [should be equal to -1 for deadline task]
+     * @param endDatetimePos index of 'end' keyword [should be equal to -1 for deadline task]
      * @param subCommand user input without 'todo' keyword
      */
-    public TodoCommand(int by_datetime_pos, int start_datetime_pos, int end_datetime_pos, String subCommand){
-        this.by_datetime_pos = by_datetime_pos;
-        this.start_datetime_pos = start_datetime_pos;
-        this.end_datetime_pos = end_datetime_pos;
+    public TodoCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand){
+        this.byDatetimePos = byDatetimePos;
+        this.startDatetimePos = startDatetimePos;
+        this.endDatetimePos = endDatetimePos;
         this.subCommand = subCommand;
     }
 
@@ -41,7 +41,7 @@ public class TodoCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
-        if (this.by_datetime_pos == -1 && this.start_datetime_pos == -1 && this.end_datetime_pos == -1) {
+        if (this.byDatetimePos == -1 && this.startDatetimePos == -1 && this.endDatetimePos == -1) {
             tasks.addItem(new Item(this.subCommand));
             Item newItem = tasks.getItem(tasks.size()-1);
             storage.addToFile(newItem.toStringFile() + '\n');

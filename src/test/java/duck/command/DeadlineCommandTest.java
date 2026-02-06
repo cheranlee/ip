@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class DeadlineCommandTest {
 
     @Test
-    public void noErrorTest(){
+    public void no_error_test(){
         try {
             TaskList tasks = new TaskList();
             Ui ui = new Ui();
@@ -26,7 +26,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void missingInfoError(){
+    public void missing_info_error(){
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");
@@ -37,7 +37,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void wrongDateFormatError(){
+    public void wrong_date_format_error(){
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");
@@ -48,7 +48,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void noByKeyword(){
+    public void no_by_keyword(){
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");

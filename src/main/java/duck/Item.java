@@ -33,8 +33,8 @@ public class Item {
      * @param text borrow book
      */
     public Item(String text){
-        this.set_text(text);
-        this.set_type(TaskType.ToDos);
+        this.setText(text);
+        this.setType(TaskType.ToDos);
     }
 
     /**
@@ -45,10 +45,10 @@ public class Item {
      * @param firstTime 15:00 LocalTime
      */
     public Item(String text, LocalDate firstDate, LocalTime firstTime){
-        this.set_text(text);
-        this.set_type(TaskType.Deadlines);
-        this.set_firstDate(firstDate);
-        this.set_firstTime(firstTime);
+        this.setText(text);
+        this.setType(TaskType.Deadlines);
+        this.setFirstDate(firstDate);
+        this.setFirstTime(firstTime);
     }
 
     /**
@@ -61,12 +61,12 @@ public class Item {
      * @param secondTime 18:00
      */
     public Item(String text, LocalDate firstDate, LocalTime firstTime, LocalDate secondDate, LocalTime secondTime){
-        this.set_text(text);
-        this.set_type(TaskType.Events);
-        this.set_firstDate(firstDate);
-        this.set_firstTime(firstTime);
-        this.set_secondDate(secondDate);
-        this.set_secondTime(secondTime);
+        this.setText(text);
+        this.setType(TaskType.Events);
+        this.setFirstDate(firstDate);
+        this.setFirstTime(firstTime);
+        this.setSecondDate(secondDate);
+        this.setSecondTime(secondTime);
     }
 
     /**
@@ -76,7 +76,7 @@ public class Item {
      * @return a string (which will be used in printing to console + storing to hard disk) -- "null" or "Mar 23 2024"
      */
     private String formatDate(LocalDate date){
-        return date == null ? "null"  : this.get_DateString(date);
+        return date == null ? "null"  : this.getDateString(date);
     }
 
     /**
@@ -86,7 +86,7 @@ public class Item {
      * @return a string (which will be used in printing to console + storing to hard disk) -- "null" or "12:00pm"
      */
     private String formatTime(LocalTime time){
-        return time == null ? "null"  : this.get_TimeString(time);
+        return time == null ? "null"  : this.getTimeString(time);
     }
 
     /**
@@ -94,14 +94,14 @@ public class Item {
      * @return a string  e.g. [ ] [X] Do Homework
      */
     public String toString() {
-        String totalStr = "[" + this.string_type() + "]" + this.string_done() + " " + this.get_text();
-        switch(this.get_type()) {
+        String totalStr = "[" + this.stringType() + "]" + this.stringDone() + " " + this.getText();
+        switch(this.getType()) {
             case TaskType.Deadlines -> {
-                totalStr = totalStr + " (by: " + this.formatDate(this.get_firstDate()) + " " + this.formatTime(this.get_firstTime()) + ")";
+                totalStr = totalStr + " (by: " + this.formatDate(this.getFirstDate()) + " " + this.formatTime(this.getFirstTime()) + ")";
             }
             case TaskType.Events -> {
-                totalStr = totalStr + " (start: " + this.formatDate(this.get_firstDate()) + " " + this.formatTime(this.get_firstTime());
-                totalStr = totalStr + ") (end: " + this.formatDate(this.get_secondDate()) + " " + this.formatTime(this.get_secondTime()) + ")";
+                totalStr = totalStr + " (start: " + this.formatDate(this.getFirstDate()) + " " + this.formatTime(this.getFirstTime());
+                totalStr = totalStr + ") (end: " + this.formatDate(this.getSecondDate()) + " " + this.formatTime(this.getSecondTime()) + ")";
             }
         }
         return totalStr;
@@ -113,18 +113,18 @@ public class Item {
      */
     public String toStringFile(){
         String totalStr = "";
-        switch(this.get_type()) {
+        switch(this.getType()) {
             case TaskType.ToDos -> {
-                totalStr = totalStr + this.string_type() + " | " + string_done_int() + " | " + this.get_text();
+                totalStr = totalStr + this.stringType() + " | " + stringDoneInt() + " | " + this.getText();
             }
             case TaskType.Deadlines -> {
-                totalStr = totalStr + this.string_type() + " | " + string_done_int() + " | " + this.get_text() + " | ";
-                totalStr = totalStr + this.formatDate(this.get_firstDate()) + " | " + this.formatTime(this.get_firstTime());
+                totalStr = totalStr + this.stringType() + " | " + stringDoneInt() + " | " + this.getText() + " | ";
+                totalStr = totalStr + this.formatDate(this.getFirstDate()) + " | " + this.formatTime(this.getFirstTime());
             }
             case TaskType.Events -> {
-                totalStr = totalStr + this.string_type() + " | " + string_done_int() + " | " + this.get_text() + " | ";
-                totalStr = totalStr + this.formatDate(this.get_firstDate()) + " | " + this.formatTime(this.get_firstTime());
-                totalStr = totalStr + " | " + this.formatDate(this.get_secondDate()) + " | " + this.formatTime(this.get_secondTime());
+                totalStr = totalStr + this.stringType() + " | " + stringDoneInt() + " | " + this.getText() + " | ";
+                totalStr = totalStr + this.formatDate(this.getFirstDate()) + " | " + this.formatTime(this.getFirstTime());
+                totalStr = totalStr + " | " + this.formatDate(this.getSecondDate()) + " | " + this.formatTime(this.getSecondTime());
             }
         }
         return totalStr;
@@ -134,7 +134,7 @@ public class Item {
      * Getter method for text
      * @return text (String)
      */
-    public String get_text(){
+    public String getText(){
         return this.text;
     }
 
@@ -142,7 +142,7 @@ public class Item {
      * Setter method for text
      * @param text String
      */
-    void set_text(String text){
+    void setText(String text){
         this.text = text;
     }
 
@@ -150,7 +150,7 @@ public class Item {
      * Getter method for firstDate
      * @return LocalDate
      */
-    LocalDate get_firstDate(){
+    LocalDate getFirstDate(){
         return this.firstDate;
     }
 
@@ -158,7 +158,7 @@ public class Item {
      * Setter method for firstDate
      * @param date LocalDate
      */
-    void set_firstDate(LocalDate date){
+    void setFirstDate(LocalDate date){
         this.firstDate = date;
     }
 
@@ -168,7 +168,7 @@ public class Item {
      * @param date LocalDate
      * @return String
      */
-    String get_DateString(LocalDate date){
+    String getDateString(LocalDate date){
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
@@ -176,7 +176,7 @@ public class Item {
      * Getter method for firstTime
      * @return LocalTime
      */
-    LocalTime get_firstTime(){
+    LocalTime getFirstTime(){
         return this.firstTime;
     }
 
@@ -184,7 +184,7 @@ public class Item {
      * Setter method for firstTime
      * @param time LocalTime
      */
-    void set_firstTime(LocalTime time){
+    void setFirstTime(LocalTime time){
         this.firstTime = time;
     }
 
@@ -194,7 +194,7 @@ public class Item {
      * @param time LocalTime
      * @return String
      */
-    String get_TimeString(LocalTime time){
+    String getTimeString(LocalTime time){
         return time.format(DateTimeFormatter.ofPattern("hh:mm a"));
     }
 
@@ -202,7 +202,7 @@ public class Item {
      * Getter method for secondDate
      * @return LocalDate
      */
-    LocalDate get_secondDate(){
+    LocalDate getSecondDate(){
         return this.secondDate;
     }
 
@@ -210,7 +210,7 @@ public class Item {
      * Setter method for secondDate
      * @param date LocalDate
      */
-    void set_secondDate(LocalDate date){
+    void setSecondDate(LocalDate date){
         this.secondDate = date;
     }
 
@@ -218,7 +218,7 @@ public class Item {
      * Getter Method for secondTime
      * @return LocalTime
      */
-    LocalTime get_secondTime(){
+    LocalTime getSecondTime(){
         return this.secondTime;
     }
 
@@ -226,7 +226,7 @@ public class Item {
      * Setter Method for secondTime
      * @param time LocalTime
      */
-    void set_secondTime(LocalTime time){
+    void setSecondTime(LocalTime time){
         this.secondTime = time;
     }
 
@@ -235,16 +235,16 @@ public class Item {
      * Getter method for done --> Identify if a task is marked / unmarked
      * @return done
      */
-    public Boolean get_done(){
+    public Boolean getDone(){
         return this.done;
     }
 
     /**
-     * Helper function to convert get_done boolean info into a printable string for toString method
+     * Helper function to convert getDone boolean info into a printable string for toString method
      * @return string
      */
-    String string_done(){
-        if (this.get_done()) {
+    String stringDone(){
+        if (this.getDone()) {
             return "[X]";
         } else {
             return "[ ]";
@@ -255,8 +255,8 @@ public class Item {
      * Helper function for toStringFile which formats 'done' (mark/unmark) as 1 or 0
      * @return string (either "1" if done=true or "0" if done=false)
      */
-    String string_done_int(){
-        if (this.get_done()) {
+    String stringDoneInt(){
+        if (this.getDone()) {
             return "1";
         } else {
             return "0";
@@ -265,9 +265,9 @@ public class Item {
 
     /**
      * Setter method for done
-     * @param isDone
+     * @param isDone boolean
      */
-    void set_done(Boolean isDone){
+    void setDone(Boolean isDone){
         this.done = isDone;
     }
 
@@ -275,7 +275,7 @@ public class Item {
      * Setter method for type
      * @param tasktype (which is an enum ToDo, Deadline or Event)
      */
-    void set_type(TaskType tasktype){
+    void setType(TaskType tasktype){
         this.type = tasktype;
     }
 
@@ -283,22 +283,22 @@ public class Item {
      * Getter method for type
      * @return type
      */
-    TaskType get_type(){
+    TaskType getType(){
         return this.type;
     }
 
     /**
-     * Helper function to convert get_type enum info into a printable string for toString method
-     * @return
+     * Helper function to convert getType enum info into a printable string for toString method
+     * @return string
      */
-    String string_type(){
-        if (this.get_type() == TaskType.ToDos) {
+    String stringType(){
+        if (this.getType() == TaskType.ToDos) {
             return "T";
         } else {
-            if (this.get_type() == TaskType.Events) {
+            if (this.getType() == TaskType.Events) {
                 return "E";
             } else {
-                if (this.get_type() == TaskType.Deadlines) {
+                if (this.getType() == TaskType.Deadlines) {
                     return "D";
                 }
             }
