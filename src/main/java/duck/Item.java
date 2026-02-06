@@ -130,7 +130,7 @@ public class Item {
      * Getter method for text
      * @return text (String)
      */
-    String get_text(){
+    public String get_text(){
         return this.text;
     }
 
@@ -231,7 +231,7 @@ public class Item {
      * Getter method for done --> Identify if a task is marked / unmarked
      * @return done
      */
-    Boolean get_done(){
+    public Boolean get_done(){
         return this.done;
     }
 
