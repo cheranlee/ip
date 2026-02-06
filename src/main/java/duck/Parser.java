@@ -13,14 +13,27 @@ import duck.command.ListCommand;
 import duck.command.MarkUnmarkCommand;
 import duck.command.TodoCommand;
 
-
+/**
+ * Class which makes sense of user input
+ */
 public class Parser {
     private Ui ui;
 
+    /**
+     * Constructor Class
+     * Interacts with UI to obtain commands + print information to terminal
+     * @param ui
+     */
     public Parser(Ui ui) {
         this.ui = ui;
     }
 
+    /**
+     * Main Code that processes user input
+     * @param command user input (string)
+     * @return Command object --> cld be todo, deadline, event, delete, mark etc.
+     * @throws DuckException Self-defined Exception Class which identifies error (using error message)
+     */
     public Command parse(String command) throws DuckException{
         while (!command.contains("bye")) {
             if (command.contains("list")) {

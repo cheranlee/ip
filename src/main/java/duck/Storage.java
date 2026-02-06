@@ -19,10 +19,18 @@ import duck.command.ListCommand;
 import duck.command.MarkUnmarkCommand;
 import duck.command.TodoCommand;
 
+/**
+ * Class which interfaces with hard disk (by writing to a txt file)
+ */
 public class Storage {
     private Path folderPath;
     private Path filePath;
 
+    /**
+     * Constructor Class to define directories
+     * Calls onStartup() method to initialise all required files
+     * @param home current directory (e.g. src/main/java)
+     */
     public Storage(String home){
         this.folderPath = Paths.get(home, "data");
         this.filePath = this.folderPath.resolve("duck.txt");

@@ -9,14 +9,28 @@ import duck.TaskList;
 import duck.TaskType;
 import duck.Ui;
 
+/**
+ * Class created by Parser when user input = 'delete'
+ */
 public class DeleteCommand extends Command{
 
     private String fullCommand;
 
+    /**
+     * Constructor class for DeleteCommand
+     * @param fullCommand e.g. delete 5
+     */
     public DeleteCommand(String fullCommand){
         this.fullCommand = fullCommand;
     }
 
+    /**
+     *
+     * @param tasks list of tasks
+     * @param ui User Interface
+     * @param storage Deals with storing information to hard disk
+     * @throws DuckException Self-defined Exception Class which identifies Error
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
         try {

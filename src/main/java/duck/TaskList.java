@@ -23,15 +23,29 @@ import duck.command.TodoCommand;
 public class TaskList {
     private List<Item> tasklist;
 
+    /**
+     * Constructor Class if no pre-existing data from hard disk
+     * Creates empty tasklist instead
+     */
     public TaskList(){
         this.tasklist = new ArrayList<>();
     }
 
+    /**
+     * Constructor Class where there is pre-existing data from hard disk
+     * Creates tasklist and loads data to tasklist using loadTasks() method
+     * @param oldTasks
+     */
     public TaskList(List<String> oldTasks){
         this.tasklist = new ArrayList<>();
         this.loadTasks(oldTasks);
     }
 
+    /**
+     * Takes output of storage.load() and processes it (by classifying into todo, deadline, event and mark/unmark)
+     * before adding Item (tasks) back into tasklist
+     * @param oldTasks data from hard disk (data format: list of strings)
+     */
     public void loadTasks(List<String> oldTasks) {
         int count = 0;
         for (String line : oldTasks) {
@@ -111,7 +125,7 @@ public class TaskList {
 
     /**
      * returns number of tasks in list
-     * @return size (integer)
+     * @return size integer
      */
     public int size(){
         return this.tasklist.size();
@@ -119,7 +133,7 @@ public class TaskList {
 
     /**
      * uses toString method in item class to print the whole list of tasks
-     * @return total_str
+     * @return total_str list of tasks (with string formatting)
      */
     public String toString() {
         String total_str = "";
@@ -137,7 +151,7 @@ public class TaskList {
     }
 
     /**
-     * Marks / Unmarks item at index as done / not done
+     * Marks / Unmarks Item at index as done / not done
      * @param mark mark w X if true ; leave blank if false
      * @param index integer (row number)
      */

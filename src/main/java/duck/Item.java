@@ -14,6 +14,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Class which defines a task
+ * Each task is one Item object
+ */
 public class Item {
     private String text;
     private boolean done = false;

@@ -9,12 +9,22 @@ import duck.TaskList;
 import duck.TaskType;
 import duck.Ui;
 
+/**
+ * Class created by Parser when user input = 'todo'
+ */
 public class TodoCommand extends Command{
     private int by_datetime_pos;
     private int start_datetime_pos;
     private int end_datetime_pos;
     private String subCommand;
 
+    /**
+     * Constructor Class for TodoCommand
+     * @param by_datetime_pos index of 'by' keyword [should be equal to -1 for deadline task]
+     * @param start_datetime_pos index of 'start' keyword [should be equal to -1 for deadline task]
+     * @param end_datetime_pos index of 'end' keyword [should be equal to -1 for deadline task]
+     * @param subCommand user input without 'todo' keyword
+     */
     public TodoCommand(int by_datetime_pos, int start_datetime_pos, int end_datetime_pos, String subCommand){
         this.by_datetime_pos = by_datetime_pos;
         this.start_datetime_pos = start_datetime_pos;
@@ -23,7 +33,11 @@ public class TodoCommand extends Command{
     }
 
     /**
-     * Command to add an item in list as a 'ToDo' item
+     * Add Item in list as a 'todo' item
+     * @param tasks list of tasks
+     * @param ui User Interface
+     * @param storage Deals with storing information to hard disk
+     * @throws DuckException Self-defined Exception Class which identifies Error
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
