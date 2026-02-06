@@ -12,7 +12,7 @@ public abstract class Command {
     /**
      * Called in main Duck file after Parser returns a command
      * Executes the Command
-     * @param tasklist list of tasks
+     * @param tasks list of tasks
      * @param ui User Interface
      * @param storage Deals with storing information to hard disk
      * @throws DuckException Self-defined Exception Class which identifies Error
