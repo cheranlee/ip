@@ -14,12 +14,22 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class created by Parser when user input = 'event'
+ */
 public class EventCommand extends Command{
     private int by_datetime_pos;
     private int start_datetime_pos;
     private int end_datetime_pos;
     private String subCommand;
 
+    /**
+     * Constructor class for EventCommand
+     * @param by_datetime_pos index of 'by' keyword [equal to -1 for event task]
+     * @param start_datetime_pos index of 'start' keyword [should not be equal to -1 for event task]
+     * @param end_datetime_pos index of 'end' keyword [should not be equal to -1 for event task]
+     * @param subCommand user input without 'event' keyword
+     */
     public EventCommand(int by_datetime_pos, int start_datetime_pos, int end_datetime_pos, String subCommand){
         this.by_datetime_pos = by_datetime_pos;
         this.start_datetime_pos = start_datetime_pos;
@@ -28,7 +38,7 @@ public class EventCommand extends Command{
     }
 
     /**
-     * helper function to determine if date input is of a valid format (dd-MM-yyyy)
+     * Helper function to determine if date input is of a valid format (dd-MM-yyyy)
      * @param input date input
      * @return boolean
      */
@@ -43,7 +53,7 @@ public class EventCommand extends Command{
     }
 
     /**
-     * helper function to determine if time input is of a valid format (HH:mm)
+     * Helper function to determine if time input is of a valid format (HH:mm)
      * @param input time input
      * @return boolean
      */
@@ -141,8 +151,13 @@ public class EventCommand extends Command{
     }
 
     /**
-     * Helper function to add an item in list as a 'Event' item
-     * Called by main function when user inputs Event keyword
+     * Add an Item in list as an 'event' item
+     * Throws exception if unable to create new Item to store in tasklist
+     * After Parser returns a command, use command.execute() to run this function
+     * @param tasks list of tasks
+     * @param ui User Interface
+     * @param storage Deals with storing information to hard disk
+     * @throws DuckException Self-defined Exception Class which identifies Error
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{

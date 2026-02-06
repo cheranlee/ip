@@ -14,12 +14,22 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class created by Parser when user input = 'deadline'
+ */
 public class DeadlineCommand extends Command{
     private int by_datetime_pos;
     private int start_datetime_pos;
     private int end_datetime_pos;
     private String subCommand;
 
+    /**
+     * Constructor Class for DeadlineCommand
+     * @param by_datetime_pos index of 'by' keyword [not equal to -1 for deadline task]
+     * @param start_datetime_pos index of 'start' keyword [should be equal to -1 for deadline task]
+     * @param end_datetime_pos index of 'end' keyword [should be equal to -1 for deadline task]
+     * @param subCommand user input without 'deadline' keyword
+     */
     public DeadlineCommand(int by_datetime_pos, int start_datetime_pos, int end_datetime_pos, String subCommand){
         this.by_datetime_pos = by_datetime_pos;
         this.start_datetime_pos = start_datetime_pos;
@@ -58,7 +68,7 @@ public class DeadlineCommand extends Command{
     }
 
     /**
-     * Function to instantiate new task entry if task is a Deadline
+     * Instantiate new task entry if task is a Deadline
      * @param description 'return book' in 'deadline return book by 24-02-2026 03:00'
      * @param datetime '24-02-2026 03:00' in 'deadline return book by 24-02-2026 03:00'
      * @return Item
@@ -94,10 +104,14 @@ public class DeadlineCommand extends Command{
         return new Item(description, date, time);
     }
 
-
     /**
-     * Helper function to add an item in list as a 'Deadline' item
-     * Called by main function when user inputs deadline keyword
+     * Add an item in list as a 'Deadline' item
+     * Throws Exception if unable to create new Item to store in tasklist
+     * After Parser returns a command, use command.execute() to run this function
+     * @param tasks list of tasks
+     * @param ui User Interface
+     * @param storage Deals with storing information to hard disk
+     * @throws DuckException Self-defined Exception Class which identifies Error
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{

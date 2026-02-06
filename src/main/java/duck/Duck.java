@@ -25,6 +25,9 @@ import duck.command.ListCommand;
 import duck.command.MarkUnmarkCommand;
 import duck.command.TodoCommand;
 
+/**
+ * Main Class
+ */
 public class Duck {
     public static String home = System.getProperty("user.dir");
 
@@ -33,6 +36,12 @@ public class Duck {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructor for Duck Class
+     * Initialises ui, storage, parser and tasklist (loads old data in hard disk using storage object)
+     * If no old data, creates empty tasklist
+     * @param filePath Home Directory src/main/java
+     */
     public Duck(String filePath){
         ui = new Ui();
         storage = new Storage(filePath);
@@ -45,10 +54,13 @@ public class Duck {
         }
     }
 
+    /**
+     * Main Code Logic
+     */
     public void run(){
         ui.showWelcome();
         boolean isExit = false;
-        while (!isExit) {
+        while (!isExit) {    // Bye Command
             try {
                 String fullCommand = ui.readCommand();
                 Command c = parser.parse(fullCommand);

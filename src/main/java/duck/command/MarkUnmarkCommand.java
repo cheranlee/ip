@@ -9,14 +9,32 @@ import duck.TaskList;
 import duck.TaskType;
 import duck.Ui;
 
+/**
+ * Class created by Parser when user input = 'mark' or 'unmark'
+ */
 public class MarkUnmarkCommand extends Command{
 
     private String fullCommand;
 
+    /**
+     * Constructor Class for MarkUnmarkCommand
+     * @param fullCommand e.g. mark 3
+     */
     public MarkUnmarkCommand(String fullCommand){
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Mark Item as Done / Mark Item as Not Done
+     * Throws Exception if:
+     *  1) User inputs mark X but X has been marked (and vice versa)
+     *  2) X is more than the number of tasks
+     *  3) X is not a valid number (e.g. -3)
+     * @param tasks list of tasks
+     * @param ui User Interface
+     * @param storage Deals with storing information to hard disk
+     * @throws DuckException Self-defined Exception Class which identifies Error
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
         try {

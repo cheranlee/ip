@@ -11,13 +11,22 @@ import duck.command.ListCommand;
 import duck.command.MarkUnmarkCommand;
 import duck.command.TodoCommand;
 
+/**
+ * User Interface Class
+ */
 public class Ui {
     private Scanner newObject;
 
+    /**
+     * Constructor Class --> Initiate Scanner Object to obtain User Input
+     */
     public Ui(){
         this.newObject = new Scanner(System.in);
     }
 
+    /**
+     * Welcome message shown upon startup
+     */
     public void showWelcome(){
         System.out.println("-------------------------------------------------------------");
         System.out.println("Quack! I'm Duck.\nWhat can I do for you?");
@@ -42,12 +51,19 @@ public class Ui {
         System.out.println("-------------------------------------------------------------\n");
     }
 
+    /**
+     * No previously stored data in Hard Disk
+     */
     public void showLoadingError(){
         System.out.println("-------------------------------------------------------------\n");
         System.out.println("No Previously stored tasks. Creating New TaskList");
         System.out.println("-------------------------------------------------------------\n");
     }
 
+    /**
+     * Obtain User Input
+     * @return User Input
+     */
     public String readCommand(){
         System.out.println("-------------------------------------------------------------\n");
         System.out.println("Enter Command:");
@@ -57,16 +73,27 @@ public class Ui {
         return fullCommand;
     }
 
+    /**
+     * Message shown when Exiting Program
+     */
     public void showBye(){
         System.out.println("\t-------------------------------------------------------------");
         System.out.println("\tBye Quack! Hope to see you again soon!");
         System.out.println("\t-------------------------------------------------------------");
     }
 
+    /**
+     * Print Error Message
+     * @param error String --> usually e.getMessage() ; where e = DuckException;
+     */
     public void showError(String error){
          System.out.println(error);
     }
 
+    /**
+     * Print List of Items in tasklist
+     * @param string tasklist.toString()
+     */
     public void showList(String string){
          System.out.println(string);
     }
