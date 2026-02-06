@@ -98,6 +98,10 @@ public class Ui {
          System.out.println(string);
     }
 
+    /**
+     * Wrapper for printing list of results when 'find' keyword is used
+     * @param string list of 'find' results from FindCommand.execute()
+     */
     public void showWord(String string){
          System.out.println("\t-------------------------------------------------------------");
          System.out.println("\tHere are the matching tasks in your list: ");
@@ -105,6 +109,10 @@ public class Ui {
          System.out.println("\t-------------------------------------------------------------");
     }
 
+    /**
+     * Wrapper for printing motivational quote
+     * @param string motivational quote from CheerCommand.execute()
+     */
     public void showCheer(String string){
          System.out.println("\t-------------------------------------------------------------");
          System.out.println(string);

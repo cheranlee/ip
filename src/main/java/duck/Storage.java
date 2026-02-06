@@ -121,6 +121,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Randomly chooses a motivational quote from cheer.txt
+     * @return String --> the motivational quote
+     * @throws DuckException error if cheer.txt is empty
+     * @throws IOException error if unable to open cheer.txt
+     */
     public String cheer() throws DuckException, IOException {
         Random rand = new Random();
         if (Files.size(this.filePathCheer) == 0) {

@@ -182,6 +182,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Traverse through tasks tasklist and extract Items with the keyword word
+     * @param word keyword
+     * @return string (with formatting) of 'find' results 
+     */
     public String findWord(String word){
         String totalStr = "";
         int count = 0;
