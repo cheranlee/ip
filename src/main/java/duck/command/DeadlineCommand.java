@@ -15,15 +15,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand extends Command{
-    private int by_datetime_pos;
-    private int start_datetime_pos;
-    private int end_datetime_pos;
+    private int byDatetimePos;
+    private int startDatetimePos;
+    private int endDatetimePos;
     private String subCommand;
 
-    public DeadlineCommand(int by_datetime_pos, int start_datetime_pos, int end_datetime_pos, String subCommand){
-        this.by_datetime_pos = by_datetime_pos;
-        this.start_datetime_pos = start_datetime_pos;
-        this.end_datetime_pos = end_datetime_pos;
+    public DeadlineCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand){
+        this.byDatetimePos = byDatetimePos;
+        this.startDatetimePos = startDatetimePos;
+        this.endDatetimePos = endDatetimePos;
         this.subCommand = subCommand;
     }
 
@@ -101,14 +101,14 @@ public class DeadlineCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
-        if (by_datetime_pos != -1 && start_datetime_pos == -1 && end_datetime_pos == -1) {
-            String by_datetime = this.subCommand.substring(by_datetime_pos + 2);
-            String description = this.subCommand.substring(0, by_datetime_pos);
-            if (description.isBlank() || by_datetime.isBlank()) {  // check if by or description field are blank
+        if (byDatetimePos != -1 && startDatetimePos == -1 && endDatetimePos == -1) {
+            String byDatetime = this.subCommand.substring(byDatetimePos + 2);
+            String description = this.subCommand.substring(0, byDatetimePos);
+            if (description.isBlank() || byDatetime.isBlank()) {  // check if by or description field are blank
                 throw new DuckException("ERROR! Description / Deadline of Task cannot be empty");
             } else {
                 try {
-                    tasks.addItem(this.generateDeadlineItem(description.trim(), by_datetime.trim()));
+                    tasks.addItem(this.generateDeadlineItem(description.trim(), byDatetime.trim()));
                     Item newItem = tasks.getItem(tasks.size() - 1);
                     storage.addToFile(newItem.toStringFile() + '\n');
                 } catch (IllegalArgumentException wrongFormat) {

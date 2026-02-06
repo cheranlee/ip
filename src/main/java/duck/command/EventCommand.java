@@ -15,15 +15,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class EventCommand extends Command{
-    private int by_datetime_pos;
-    private int start_datetime_pos;
-    private int end_datetime_pos;
+    private int byDatetimePos;
+    private int startDatetimePos;
+    private int endDatetimePos;
     private String subCommand;
 
-    public EventCommand(int by_datetime_pos, int start_datetime_pos, int end_datetime_pos, String subCommand){
-        this.by_datetime_pos = by_datetime_pos;
-        this.start_datetime_pos = start_datetime_pos;
-        this.end_datetime_pos = end_datetime_pos;
+    public EventCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand){
+        this.byDatetimePos = byDatetimePos;
+        this.startDatetimePos = startDatetimePos;
+        this.endDatetimePos = endDatetimePos;
         this.subCommand = subCommand;
     }
 
@@ -146,15 +146,15 @@ public class EventCommand extends Command{
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
-        if (by_datetime_pos == -1 && start_datetime_pos != -1 && end_datetime_pos != -1) {
-            String start_datetime = this.subCommand.substring(start_datetime_pos + 5, end_datetime_pos - 1);
-            String end_datetime = this.subCommand.substring(end_datetime_pos + 3);
-            String description = this.subCommand.substring(0, start_datetime_pos);
-            if (start_datetime.isBlank() || end_datetime.isBlank() || description.isBlank()) {   // check if description / start / end field are blank
+        if (byDatetimePos == -1 && startDatetimePos != -1 && endDatetimePos != -1) {
+            String startDatetime = this.subCommand.substring(startDatetimePos + 5, endDatetimePos - 1);
+            String endDatetime = this.subCommand.substring(endDatetimePos + 3);
+            String description = this.subCommand.substring(0, startDatetimePos);
+            if (startDatetime.isBlank() || endDatetime.isBlank() || description.isBlank()) {   // check if description / start / end field are blank
                 System.out.println("ERROR! Description / End / Start cannot be empty");
             } else {
                 try {
-                    tasks.addItem(generateEventItem(description.trim(), start_datetime.trim(), end_datetime.trim()));
+                    tasks.addItem(generateEventItem(description.trim(), startDatetime.trim(), endDatetime.trim()));
                     Item newItem = tasks.getItem(tasks.size() - 1);
                     storage.addToFile(newItem.toStringFile() + '\n');
                 } catch (IllegalArgumentException datetimeException) {
