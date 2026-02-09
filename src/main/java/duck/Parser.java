@@ -1,15 +1,6 @@
 package duck;
 
-import duck.command.ByeCommand;
-import duck.command.CheerCommand;
-import duck.command.Command;
-import duck.command.DeadlineCommand;
-import duck.command.DeleteCommand;
-import duck.command.EventCommand;
-import duck.command.FindCommand;
-import duck.command.ListCommand;
-import duck.command.MarkUnmarkCommand;
-import duck.command.TodoCommand;
+import duck.command.*;
 
 /**
  * Class which makes sense of user input
@@ -88,6 +79,8 @@ public class Parser {
                 }
             } else if (command.contains("cheer")) {
                 return new CheerCommand();
+            } else if (command.contains("help")) {
+                return new HelpCommand();
             } else {
                 throw new DuckException("ERROR! Invalid Command.");
             }

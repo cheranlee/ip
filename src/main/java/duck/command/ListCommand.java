@@ -8,6 +8,7 @@ import duck.Ui;
  * Class created by Parser when user input = 'list'
  */
 public class ListCommand extends Command {
+    private String output;
 
     /**
      * Print List using toString method in TaskList
@@ -17,7 +18,8 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showList(tasks.toString());
+        this.setString(ui.showList(tasks.toString()));
+        this.setCommandType(CommandType.List);
     }
 
 }

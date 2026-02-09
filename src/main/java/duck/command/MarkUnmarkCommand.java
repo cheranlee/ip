@@ -15,6 +15,7 @@ public class MarkUnmarkCommand extends Command {
 
     private String fullCommand;
     private Boolean mark;
+    private String output;
 
     /**
      * Constructor Class for MarkUnmarkCommand
@@ -47,19 +48,20 @@ public class MarkUnmarkCommand extends Command {
                     List<String> returnArray = tasks.markUnmarkItem(this.mark, index);
                     String editedItemString = returnArray.get(1);
                     storage.editFile(index, editedItemString);
-                    ui.showOperationOutput(returnArray.get(0));
+                    this.setString(ui.showOperationOutput(returnArray.get(0)));
+                    this.setCommandType(CommandType.MarkUnmark);
                 } catch (IllegalArgumentException ex) {
                     if (ex.getMessage().contains("Not")) {
-                        throw new DuckException("\tItem already marked as not done!");
+                        throw new DuckException("Item already marked as not done!");
                     } else {
-                        throw new DuckException("\tItem already marked as done!");
+                        throw new DuckException("Item already marked as done!");
                     }
                 }
             } else {
-                throw new DuckException("ERROR! Item Number out of range");
+                throw new DuckException("Item Number out of range");
             }
         } catch (NumberFormatException ex2) {
-            throw new DuckException("ERROR! Index not a valid number");
+            throw new DuckException("Index not a valid number");
         }
     }
 }

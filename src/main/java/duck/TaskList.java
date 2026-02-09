@@ -84,9 +84,9 @@ public class TaskList {
     public String addItem(Item item) {
         String totalStr = "";
         this.tasklist.add(item);
-        totalStr = totalStr + "\tQuack! I've added this task:" + '\n';
-        totalStr = totalStr + "\t\t" + item.toString() + '\n';
-        totalStr = totalStr + "\tNow you have " + this.size() + " tasks in the list" + '\n';
+        totalStr = totalStr + "Quack! I've added this task:" + '\n';
+        totalStr = totalStr + item.toString() + '\n';
+        totalStr = totalStr + "Now you have " + this.size() + " tasks in the list" + '\n';
         return totalStr;
     }
 
@@ -107,9 +107,9 @@ public class TaskList {
         String totalStr = "";
         Item i = this.tasklist.get(index);
         this.tasklist.remove(index);
-        totalStr = totalStr + "\tQuack! I've removed this task:" + '\n';
-        totalStr = totalStr + "\t\t" + i.toString() + '\n';
-        totalStr = totalStr + "\tNow you have " + this.size() + " tasks in the list" + '\n';
+        totalStr = totalStr + "Quack! I've removed this task:" + '\n';
+        totalStr = totalStr + i.toString() + '\n';
+        totalStr = totalStr + "Now you have " + this.size() + " tasks in the list" + '\n';
         return totalStr;
     }
 
@@ -129,10 +129,10 @@ public class TaskList {
         String totalStr = "";
         if (this.size() > 0) {
             int count = 0;
-            System.out.println("\tHere are the tasks in your list:");
+            System.out.println("Here are the tasks in your list:");
             for (Item i : this.tasklist) {
                 count++;
-                totalStr = totalStr + '\t' + Integer.toString(count) + ". " + i.toString() + '\n';
+                totalStr = totalStr + Integer.toString(count) + ". " + i.toString() + '\n';
             }
         } else {
             totalStr = "Relax! You have no tasks";
@@ -152,8 +152,8 @@ public class TaskList {
         if (mark) { // mark as done
             if (!i.getDone()) {
                 i.setDone(true);
-                totalStr = totalStr + "\tQuack-ity! I've marked this task as done:\n";
-                totalStr = totalStr + "\t" + i.toString() + '\n';
+                totalStr = totalStr + "Quack-ity! I've marked this task as done:\n";
+                totalStr = totalStr + i.toString() + '\n';
                 returnArray.add(totalStr);
                 returnArray.add(i.toStringFile());
                 return returnArray;
@@ -163,8 +163,8 @@ public class TaskList {
         } else { // unmark to show not done
             if (i.getDone()) {
                 i.setDone(false);
-                totalStr = totalStr + "\tAww! I've marked this task as not done yet:\n";
-                totalStr = totalStr + "\t" + i.toString() + '\n';
+                totalStr = totalStr + "Aww! I've marked this task as not done yet:\n";
+                totalStr = totalStr + i.toString() + '\n';
                 returnArray.add(totalStr);
                 returnArray.add(i.toStringFile());
                 return returnArray;
@@ -186,7 +186,7 @@ public class TaskList {
             Item item = this.getItem(i);
             if (item.getText().contains(word.trim())) {
                 count = count + 1;
-                totalStr = totalStr + '\t' + count + ". " + item + '\n';
+                totalStr = totalStr + count + ". " + item + '\n';
             }
         }
         return totalStr;

@@ -19,6 +19,7 @@ public class DeadlineCommand extends Command {
     private int startDatetimePos;
     private int endDatetimePos;
     private String subCommand;
+    private String output;
 
     /**
      * Constructor Class for DeadlineCommand
@@ -84,7 +85,7 @@ public class DeadlineCommand extends Command {
                 date = LocalDate.parse(splitString[1].trim(), dateFormatter);
                 time = LocalTime.parse(splitString[0].trim(), timeFormatter);
             } else {
-                throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
             }
         } else if (splitString.length == 1) {
             if (this.isValidDate(splitString[0])) {
@@ -92,10 +93,10 @@ public class DeadlineCommand extends Command {
             } else if (this.isValidTime(splitString[0])) {
                 time = LocalTime.parse(splitString[0].trim(), timeFormatter);
             } else {
-                throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
             }
         } else {
-            throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+            throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
         }
 
         return new Item(description, date, time);
@@ -116,19 +117,20 @@ public class DeadlineCommand extends Command {
             String byDatetime = this.subCommand.substring(byDatetimePos + 2);
             String description = this.subCommand.substring(0, byDatetimePos);
             if (description.isBlank() || byDatetime.isBlank()) { // check if by or description field are blank
-                throw new DuckException("ERROR! Description / Deadline of Task cannot be empty");
+                throw new DuckException("Description / Deadline of Task cannot be empty");
             } else {
                 try {
                     String result = tasks.addItem(this.generateDeadlineItem(description.trim(), byDatetime.trim()));
                     Item newItem = tasks.getItem(tasks.size() - 1);
                     storage.addToFile(newItem.toStringFile() + '\n');
-                    ui.showOperationOutput(result);
+                    this.setString(ui.showOperationOutput(result));
+                    this.setCommandType(CommandType.Deadline);
                 } catch (IllegalArgumentException wrongFormat) {
-                    throw new DuckException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+                    throw new DuckException("DateTime format should be dd-MM-yyyy HH:mm");
                 }
             }
         } else { // error if (by) does not appear of if (start) or (end) are in user input
-            throw new DuckException("ERROR! Deadline task must have a Deadline (keyword: by). "
+            throw new DuckException("Deadline task must have a Deadline (keyword: by). "
                     + "It also should not have a start or end date");
         }
     }

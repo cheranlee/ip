@@ -11,6 +11,7 @@ import duck.Ui;
 public class DeleteCommand extends Command {
 
     private String fullCommand;
+    private String output;
 
     /**
      * Constructor class for DeleteCommand
@@ -34,12 +35,13 @@ public class DeleteCommand extends Command {
             if (index < tasks.size() && index >= 0) {
                 String result = tasks.deleteItem(index);
                 storage.deleteFromFile(index);
-                ui.showOperationOutput(result);
+                this.setString(ui.showOperationOutput(result));
+                this.setCommandType(CommandType.Delete);
             } else {
-                throw new DuckException("ERROR! Item Number out of range");
+                throw new DuckException("Item Number out of range");
             }
         } catch (NumberFormatException ex3) {
-            throw new DuckException("ERROR! Index not a valid number");
+            throw new DuckException("Index not a valid number");
         }
     }
 }
