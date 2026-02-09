@@ -1,21 +1,10 @@
 package duck;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.ArrayList;
-
-import duck.command.ByeCommand;
-import duck.command.Command;
-import duck.command.DeadlineCommand;
-import duck.command.DeleteCommand;
-import duck.command.EventCommand;
-import duck.command.ListCommand;
-import duck.command.MarkUnmarkCommand;
-import duck.command.TodoCommand;
+import java.util.List;
 
 /**
  * Manages a list of all tasks
@@ -27,7 +16,7 @@ public class TaskList {
      * Constructor Class if no pre-existing data from hard disk
      * Creates empty tasklist instead
      */
-    public TaskList(){
+    public TaskList() {
         this.tasklist = new ArrayList<>();
     }
 
@@ -36,7 +25,7 @@ public class TaskList {
      * Creates tasklist and loads data to tasklist using loadTasks() method
      * @param oldTasks data from hard disk (data format: list of strings)
      */
-    public TaskList(List<String> oldTasks){
+    public TaskList(List<String> oldTasks) {
         this.tasklist = new ArrayList<>();
         this.loadTasks(oldTasks);
     }
@@ -57,29 +46,30 @@ public class TaskList {
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
 
             switch (taskTypeChar) {
-                case "T" -> {
-                    this.addItem(new Item(description));
-                }
-                case "D" -> {
-                    String dateStr = splitString[3].trim();
-                    String timeStr = splitString[4].trim();
-                    LocalDate date = (dateStr.equals("null")) ? null : LocalDate.parse(dateStr, dateFormatter);
-                    LocalTime time = (timeStr.equals("null")) ? null : LocalTime.parse(timeStr, timeFormatter);
-                    this.addItem(new Item(description, date, time));
-                }
-                case "E" -> {
-                    String dateStrOne = splitString[3].trim();
-                    String timeStrOne = splitString[4].trim();
-                    String dateStrTwo = splitString[5].trim();
-                    String timeStrTwo = splitString[6].trim();
-                    LocalDate dateOne = (dateStrOne.equals("null")) ? null : LocalDate.parse(dateStrOne, dateFormatter);
-                    LocalTime timeOne = (timeStrOne.equals("null")) ? null : LocalTime.parse(timeStrOne, timeFormatter);
-                    LocalDate dateTwo = (dateStrTwo.equals("null")) ? null : LocalDate.parse(dateStrTwo, dateFormatter);
-                    LocalTime timeTwo = (timeStrTwo.equals("null")) ? null : LocalTime.parse(timeStrTwo, timeFormatter);
-                    this.addItem(new Item(description, dateOne, timeOne, dateTwo, timeTwo));
-                }
+            case "T" -> {
+                this.addItem(new Item(description));
             }
-
+            case "D" -> {
+                String dateStr = splitString[3].trim();
+                String timeStr = splitString[4].trim();
+                LocalDate date = (dateStr.equals("null")) ? null : LocalDate.parse(dateStr, dateFormatter);
+                LocalTime time = (timeStr.equals("null")) ? null : LocalTime.parse(timeStr, timeFormatter);
+                this.addItem(new Item(description, date, time));
+            }
+            case "E" -> {
+                String dateStrOne = splitString[3].trim();
+                String timeStrOne = splitString[4].trim();
+                String dateStrTwo = splitString[5].trim();
+                String timeStrTwo = splitString[6].trim();
+                LocalDate dateOne = (dateStrOne.equals("null")) ? null : LocalDate.parse(dateStrOne, dateFormatter);
+                LocalTime timeOne = (timeStrOne.equals("null")) ? null : LocalTime.parse(timeStrOne, timeFormatter);
+                LocalDate dateTwo = (dateStrTwo.equals("null")) ? null : LocalDate.parse(dateStrTwo, dateFormatter);
+                LocalTime timeTwo = (timeStrTwo.equals("null")) ? null : LocalTime.parse(timeStrTwo, timeFormatter);
+                this.addItem(new Item(description, dateOne, timeOne, dateTwo, timeTwo));
+            }
+            default -> {
+            }
+            }
             if (doneChar.equals("1")) {
                 this.markUnmarkItem(true, count);
             }
@@ -95,7 +85,7 @@ public class TaskList {
         String totalStr = "";
         this.tasklist.add(item);
         totalStr = totalStr + "\tQuack! I've added this task:" + '\n';
-        totalStr = totalStr + "\t\t"+ item.toString() + '\n';
+        totalStr = totalStr + "\t\t" + item.toString() + '\n';
         totalStr = totalStr + "\tNow you have " + this.size() + " tasks in the list" + '\n';
         return totalStr;
     }
@@ -105,7 +95,7 @@ public class TaskList {
      * @param index integer
      * @return Item (at specific index)
      */
-    public Item getItem(int index){
+    public Item getItem(int index) {
         return this.tasklist.get(index);
     }
 
@@ -113,12 +103,12 @@ public class TaskList {
      * Deletes task at index index from list
      * @param index integer
      */
-    public String deleteItem(int index){
+    public String deleteItem(int index) {
         String totalStr = "";
         Item i = this.tasklist.get(index);
         this.tasklist.remove(index);
         totalStr = totalStr + "\tQuack! I've removed this task:" + '\n';
-        totalStr = totalStr + "\t\t"+ i.toString() + '\n';
+        totalStr = totalStr + "\t\t" + i.toString() + '\n';
         totalStr = totalStr + "\tNow you have " + this.size() + " tasks in the list" + '\n';
         return totalStr;
     }
@@ -127,7 +117,7 @@ public class TaskList {
      * returns number of tasks in list
      * @return size integer
      */
-    public int size(){
+    public int size() {
         return this.tasklist.size();
     }
 
@@ -155,26 +145,26 @@ public class TaskList {
      * @param mark mark w X if true ; leave blank if false
      * @param index integer (row number)
      */
-    public List<String> markUnmarkItem(boolean mark, int index){
+    public List<String> markUnmarkItem(boolean mark, int index) {
         List<String> returnArray = new ArrayList<>();
         String totalStr = "";
         Item i = this.tasklist.get(index);
-        if (mark) {     // mark as done
+        if (mark) { // mark as done
             if (!i.getDone()) {
                 i.setDone(true);
                 totalStr = totalStr + "\tQuack-ity! I've marked this task as done:\n";
-                totalStr = totalStr + "\t"+ i.toString() + '\n';
+                totalStr = totalStr + "\t" + i.toString() + '\n';
                 returnArray.add(totalStr);
                 returnArray.add(i.toStringFile());
                 return returnArray;
             } else {
                 throw new IllegalArgumentException(("Item Already Marked as Done!"));
             }
-        } else {         // unmark to show not done
+        } else { // unmark to show not done
             if (i.getDone()) {
                 i.setDone(false);
                 totalStr = totalStr + "\tAww! I've marked this task as not done yet:\n";
-                totalStr = totalStr + "\t"+ i.toString() + '\n';
+                totalStr = totalStr + "\t" + i.toString() + '\n';
                 returnArray.add(totalStr);
                 returnArray.add(i.toStringFile());
                 return returnArray;
@@ -189,10 +179,10 @@ public class TaskList {
      * @param word keyword
      * @return string (with formatting) of 'find' results
      */
-    public String findWord(String word){
+    public String findWord(String word) {
         String totalStr = "";
         int count = 0;
-        for (int i=0; i < this.size(); i++) {
+        for (int i = 0; i < this.size(); i++) {
             Item item = this.getItem(i);
             if (item.getText().contains(word.trim())) {
                 count = count + 1;

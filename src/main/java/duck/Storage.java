@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
-
 import java.util.Random;
 
 /**
@@ -22,7 +21,7 @@ public class Storage {
      * Calls onStartup() method to initialise all required files
      * @param home current directory (e.g. src/main/java)
      */
-    public Storage(String home){
+    public Storage(String home) {
         this.folderPath = Paths.get(home, "data");
         this.filePath = this.folderPath.resolve("duck.txt");
         this.filePathCheer = this.folderPath.resolve("cheer.txt");
@@ -73,7 +72,7 @@ public class Storage {
      * Called by todoMethod, deadlineMethod, eventMethod
      * @param content appends this string to hard disk
      */
-    public void addToFile(String content){
+    public void addToFile(String content) {
         try {
             // Write content to file
             Files.writeString(this.filePath, content, StandardOpenOption.APPEND);
@@ -87,7 +86,7 @@ public class Storage {
      * Called by deleteItemMethod(command, MasterList)
      * @param lineNumber deletes content at lineNumber from hard disk
      */
-    public void deleteFromFile(int lineNumber){
+    public void deleteFromFile(int lineNumber) {
         try {
             List<String> lines = Files.readAllLines(this.filePath);
             lines.remove(lineNumber);
@@ -95,7 +94,7 @@ public class Storage {
             for (String line: lines) {
                 totalStr = totalStr + line + '\n';
             }
-            Files.writeString(this.filePath, totalStr);   // Overwrites by default
+            Files.writeString(this.filePath, totalStr); // Overwrites by default
         } catch (IOException deleteError) {
             System.out.println("Unable to delete from file: " + deleteError.getMessage());
         }
@@ -107,7 +106,7 @@ public class Storage {
      * @param lineNumber target lineNumber to change data
      * @param editedEntry new data to replace old data
      */
-    public void editFile(int lineNumber, String editedEntry){
+    public void editFile(int lineNumber, String editedEntry) {
         try {
             List<String> lines = Files.readAllLines(this.filePath);
             lines.set(lineNumber, editedEntry);

@@ -16,20 +16,13 @@
 
 package duck;
 
-import duck.command.ByeCommand;
 import duck.command.Command;
-import duck.command.DeadlineCommand;
-import duck.command.DeleteCommand;
-import duck.command.EventCommand;
-import duck.command.ListCommand;
-import duck.command.MarkUnmarkCommand;
-import duck.command.TodoCommand;
 
 /**
  * Main Class
  */
 public class Duck {
-    public static String home = System.getProperty("user.dir");
+    private static String home = System.getProperty("user.dir");
 
     private Storage storage;
     private TaskList tasks;
@@ -42,12 +35,12 @@ public class Duck {
      * If no old data, creates empty tasklist
      * @param filePath Home Directory src/main/java
      */
-    public Duck(String filePath){
+    public Duck(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser(ui);
         try {
-            tasks = new TaskList(storage.load());    // load prev tasks
+            tasks = new TaskList(storage.load()); // load prev tasks
         } catch (DuckException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -57,10 +50,10 @@ public class Duck {
     /**
      * Main Code Logic
      */
-    public void run(){
+    public void run() {
         ui.showWelcome();
         boolean isExit = false;
-        while (!isExit) {    // Bye Command
+        while (!isExit) { // Bye Command
             try {
                 String fullCommand = ui.readCommand();
                 Command c = parser.parse(fullCommand);
@@ -72,7 +65,7 @@ public class Duck {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new Duck(home).run();
     }
 }

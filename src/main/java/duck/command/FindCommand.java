@@ -1,15 +1,11 @@
 package duck.command;
 
-import duck.Duck;
+import java.util.Objects;
+
 import duck.DuckException;
-import duck.Item;
-import duck.Parser;
 import duck.Storage;
 import duck.TaskList;
-import duck.TaskType;
 import duck.Ui;
-
-import java.util.Objects;
 
 /**
  * Class created by Parser when user input = 'find'
@@ -21,7 +17,7 @@ public class FindCommand extends Command {
      * Constructor Class for FindCommand
      * @param word String e.g. X in 'find X'
      */
-    public FindCommand(String word){
+    public FindCommand(String word) {
         this.word = word;
     }
 
@@ -35,11 +31,11 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
-      String result = tasks.findWord(this.word);
-      if (Objects.equals(result, "")) {
-          throw new DuckException("Error! No Records Found");
-      } else {
-          ui.showWord(result);
-      }
+        String result = tasks.findWord(this.word);
+        if (Objects.equals(result, "")) {
+            throw new DuckException("Error! No Records Found");
+        } else {
+            ui.showWord(result);
+        }
     }
 }

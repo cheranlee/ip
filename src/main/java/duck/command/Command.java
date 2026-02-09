@@ -18,13 +18,13 @@ public abstract class Command {
      * @throws DuckException Self-defined Exception Class which identifies Error
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage)
-        throws DuckException;
+            throws DuckException;
 
     /**
      * Breaks out of while loop in Duck Class
      * @return boolean [false by default]
      */
-    public boolean isExit(){
+    public boolean isExit() {
         return false;
     }
 }
