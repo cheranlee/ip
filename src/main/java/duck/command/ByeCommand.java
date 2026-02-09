@@ -1,18 +1,13 @@
 package duck.command;
 
-import duck.Duck;
-import duck.DuckException;
-import duck.Item;
-import duck.Parser;
 import duck.Storage;
 import duck.TaskList;
-import duck.TaskType;
 import duck.Ui;
 
 /**
  * Class created by Parser when user input = 'Bye'
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
 
     /**
      * Print Bye Message
@@ -21,7 +16,7 @@ public class ByeCommand extends Command{
      * @param storage Deals with storing to hard disk
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showBye();
     }
 
@@ -30,7 +25,7 @@ public class ByeCommand extends Command{
      * @return boolean [only true when bye is called]
      */
     @Override
-    public boolean isExit(){
+    public boolean isExit() {
         return true;
     }
 }

@@ -1,19 +1,15 @@
 package duck;
 
-import jdk.jfr.Event;
-
-import java.util.Scanner;
-
 import duck.command.ByeCommand;
+import duck.command.CheerCommand;
 import duck.command.Command;
 import duck.command.DeadlineCommand;
 import duck.command.DeleteCommand;
 import duck.command.EventCommand;
+import duck.command.FindCommand;
 import duck.command.ListCommand;
 import duck.command.MarkUnmarkCommand;
 import duck.command.TodoCommand;
-import duck.command.FindCommand;
-import duck.command.CheerCommand;
 
 /**
  * Class which makes sense of user input
@@ -36,7 +32,7 @@ public class Parser {
      * @return Command object --> cld be todo, deadline, event, delete, mark etc.
      * @throws DuckException Self-defined Exception Class which identifies error (using error message)
      */
-    public Command parse(String command) throws DuckException{
+    public Command parse(String command) throws DuckException {
         while (!command.contains("bye")) {
             if (command.contains("list")) {
                 return new ListCommand();
@@ -54,22 +50,23 @@ public class Parser {
                 command = command.trim();
                 int spacePos = command.indexOf(" ");
                 if (spacePos == -1) {
-                    throw new DuckException("ERROR! Description of Task cannot be empty");  // to catch cases where only todo deadline event are the input
+                    // to catch cases where only todo deadline event are the input
+                    throw new DuckException("ERROR! Description of Task cannot be empty");
                 } else {
                     String subCommand = command.substring(spacePos + 1);
                     subCommand = subCommand.trim();
                     int byDatetimePos = subCommand.indexOf("by");
                     int startDatetimePos = subCommand.indexOf("start");
                     int endDatetimePos = subCommand.indexOf("end");
-                    if (command.contains("todo")) {  // no date or time attached
+                    if (command.contains("todo")) { // no date or time attached
                         return new TodoCommand(byDatetimePos, startDatetimePos, endDatetimePos, subCommand);
-                    } else if (command.contains("deadline")) {  // (by) date & time
+                    } else if (command.contains("deadline")) { // (by) date & time
                         return new DeadlineCommand(byDatetimePos, startDatetimePos, endDatetimePos, subCommand);
-                    } else if (command.contains("event")) {   // (start) (end) date & time
+                    } else if (command.contains("event")) { // (start) (end) date & time
                         return new EventCommand(byDatetimePos, startDatetimePos, endDatetimePos, subCommand);
                     }
                 }
-            } else if (command.contains("delete")){
+            } else if (command.contains("delete")) {
                 command = command.trim();
                 int spacePos = command.indexOf(" ");
                 if (spacePos == -1) {
@@ -79,13 +76,13 @@ public class Parser {
                     subCommand = subCommand.trim();
                     return new DeleteCommand(subCommand);
                 }
-            } else if (command.contains("find")){
+            } else if (command.contains("find")) {
                 command = command.trim();
-                int space_pos = command.indexOf(" ");
-                if (space_pos == -1) {
+                int spacePos = command.indexOf(" ");
+                if (spacePos == -1) {
                     throw new DuckException("ERROR! Find command must have keyword(s) behind");
                 } else {
-                    String subCommand = command.substring(space_pos + 1);
+                    String subCommand = command.substring(spacePos + 1);
                     subCommand = subCommand.trim();
                     return new FindCommand(subCommand);
                 }

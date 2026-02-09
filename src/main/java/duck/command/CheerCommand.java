@@ -1,17 +1,17 @@
 package duck.command;
+import java.io.IOException;
 
 import duck.DuckException;
 import duck.Storage;
 import duck.TaskList;
 import duck.Ui;
 
-import java.io.IOException;
-import java.util.Random;
+
 
 /**
  * Class created by Parser when user input = 'cheer'
  */
-public class CheerCommand extends Command{
+public class CheerCommand extends Command {
 
     /**
      * Shows Motivational Quote

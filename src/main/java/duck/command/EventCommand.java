@@ -1,23 +1,20 @@
 package duck.command;
 
-import duck.Duck;
-import duck.DuckException;
-import duck.Item;
-import duck.Parser;
-import duck.Storage;
-import duck.TaskList;
-import duck.TaskType;
-import duck.Ui;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duck.DuckException;
+import duck.Item;
+import duck.Storage;
+import duck.TaskList;
+import duck.Ui;
+
 /**
  * Class created by Parser when user input = 'event'
  */
-public class EventCommand extends Command{
+public class EventCommand extends Command {
     private int byDatetimePos;
     private int startDatetimePos;
     private int endDatetimePos;
@@ -30,7 +27,7 @@ public class EventCommand extends Command{
      * @param endDatetimePos index of 'end' keyword [should not be equal to -1 for event task]
      * @param subCommand user input without 'event' keyword
      */
-    public EventCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand){
+    public EventCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand) {
         this.byDatetimePos = byDatetimePos;
         this.startDatetimePos = startDatetimePos;
         this.endDatetimePos = endDatetimePos;
@@ -42,7 +39,7 @@ public class EventCommand extends Command{
      * @param input date input
      * @return boolean
      */
-    public boolean isValidDate(String input){
+    public boolean isValidDate(String input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             LocalDate.parse(input, formatter);
@@ -57,7 +54,7 @@ public class EventCommand extends Command{
      * @param input time input
      * @return boolean
      */
-    public boolean isValidTime(String input){
+    public boolean isValidTime(String input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         try {
             LocalTime.parse(input, formatter);
@@ -68,14 +65,15 @@ public class EventCommand extends Command{
     }
 
 
-    /** Function to instantiate new task entry if task is an Event
+    /**
+     * Function to instantiate new task entry if task is an Event
      * e.g. In 'event school start 24-02-2026 08:00 end 24-02-2025 13:00',
      * @param description 'school'
      * @param datetimeOne '24-02-2026 08:00'
      * @param datetimeTwo '24-02-2025 13:00'
      * @return Item
      */
-    public Item generateEventItem(String description, String datetimeOne, String datetimeTwo){
+    public Item generateEventItem(String description, String datetimeOne, String datetimeTwo) {
         String[] splitString = datetimeOne.split("\\s");
         LocalDate dateOne = null;
         LocalTime timeOne = null;
@@ -95,14 +93,14 @@ public class EventCommand extends Command{
             if (this.isValidDate(splitString[0])) {
                 dateOne = LocalDate.parse(splitString[0].trim(), dateFormatter);
             } else if (this.isValidTime(splitString[0])) {
-                timeOne = LocalTime.parse(splitString[0].trim(),timeFormatter);
+                timeOne = LocalTime.parse(splitString[0].trim(), timeFormatter);
             } else {
                 throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
             }
         } else {
             throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
         }
-            String[] splitStringTwo = datetimeTwo.split("\\s");
+        String[] splitStringTwo = datetimeTwo.split("\\s");
         LocalDate dateTwo = null;
         LocalTime timeTwo = null;
         if (splitStringTwo.length == 2) {
@@ -126,7 +124,7 @@ public class EventCommand extends Command{
         } else {
             throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
         }
-            if (dateOne == null || dateTwo == null) {
+        if (dateOne == null || dateTwo == null) {
             dateOne = (dateTwo == null) ? dateOne : dateTwo;
             dateTwo = (dateOne == null) ? dateTwo : dateOne;
         }
@@ -160,16 +158,18 @@ public class EventCommand extends Command{
      * @throws DuckException Self-defined Exception Class which identifies Error
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         if (byDatetimePos == -1 && startDatetimePos != -1 && endDatetimePos != -1) {
             String startDatetime = this.subCommand.substring(startDatetimePos + 5, endDatetimePos - 1);
             String endDatetime = this.subCommand.substring(endDatetimePos + 3);
             String description = this.subCommand.substring(0, startDatetimePos);
-            if (startDatetime.isBlank() || endDatetime.isBlank() || description.isBlank()) {   // check if description / start / end field are blank
+            // check if description / start / end field are blank
+            if (startDatetime.isBlank() || endDatetime.isBlank() || description.isBlank()) {
                 System.out.println("ERROR! Description / End / Start cannot be empty");
             } else {
                 try {
-                    String result = tasks.addItem(generateEventItem(description.trim(), startDatetime.trim(), endDatetime.trim()));
+                    String result = tasks.addItem(generateEventItem(description.trim(),
+                            startDatetime.trim(), endDatetime.trim()));
                     Item newItem = tasks.getItem(tasks.size() - 1);
                     storage.addToFile(newItem.toStringFile() + '\n');
                     ui.showOperationOutput(result);
@@ -186,7 +186,8 @@ public class EventCommand extends Command{
                 }
             }
         } else { // error if (by) appears or if (start) or (end) are not in the user input
-            throw new DuckException("ERROR! Event task must have a start and end date (keywords: start, end). It also should not have a deadline");
+            throw new DuckException("ERROR! Event task must have a start and end date (keywords: start, end)."
+                    + " It also should not have a deadline");
         }
     }
 }

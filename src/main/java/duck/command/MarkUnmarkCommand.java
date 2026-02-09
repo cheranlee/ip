@@ -1,20 +1,17 @@
 package duck.command;
 
-import duck.Duck;
+import java.util.List;
+
 import duck.DuckException;
-import duck.Item;
-import duck.Parser;
 import duck.Storage;
 import duck.TaskList;
-import duck.TaskType;
 import duck.Ui;
 
-import java.util.List;
 
 /**
  * Class created by Parser when user input = 'mark' or 'unmark'
  */
-public class MarkUnmarkCommand extends Command{
+public class MarkUnmarkCommand extends Command {
 
     private String fullCommand;
     private Boolean mark;
@@ -23,7 +20,7 @@ public class MarkUnmarkCommand extends Command{
      * Constructor Class for MarkUnmarkCommand
      * @param fullCommand e.g. mark 3
      */
-    public MarkUnmarkCommand(String fullCommand, Boolean unmark){
+    public MarkUnmarkCommand(String fullCommand, Boolean unmark) {
         this.fullCommand = fullCommand;
         this.mark = !unmark;
     }
@@ -40,7 +37,7 @@ public class MarkUnmarkCommand extends Command{
      * @throws DuckException Self-defined Exception Class which identifies Error
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         try {
             int index = Integer.parseInt(this.fullCommand);
             index = index - 1;

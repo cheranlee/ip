@@ -1,23 +1,20 @@
 package duck.command;
 
-import duck.Duck;
-import duck.DuckException;
-import duck.Item;
-import duck.Parser;
-import duck.Storage;
-import duck.TaskList;
-import duck.TaskType;
-import duck.Ui;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duck.DuckException;
+import duck.Item;
+import duck.Storage;
+import duck.TaskList;
+import duck.Ui;
+
 /**
  * Class created by Parser when user input = 'deadline'
  */
-public class DeadlineCommand extends Command{
+public class DeadlineCommand extends Command {
     private int byDatetimePos;
     private int startDatetimePos;
     private int endDatetimePos;
@@ -30,7 +27,7 @@ public class DeadlineCommand extends Command{
      * @param endDatetimePos index of 'end' keyword [should be equal to -1 for deadline task]
      * @param subCommand user input without 'deadline' keyword
      */
-    public DeadlineCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand){
+    public DeadlineCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand) {
         this.byDatetimePos = byDatetimePos;
         this.startDatetimePos = startDatetimePos;
         this.endDatetimePos = endDatetimePos;
@@ -42,7 +39,7 @@ public class DeadlineCommand extends Command{
      * @param input date input
      * @return boolean
      */
-    public boolean isValidDate(String input){
+    public boolean isValidDate(String input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             LocalDate.parse(input, formatter);
@@ -57,7 +54,7 @@ public class DeadlineCommand extends Command{
      * @param input time input
      * @return boolean
      */
-    public boolean isValidTime(String input){
+    public boolean isValidTime(String input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         try {
             LocalTime.parse(input, formatter);
@@ -114,11 +111,11 @@ public class DeadlineCommand extends Command{
      * @throws DuckException Self-defined Exception Class which identifies Error
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         if (byDatetimePos != -1 && startDatetimePos == -1 && endDatetimePos == -1) {
             String byDatetime = this.subCommand.substring(byDatetimePos + 2);
             String description = this.subCommand.substring(0, byDatetimePos);
-            if (description.isBlank() || byDatetime.isBlank()) {  // check if by or description field are blank
+            if (description.isBlank() || byDatetime.isBlank()) { // check if by or description field are blank
                 throw new DuckException("ERROR! Description / Deadline of Task cannot be empty");
             } else {
                 try {
@@ -130,8 +127,9 @@ public class DeadlineCommand extends Command{
                     throw new DuckException("Error! DateTime format should be dd-MM-yyyy HH:mm");
                 }
             }
-        } else {  // error if (by) does not appear of if (start) or (end) are in user input
-            throw new DuckException("ERROR! Deadline task must have a Deadline (keyword: by). It also should not have a start or end date");
+        } else { // error if (by) does not appear of if (start) or (end) are in user input
+            throw new DuckException("ERROR! Deadline task must have a Deadline (keyword: by). "
+                    + "It also should not have a start or end date");
         }
     }
 }

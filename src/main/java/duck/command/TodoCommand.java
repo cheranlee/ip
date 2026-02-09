@@ -1,18 +1,15 @@
 package duck.command;
 
-import duck.Duck;
 import duck.DuckException;
 import duck.Item;
-import duck.Parser;
 import duck.Storage;
 import duck.TaskList;
-import duck.TaskType;
 import duck.Ui;
 
 /**
  * Class created by Parser when user input = 'todo'
  */
-public class TodoCommand extends Command{
+public class TodoCommand extends Command {
     private int byDatetimePos;
     private int startDatetimePos;
     private int endDatetimePos;
@@ -25,7 +22,7 @@ public class TodoCommand extends Command{
      * @param endDatetimePos index of 'end' keyword [should be equal to -1 for deadline task]
      * @param subCommand user input without 'todo' keyword
      */
-    public TodoCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand){
+    public TodoCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand) {
         this.byDatetimePos = byDatetimePos;
         this.startDatetimePos = startDatetimePos;
         this.endDatetimePos = endDatetimePos;
@@ -40,13 +37,13 @@ public class TodoCommand extends Command{
      * @throws DuckException Self-defined Exception Class which identifies Error
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException{
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         if (this.byDatetimePos == -1 && this.startDatetimePos == -1 && this.endDatetimePos == -1) {
             String result = tasks.addItem(new Item(this.subCommand));
-            Item newItem = tasks.getItem(tasks.size()-1);
+            Item newItem = tasks.getItem(tasks.size() - 1);
             storage.addToFile(newItem.toStringFile() + '\n');
             ui.showOperationOutput(result);
-        } else {  // error if (by), (start), (end) are in user input
+        } else { // error if (by), (start), (end) are in user input
             throw new DuckException("ERROR! Todo task should not have deadline, start or end date");
         }
     }

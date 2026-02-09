@@ -3,12 +3,9 @@ D | 0 | walk dog | null | null
 D | 0 | walk dog | null | null
 D | 0 | walk dog | null | null
 D | 0 | walk dog | null | null
-D | 0 | walk dog | null | null
-D | 0 | walk dog | null | null
-D | 0 | walk dog | null | null
-D | 0 | walk dog | null | null
 D | 1 | walk dog | null | null
-D | 1 | walk dog | null | null
-T | 0 | borrow book
 T | 0 | borrow book
 E | 0 | school | null | 01:00 pm | null | 03:00 pm
+D | 0 | return book | Feb 24 2032 | null
+T | 0 | borrow book
+E | 0 | school | Feb 24 2024 | 01:00 pm | Feb 25 2024 | null
