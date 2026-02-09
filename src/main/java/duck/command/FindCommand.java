@@ -12,6 +12,7 @@ import duck.Ui;
  */
 public class FindCommand extends Command {
     private String word;
+    private String output;
 
     /**
      * Constructor Class for FindCommand
@@ -33,9 +34,10 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         String result = tasks.findWord(this.word);
         if (Objects.equals(result, "")) {
-            throw new DuckException("Error! No Records Found");
+            throw new DuckException("No Records Found");
         } else {
-            ui.showWord(result);
+            this.setString(ui.showWord(result));
+            this.setCommandType(CommandType.Find);
         }
     }
 }

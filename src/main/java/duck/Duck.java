@@ -17,6 +17,7 @@
 package duck;
 
 import duck.command.Command;
+import duck.command.CommandType;
 
 /**
  * Main Class
@@ -28,6 +29,7 @@ public class Duck {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+    private CommandType commandType;
 
     /**
      * Constructor for Duck Class
@@ -48,25 +50,25 @@ public class Duck {
     }
 
     /**
-     * Main Code Logic
+     * Generates a response for the user's chat message.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) { // Bye Command
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DuckException e) {
-                ui.showError(e.getMessage());
-            }
+    public String getResponse(String input) {
+        try {
+            Command c = parser.parse(input);
+            c.execute(tasks, ui, storage);
+            this.setCommandType(c.getCommandType());
+            return c.getString();
+        } catch (DuckException e) {
+            return "Error: " + e.getMessage();
         }
     }
 
-    public static void main(String[] args) {
-        new Duck(home).run();
+    public CommandType getCommandType() {
+        return this.commandType;
+    }
+
+    public void setCommandType(CommandType commandType) {
+        this.commandType = commandType;
     }
 }
 

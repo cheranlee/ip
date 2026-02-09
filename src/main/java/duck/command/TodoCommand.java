@@ -14,6 +14,7 @@ public class TodoCommand extends Command {
     private int startDatetimePos;
     private int endDatetimePos;
     private String subCommand;
+    private String output;
 
     /**
      * Constructor Class for TodoCommand
@@ -38,13 +39,15 @@ public class TodoCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
+        System.out.println(this.subCommand);
         if (this.byDatetimePos == -1 && this.startDatetimePos == -1 && this.endDatetimePos == -1) {
             String result = tasks.addItem(new Item(this.subCommand));
             Item newItem = tasks.getItem(tasks.size() - 1);
             storage.addToFile(newItem.toStringFile() + '\n');
-            ui.showOperationOutput(result);
+            this.setString(ui.showOperationOutput(result));
+            this.setCommandType(CommandType.Todo);
         } else { // error if (by), (start), (end) are in user input
-            throw new DuckException("ERROR! Todo task should not have deadline, start or end date");
+            throw new DuckException("Todo task should not have deadline, start or end date");
         }
     }
 }

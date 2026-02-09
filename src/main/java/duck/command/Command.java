@@ -9,6 +9,9 @@ import duck.Ui;
  * Boiler Plate Code for all Command Classes
  */
 public abstract class Command {
+    private String output;
+    private CommandType commandType;
+
     /**
      * Called in main Duck file after Parser returns a command
      * Executes the Command
@@ -26,5 +29,25 @@ public abstract class Command {
      */
     public boolean isExit() {
         return false;
+    }
+
+    /**
+     * Return output of Command as a String
+     * @return Output to be displayed in JavaFX
+     */
+    public String getString() {
+        return this.output;
+    }
+
+    public void setString(String input) {
+        this.output = input;
+    }
+
+    public void setCommandType(CommandType commandType) {
+        this.commandType = commandType;
+    }
+
+    public CommandType getCommandType() {
+        return this.commandType;
     }
 }

@@ -6,12 +6,11 @@ import duck.Storage;
 import duck.TaskList;
 import duck.Ui;
 
-
-
 /**
  * Class created by Parser when user input = 'cheer'
  */
 public class CheerCommand extends Command {
+    private String output;
 
     /**
      * Shows Motivational Quote
@@ -24,10 +23,10 @@ public class CheerCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         try {
             String cheerPhrase = storage.cheer();
-            ui.showCheer(cheerPhrase);
+            this.setString(ui.showCheer(cheerPhrase));
+            this.setCommandType(CommandType.Cheer);
         } catch (DuckException | IOException e) {
-            ui.showError(e.getMessage());
+            throw new DuckException("Unable to Open File / Empty File!");
         }
     }
-
 }

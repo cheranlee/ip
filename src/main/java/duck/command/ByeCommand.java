@@ -8,6 +8,7 @@ import duck.Ui;
  * Class created by Parser when user input = 'Bye'
  */
 public class ByeCommand extends Command {
+    private String output;
 
     /**
      * Print Bye Message
@@ -17,7 +18,8 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showBye();
+        this.setString(ui.showBye());
+        this.setCommandType(CommandType.Bye);
     }
 
     /**

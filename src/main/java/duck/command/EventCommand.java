@@ -19,6 +19,7 @@ public class EventCommand extends Command {
     private int startDatetimePos;
     private int endDatetimePos;
     private String subCommand;
+    private String output;
 
     /**
      * Constructor class for EventCommand
@@ -87,7 +88,7 @@ public class EventCommand extends Command {
                 dateOne = LocalDate.parse(splitString[1].trim(), dateFormatter);
                 timeOne = LocalTime.parse(splitString[0].trim(), timeFormatter);
             } else {
-                throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
             }
         } else if (splitString.length == 1) {
             if (this.isValidDate(splitString[0])) {
@@ -95,10 +96,10 @@ public class EventCommand extends Command {
             } else if (this.isValidTime(splitString[0])) {
                 timeOne = LocalTime.parse(splitString[0].trim(), timeFormatter);
             } else {
-                throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
             }
         } else {
-            throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+            throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
         }
         String[] splitStringTwo = datetimeTwo.split("\\s");
         LocalDate dateTwo = null;
@@ -111,7 +112,7 @@ public class EventCommand extends Command {
                 dateTwo = LocalDate.parse(splitStringTwo[1].trim(), dateFormatter);
                 timeTwo = LocalTime.parse(splitStringTwo[0].trim(), timeFormatter);
             } else {
-                throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
             }
         } else if (splitStringTwo.length == 1) {
             if (this.isValidDate(splitStringTwo[0])) {
@@ -119,10 +120,10 @@ public class EventCommand extends Command {
             } else if (this.isValidTime(splitStringTwo[0])) {
                 timeTwo = LocalTime.parse(splitStringTwo[0].trim(), timeFormatter);
             } else {
-                throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
             }
         } else {
-            throw new IllegalArgumentException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+            throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
         }
         if (dateOne == null || dateTwo == null) {
             dateOne = (dateTwo == null) ? dateOne : dateTwo;
@@ -130,19 +131,19 @@ public class EventCommand extends Command {
         }
         if (dateOne != null && dateTwo != null) {
             if (dateOne.isAfter(dateTwo)) {
-                throw new IllegalArgumentException("Error! Start Date cannot be after End Date");
+                throw new IllegalArgumentException("Start Date cannot be after End Date");
             } else if (dateOne.isEqual(dateTwo)) {
                 if (timeOne == null || timeTwo == null) {
-                    throw new IllegalArgumentException("Error! Time Info Missing");
+                    throw new IllegalArgumentException("Time Info Missing");
                 } else {
                     if (timeOne.isAfter(timeTwo)) {
-                        throw new IllegalArgumentException("Error! Start Time cannot be after End Time");
+                        throw new IllegalArgumentException("Start Time cannot be after End Time");
                     }
                 }
             }
         } else if (dateOne == null && dateTwo == null) {
             if (timeOne.isAfter(timeTwo)) {
-                throw new IllegalArgumentException("Error! Start Time cannot be after End Time");
+                throw new IllegalArgumentException("Start Time cannot be after End Time");
             }
         }
         return new Item(description, dateOne, timeOne, dateTwo, timeTwo);
@@ -165,28 +166,29 @@ public class EventCommand extends Command {
             String description = this.subCommand.substring(0, startDatetimePos);
             // check if description / start / end field are blank
             if (startDatetime.isBlank() || endDatetime.isBlank() || description.isBlank()) {
-                System.out.println("ERROR! Description / End / Start cannot be empty");
+                throw new DuckException("Description / End / Start cannot be empty");
             } else {
                 try {
                     String result = tasks.addItem(generateEventItem(description.trim(),
                             startDatetime.trim(), endDatetime.trim()));
                     Item newItem = tasks.getItem(tasks.size() - 1);
                     storage.addToFile(newItem.toStringFile() + '\n');
-                    ui.showOperationOutput(result);
+                    this.setString(ui.showOperationOutput(result));
+                    this.setCommandType(CommandType.Event);
                 } catch (IllegalArgumentException datetimeException) {
                     if (datetimeException.getMessage().contains("format")) {
-                        throw new DuckException("Error! DateTime format should be dd-MM-yyyy HH:mm");
+                        throw new DuckException("DateTime format should be dd-MM-yyyy HH:mm");
                     } else if (datetimeException.getMessage().contains("Date cannot be after")) {
-                        throw new DuckException("Error! Start Date cannot be after End Date");
+                        throw new DuckException("Start Date cannot be after End Date");
                     } else if (datetimeException.getMessage().contains("Missing")) {
-                        throw new DuckException("Error! Time Info Missing");
+                        throw new DuckException("Time Info Missing");
                     } else if (datetimeException.getMessage().contains("Time cannot be after")) {
-                        throw new DuckException("Error! Start Time cannot be after End Time");
+                        throw new DuckException("Start Time cannot be after End Time");
                     }
                 }
             }
         } else { // error if (by) appears or if (start) or (end) are not in the user input
-            throw new DuckException("ERROR! Event task must have a start and end date (keywords: start, end)."
+            throw new DuckException("Event task must have a start and end date (keywords: start, end)."
                     + " It also should not have a deadline");
         }
     }
