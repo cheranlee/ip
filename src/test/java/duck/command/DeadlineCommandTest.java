@@ -26,36 +26,36 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void missing_info_error(){
+    public void missing_info_error() {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");
         DeadlineCommand deadline = new DeadlineCommand(9, -1, -1,"walk dog by ");
         DuckException e = assertThrows(DuckException.class,
                 () -> deadline.execute(tasks, ui, storage));
-        assertEquals("ERROR! Description / Deadline of Task cannot be empty", e.getMessage());
+        assertEquals("Description / Deadline of Task cannot be empty", e.getMessage());
     }
 
     @Test
-    public void wrong_date_format_error(){
+    public void wrong_date_format_error() {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");
         DeadlineCommand deadline = new DeadlineCommand(9, -1, -1,"walk dog by 14 APR 2025");
         DuckException e = assertThrows(DuckException.class,
                 () -> deadline.execute(tasks, ui, storage));
-        assertEquals("Error! DateTime format should be dd-MM-yyyy HH:mm", e.getMessage());
+        assertEquals("DateTime format should be dd-MM-yyyy HH:mm", e.getMessage());
     }
 
     @Test
-    public void no_by_keyword(){
+    public void no_by_keyword() {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");
         DeadlineCommand deadline = new DeadlineCommand(-1, -1, -1,"walk dog start 14-02-2025 end 24-02-2025");
         DuckException e = assertThrows(DuckException.class,
                 () -> deadline.execute(tasks, ui, storage));
-        assertEquals("ERROR! Deadline task must have a Deadline (keyword: by). It also should not have a start or end date", e.getMessage());
+        assertEquals("Deadline task must have a Deadline (keyword: by). It also should not have a start or end date", e.getMessage());
     }
 
 }

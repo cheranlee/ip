@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TodoCommandTest {
 
     @Test
-    public void no_error_test(){
+    public void no_error_test() {
         try {
             TaskList tasks = new TaskList();
             Ui ui = new Ui();
@@ -24,14 +24,14 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void error(){
+    public void error() {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");
-        TodoCommand todo = new TodoCommand(3, -1, -1,"borrow book");
+        TodoCommand todo = new TodoCommand(3, -1, -1, "borrow book");
         DuckException e = assertThrows(DuckException.class,
                 () -> todo.execute(tasks, ui, storage));
-        assertEquals("ERROR! Todo task should not have deadline, start or end date", e.getMessage());
+        assertEquals("Todo task should not have deadline, start or end date", e.getMessage());
 
     }
 }
