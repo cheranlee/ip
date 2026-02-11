@@ -45,6 +45,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duck.getResponse(input);
         CommandType commandType = duck.getCommandType();
+
         // vararg
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
