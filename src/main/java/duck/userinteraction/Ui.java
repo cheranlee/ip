@@ -1,12 +1,15 @@
-package duck;
+package duck.userinteraction;
+
+import duck.exception.ParserException;
+import duck.exception.StorageException;
 
 /**
- * User Interface Class
+ * User Interface Class. Outputs messages to be printed on console.
  */
 public class Ui {
 
     /**
-     * Welcome message shown upon startup
+     * Welcome message shown upon startup.
      */
     public String showWelcome() {
         String totalStr = "";
@@ -15,7 +18,7 @@ public class Ui {
     }
 
     /**
-    * Print Instructions for user
+    * Print Instructions for user.
     */
     public String printInfo() {
         String totalStr = "";
@@ -35,41 +38,38 @@ public class Ui {
     }
 
     /**
-     * No previously stored data in Hard Disk
+     * Error shown when there is no previously stored data in Hard Disk.
      */
     public String showLoadingError() {
-        String totalStr = "";
-        totalStr = totalStr + "No Previously stored tasks. Creating New TaskList";
+        String totalStr = "No Previously stored tasks. Creating New TaskList";
         return totalStr;
     }
 
     /**
-     * Message shown when Exiting Program
+     * Message shown when Exiting Program.
      */
     public String showBye() {
-        String totalStr = "";
-        totalStr = totalStr + "Bye Quack! Hope to see you again soon!";
-        return totalStr;
+        return "Bye Quack! Hope to see you again soon!";
     }
 
     /**
-     * Print Error Message
-     * @param error String --> usually e.getMessage() ; where e = DuckException;
+     * Print Error Message.
+     *
+     * @param error Error Message.
      */
-    public String showError(String error) {
-        return "Error: " + error;
+    public String showError(Exception error) {
+        if (error instanceof StorageException) {
+            return "[StorageError] : " + error.getMessage();
+        } else if (error instanceof ParserException) {
+            return "[ParserError] : " + error.getMessage();
+        } else {
+            return "[DuckError] : " + error.getMessage();
+        }
     }
 
     /**
-     * Print List of Items in tasklist
-     * @param string tasklist.toString()
-     */
-    public String showList(String string) {
-        return string;
-    }
-
-    /**
-     * Print Output of TaskList Operation
+     * Print Output of TaskList Operation.
+     *
      * @param string output
      */
     public String showOperationOutput(String string) {
@@ -77,21 +77,14 @@ public class Ui {
     }
 
     /**
-     * Wrapper for printing list of results when 'find' keyword is used
+     * Wrapper for printing list of results when 'find' keyword is used.
+     *
      * @param string list of 'find' results from FindCommand.execute()
      */
     public String showWord(String string) {
-        String totalStr = "";
-        totalStr = totalStr + "Here are the matching tasks in your list: \n";
+        String totalStr = "Here are the matching tasks in your list: \n";
         totalStr = totalStr + string;
         return totalStr;
     }
 
-    /**
-     * Wrapper for printing motivational quote
-     * @param string motivational quote from CheerCommand.execute()
-     */
-    public String showCheer(String string) {
-        return string;
-    }
 }

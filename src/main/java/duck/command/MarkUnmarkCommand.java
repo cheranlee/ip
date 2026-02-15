@@ -2,24 +2,25 @@ package duck.command;
 
 import java.util.List;
 
-import duck.DuckException;
-import duck.Storage;
-import duck.TaskList;
-import duck.Ui;
+import duck.exception.DuckException;
+import duck.storage.Storage;
+import duck.tasks.TaskList;
+import duck.userinteraction.Ui;
 
 
 /**
- * Class created by Parser when user input = 'mark' or 'unmark'
+ * Class created by Parser when user input = 'mark' or 'unmark'.
  */
 public class MarkUnmarkCommand extends Command {
 
     private String fullCommand;
     private Boolean mark;
-    private String output;
 
     /**
-     * Constructor Class for MarkUnmarkCommand
-     * @param fullCommand e.g. mark 3
+     * Constructor Class for MarkUnmarkCommand.
+     *
+     * @param fullCommand e.g. mark 3.
+     * @param unmark true <= mark as done; false <= mark as not done.
      */
     public MarkUnmarkCommand(String fullCommand, Boolean unmark) {
         this.fullCommand = fullCommand;
@@ -28,14 +29,16 @@ public class MarkUnmarkCommand extends Command {
 
     /**
      * Mark Item as Done / Mark Item as Not Done
+     *
      * Throws Exception if:
      *  1) User inputs mark X but X has been marked (and vice versa)
      *  2) X is more than the number of tasks
      *  3) X is not a valid number (e.g. -3)
-     * @param tasks list of tasks
-     * @param ui User Interface
-     * @param storage Deals with storing information to hard disk
-     * @throws DuckException Self-defined Exception Class which identifies Error
+     *
+     * @param tasks List of tasks.
+     * @param ui User Interface.
+     * @param storage Deals with storing information to hard disk.
+     * @throws DuckException Self-defined Exception Class which identifies Error.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
@@ -43,20 +46,11 @@ public class MarkUnmarkCommand extends Command {
             int index = Integer.parseInt(this.fullCommand);
             index = index - 1;
             if (index < tasks.size() && index >= 0) {
-                try {
-                    System.out.println(this.fullCommand);
-                    List<String> returnArray = tasks.markUnmarkItem(this.mark, index);
-                    String editedItemString = returnArray.get(1);
-                    storage.editFile(index, editedItemString);
-                    this.setString(ui.showOperationOutput(returnArray.get(0)));
-                    this.setCommandType(CommandType.MarkUnmark);
-                } catch (IllegalArgumentException ex) {
-                    if (ex.getMessage().contains("Not")) {
-                        throw new DuckException("Item already marked as not done!");
-                    } else {
-                        throw new DuckException("Item already marked as done!");
-                    }
-                }
+                List<String> returnArray = tasks.markUnmarkItem(this.mark, index);
+                String editedItemString = returnArray.get(1);
+                storage.editFile(index, editedItemString);
+                this.setDuckResponse(ui.showOperationOutput(returnArray.get(0)));
+                this.setCommandType(CommandType.MarkUnmark);
             } else {
                 throw new DuckException("Item Number out of range");
             }

@@ -1,4 +1,4 @@
-package duck;
+package duck.tasks;
 
 /**
  * Defines enum such that TaskType can only be Todo, Deadline or Event

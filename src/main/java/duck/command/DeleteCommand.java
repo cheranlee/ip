@@ -1,31 +1,33 @@
 package duck.command;
 
-import duck.DuckException;
-import duck.Storage;
-import duck.TaskList;
-import duck.Ui;
+import duck.exception.DuckException;
+import duck.storage.Storage;
+import duck.tasks.TaskList;
+import duck.userinteraction.Ui;
 
 /**
- * Class created by Parser when user input = 'delete'
+ * Class created by Parser when user input = 'delete'.
  */
 public class DeleteCommand extends Command {
 
     private String fullCommand;
-    private String output;
 
     /**
-     * Constructor class for DeleteCommand
-     * @param fullCommand e.g. delete 5
+     * Constructor class for DeleteCommand.
+     *
+     * @param fullCommand e.g. delete 5.
      */
     public DeleteCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
     /**
-     * @param tasks list of tasks
-     * @param ui User Interface
-     * @param storage Deals with storing information to hard disk
-     * @throws DuckException Self-defined Exception Class which identifies Error
+     * Deletes task (Item) from tasks (TaskList).
+     *
+     * @param tasks List of tasks.
+     * @param ui User Interface.
+     * @param storage Deals with storing information to hard disk.
+     * @throws DuckException Self-defined Exception Class which identifies Error.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
@@ -35,7 +37,7 @@ public class DeleteCommand extends Command {
             if (index < tasks.size() && index >= 0) {
                 String result = tasks.deleteItem(index);
                 storage.deleteFromFile(index);
-                this.setString(ui.showOperationOutput(result));
+                this.setDuckResponse(ui.showOperationOutput(result));
                 this.setCommandType(CommandType.Delete);
             } else {
                 throw new DuckException("Item Number out of range");

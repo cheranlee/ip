@@ -1,31 +1,34 @@
 package duck.command;
 
-import duck.DuckException;
-import duck.Storage;
-import duck.TaskList;
-import duck.Ui;
+import duck.exception.DuckException;
+import duck.exception.ParserException;
+import duck.exception.StorageException;
+import duck.storage.Storage;
+import duck.tasks.TaskList;
+import duck.userinteraction.Ui;
 
 /**
- * Boiler Plate Code for all Command Classes
+ * Boiler Plate Code for all Command Classes.
  */
 public abstract class Command {
-    private String output;
+    private String duckResponse;
     private CommandType commandType;
 
     /**
-     * Called in main Duck file after Parser returns a command
-     * Executes the Command
-     * @param tasks list of tasks
-     * @param ui User Interface
-     * @param storage Deals with storing information to hard disk
-     * @throws DuckException Self-defined Exception Class which identifies Error
+     * Executes the Command.
+     *
+     * @param tasks List of tasks.
+     * @param ui User Interface.
+     * @param storage Deals with storing information to hard disk.
+     * @throws DuckException Self-defined Exception Class which identifies Error.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage)
-            throws DuckException;
+            throws DuckException, StorageException, ParserException;
 
     /**
-     * Breaks out of while loop in Duck Class
-     * @return boolean [false by default]
+     * Breaks out of while loop in Duck Class.
+     *
+     * @return boolean false <= default.
      */
     public boolean isExit() {
         return false;
@@ -33,14 +36,15 @@ public abstract class Command {
 
     /**
      * Return output of Command as a String
-     * @return Output to be displayed in JavaFX
+     *
+     * @return String output to be displayed in JavaFX
      */
-    public String getString() {
-        return this.output;
+    public String getDuckResponse() {
+        return this.duckResponse;
     }
 
-    public void setString(String input) {
-        this.output = input;
+    public void setDuckResponse(String message) {
+        this.duckResponse = message;
     }
 
     public void setCommandType(CommandType commandType) {

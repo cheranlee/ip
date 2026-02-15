@@ -1,29 +1,18 @@
-/**
- * Error Detection
- * Note: Refer to input.txt in text-ui-test folder to see examples of the following errors
- * 1. Commands are not case sensitive (ie List will be recognised as list)
- * 2. Command not recognised (list/todo/deadline/...)
- * 3. Missing / Wrong keyword for the wrong command (e.g. using start/end for deadline)
- * 4. Missing description / date (for deadline / start & end)
- * 5. Mark/Unmark/Delete item number out of range (task index does not exist in list)
- * 6. Mark/Unmark/Delete invalid task number (e.g. mark 2a, mark   , mark -1)
- * 7. Mark task that has been marked (& vice versa)
- * 8. Date and time format not valid
- * 9. For event, Start Date after End Date
- */
-
-// TAKES IN DD-MM-YYYY prints out MMM dd YYYY
-
 package duck;
 
 import duck.command.Command;
 import duck.command.CommandType;
+import duck.exception.DuckException;
+import duck.exception.StorageException;
+import duck.storage.Storage;
+import duck.tasks.TaskList;
+import duck.userinteraction.Parser;
+import duck.userinteraction.Ui;
 
 /**
- * Main Class
+ * Main Class.
  */
 public class Duck {
-    private static String home = System.getProperty("user.dir");
 
     private Storage storage;
     private TaskList tasks;
@@ -32,34 +21,44 @@ public class Duck {
     private CommandType commandType;
 
     /**
-     * Constructor for Duck Class
-     * Initialises ui, storage, parser and tasklist (loads old data in hard disk using storage object)
-     * If no old data, creates empty tasklist
-     * @param filePath Home Directory src/main/java
+     * Constructor for Duck Class.
+     * Initialises ui, storage, parser and tasklist (loads old data in hard disk using storage object).
+     * If no old data, creates empty tasklist.
+     *
+     * @param filePath HOME Directory src/main/java
      */
     public Duck(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
-        parser = new Parser(ui);
+        try {
+            storage = new Storage(filePath);
+        } catch (StorageException storageError) {
+            ui.showError(storageError);
+        }
+        parser = new Parser();
         try {
             tasks = new TaskList(storage.load()); // load prev tasks
-        } catch (DuckException e) {
+        } catch (StorageException noPrevRecordError) {
             ui.showLoadingError();
             tasks = new TaskList();
+        } catch (DuckException markError) {
+            ui.showError(markError);
         }
     }
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @return String Formatted String response from Duck.
      */
     public String getResponse(String input) {
         try {
-            Command c = parser.parse(input);
-            c.execute(tasks, ui, storage);
-            this.setCommandType(c.getCommandType());
-            return c.getString();
-        } catch (DuckException e) {
-            return "Error: " + e.getMessage();
+            Command command = parser.parse(input);
+            command.execute(tasks, ui, storage);
+            this.setCommandType(command.getCommandType());
+            return command.getDuckResponse();
+        } catch (DuckException error) {
+            this.setCommandType(CommandType.NoCommand);
+            return ui.showError(error);
         }
     }
 

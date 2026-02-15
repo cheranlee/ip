@@ -1,3 +1,5 @@
+package gui;
+
 import java.io.IOException;
 
 import duck.Duck;
@@ -11,8 +13,8 @@ import javafx.stage.Stage;
  * A GUI for Duck using FXML.
  */
 public class Main extends Application {
-    private static String home = System.getProperty("user.dir");
-    private Duck duck = new Duck(home);
+    private static final String HOME = System.getProperty("user.dir");
+    private Duck duck = new Duck(HOME);
 
     @Override
     public void start(Stage stage) {

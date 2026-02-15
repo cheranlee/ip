@@ -5,191 +5,150 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import duck.DuckException;
-import duck.Item;
-import duck.Storage;
-import duck.TaskList;
-import duck.Ui;
+import duck.exception.DuckException;
+import duck.exception.ParserException;
+import duck.storage.Storage;
+import duck.tasks.Item;
+import duck.tasks.TaskList;
+import duck.userinteraction.Ui;
 
 /**
- * Class created by Parser when user input = 'event'
+ * Class created by Parser when user input = 'event'.
  */
 public class EventCommand extends Command {
+    private static final String INVALID_FORMAT = "DateTime format should be dd-MM-yyyy HH:mm";
     private int byDatetimePos;
     private int startDatetimePos;
     private int endDatetimePos;
-    private String subCommand;
-    private String output;
+    private String argument;
 
     /**
-     * Constructor class for EventCommand
-     * @param byDatetimePos index of 'by' keyword [equal to -1 for event task]
-     * @param startDatetimePos index of 'start' keyword [should not be equal to -1 for event task]
-     * @param endDatetimePos index of 'end' keyword [should not be equal to -1 for event task]
-     * @param subCommand user input without 'event' keyword
+     * Constructor class for EventCommand.
+     *
+     * @param byDatetimePos Index of 'by' keyword [equal to -1 for event task].
+     * @param startDatetimePos Index of 'start' keyword [should not be equal to -1 for event task].
+     * @param endDatetimePos Index of 'end' keyword [should not be equal to -1 for event task].
+     * @param argument User input without 'event' keyword
      */
-    public EventCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String subCommand) {
+    public EventCommand(int byDatetimePos, int startDatetimePos, int endDatetimePos, String argument) {
         this.byDatetimePos = byDatetimePos;
         this.startDatetimePos = startDatetimePos;
         this.endDatetimePos = endDatetimePos;
-        this.subCommand = subCommand;
+        this.argument = argument;
+    }
+
+    private record ParsedDateTime(LocalDate date, LocalTime time) {
     }
 
     /**
-     * Helper function to determine if date input is of a valid format (dd-MM-yyyy)
-     * @param input date input
-     * @return boolean
+     * Parse Datetime String.
+     *
+     * @param datetime String representing Date and Time.
+     * @return Record with LocalDate and LocalTime.
+     * @throws DuckException throws exception.
      */
-    public boolean isValidDate(String input) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        try {
-            LocalDate.parse(input, formatter);
-            return true;
-        } catch (DateTimeParseException dateFormatError) {
-            return false;
+    private ParsedDateTime parseDateTime(String datetime) throws DuckException {
+        String[] splitString = datetime.split("\\s");
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        LocalDate date = null;
+        LocalTime time = null;
+
+        if (splitString.length > 2) {
+            throw new DuckException(INVALID_FORMAT);
         }
+
+        try {
+            for (String part : splitString) {
+                if (part.contains("-")) {
+                    date = LocalDate.parse(part.trim(), dateFormatter);
+                } else if (part.contains(":")) {
+                    time = LocalTime.parse(part.trim(), timeFormatter);
+                } else {
+                    throw new DuckException(INVALID_FORMAT);
+                }
+            }
+        } catch (DateTimeParseException formatError) {
+            throw new DuckException(INVALID_FORMAT);
+        }
+
+        return new ParsedDateTime(date, time);
     }
 
-    /**
-     * Helper function to determine if time input is of a valid format (HH:mm)
-     * @param input time input
-     * @return boolean
-     */
-    public boolean isValidTime(String input) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        try {
-            LocalTime.parse(input, formatter);
-            return true;
-        } catch (DateTimeParseException timeFormatError) {
-            return false;
-        }
-    }
-
 
     /**
-     * Function to instantiate new task entry if task is an Event
-     * e.g. In 'event school start 24-02-2026 08:00 end 24-02-2025 13:00',
+     * Instantiate new task entry if task is an Event.
+     * Error Handling: Checks if End Datetime > Start Datetime.
+     *
+     * e.g. In 'event school start 24-02-2026 08:00 end 24-02-2025 13:00'
      * @param description 'school'
      * @param datetimeOne '24-02-2026 08:00'
      * @param datetimeTwo '24-02-2025 13:00'
      * @return Item
      */
-    public Item generateEventItem(String description, String datetimeOne, String datetimeTwo) {
-        String[] splitString = datetimeOne.split("\\s");
-        LocalDate dateOne = null;
-        LocalTime timeOne = null;
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        if (splitString.length == 2) {
-            if (this.isValidDate(splitString[0]) && this.isValidTime(splitString[1])) {
-                dateOne = LocalDate.parse(splitString[0].trim(), dateFormatter);
-                timeOne = LocalTime.parse(splitString[1].trim(), timeFormatter);
-            } else if (this.isValidDate(splitString[1]) && this.isValidTime(splitString[0])) {
-                dateOne = LocalDate.parse(splitString[1].trim(), dateFormatter);
-                timeOne = LocalTime.parse(splitString[0].trim(), timeFormatter);
-            } else {
-                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
-            }
-        } else if (splitString.length == 1) {
-            if (this.isValidDate(splitString[0])) {
-                dateOne = LocalDate.parse(splitString[0].trim(), dateFormatter);
-            } else if (this.isValidTime(splitString[0])) {
-                timeOne = LocalTime.parse(splitString[0].trim(), timeFormatter);
-            } else {
-                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
-            }
-        } else {
-            throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
-        }
-        String[] splitStringTwo = datetimeTwo.split("\\s");
-        LocalDate dateTwo = null;
-        LocalTime timeTwo = null;
-        if (splitStringTwo.length == 2) {
-            if (this.isValidDate(splitStringTwo[0]) && this.isValidTime(splitStringTwo[1])) {
-                dateTwo = LocalDate.parse(splitStringTwo[0].trim(), dateFormatter);
-                timeTwo = LocalTime.parse(splitStringTwo[1].trim(), timeFormatter);
-            } else if (this.isValidDate(splitStringTwo[1]) && this.isValidTime(splitStringTwo[0])) {
-                dateTwo = LocalDate.parse(splitStringTwo[1].trim(), dateFormatter);
-                timeTwo = LocalTime.parse(splitStringTwo[0].trim(), timeFormatter);
-            } else {
-                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
-            }
-        } else if (splitStringTwo.length == 1) {
-            if (this.isValidDate(splitStringTwo[0])) {
-                dateTwo = LocalDate.parse(splitStringTwo[0].trim(), dateFormatter);
-            } else if (this.isValidTime(splitStringTwo[0])) {
-                timeTwo = LocalTime.parse(splitStringTwo[0].trim(), timeFormatter);
-            } else {
-                throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
-            }
-        } else {
-            throw new IllegalArgumentException("DateTime format should be dd-MM-yyyy HH:mm");
-        }
-        if (dateOne == null || dateTwo == null) {
-            dateOne = (dateTwo == null) ? dateOne : dateTwo;
-            dateTwo = (dateOne == null) ? dateTwo : dateOne;
-        }
-        if (dateOne != null && dateTwo != null) {
-            if (dateOne.isAfter(dateTwo)) {
-                throw new IllegalArgumentException("Start Date cannot be after End Date");
-            } else if (dateOne.isEqual(dateTwo)) {
-                if (timeOne == null || timeTwo == null) {
-                    throw new IllegalArgumentException("Time Info Missing");
-                } else {
-                    if (timeOne.isAfter(timeTwo)) {
-                        throw new IllegalArgumentException("Start Time cannot be after End Time");
-                    }
-                }
-            }
-        } else if (dateOne == null && dateTwo == null) {
-            if (timeOne.isAfter(timeTwo)) {
-                throw new IllegalArgumentException("Start Time cannot be after End Time");
-            }
-        }
-        return new Item(description, dateOne, timeOne, dateTwo, timeTwo);
-    }
+    private Item generateEventItem(String description, String datetimeOne, String datetimeTwo) throws DuckException {
+        ParsedDateTime start = parseDateTime(datetimeOne);
+        ParsedDateTime end = parseDateTime(datetimeTwo);
+        LocalDate startDate = start.date;
+        LocalTime startTime = start.time;
+        LocalDate endDate = end.date;
+        LocalTime endTime = end.time;
 
-    /**
-     * Add an Item in list as an 'event' item
-     * Throws exception if unable to create new Item to store in tasklist
-     * After Parser returns a command, use command.execute() to run this function
-     * @param tasks list of tasks
-     * @param ui User Interface
-     * @param storage Deals with storing information to hard disk
-     * @throws DuckException Self-defined Exception Class which identifies Error
-     */
-    @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
-        if (byDatetimePos == -1 && startDatetimePos != -1 && endDatetimePos != -1) {
-            String startDatetime = this.subCommand.substring(startDatetimePos + 5, endDatetimePos - 1);
-            String endDatetime = this.subCommand.substring(endDatetimePos + 3);
-            String description = this.subCommand.substring(0, startDatetimePos);
-            // check if description / start / end field are blank
-            if (startDatetime.isBlank() || endDatetime.isBlank() || description.isBlank()) {
-                throw new DuckException("Description / End / Start cannot be empty");
-            } else {
-                try {
-                    String result = tasks.addItem(generateEventItem(description.trim(),
-                            startDatetime.trim(), endDatetime.trim()));
-                    Item newItem = tasks.getItem(tasks.size() - 1);
-                    storage.addToFile(newItem.toStringFile() + '\n');
-                    this.setString(ui.showOperationOutput(result));
-                    this.setCommandType(CommandType.Event);
-                } catch (IllegalArgumentException datetimeException) {
-                    if (datetimeException.getMessage().contains("format")) {
-                        throw new DuckException("DateTime format should be dd-MM-yyyy HH:mm");
-                    } else if (datetimeException.getMessage().contains("Date cannot be after")) {
-                        throw new DuckException("Start Date cannot be after End Date");
-                    } else if (datetimeException.getMessage().contains("Missing")) {
-                        throw new DuckException("Time Info Missing");
-                    } else if (datetimeException.getMessage().contains("Time cannot be after")) {
+        if (startDate == null || endDate == null) {
+            startDate = (endDate == null) ? startDate : endDate;
+            endDate = (startDate == null) ? endDate : startDate;
+        }
+        if (startDate != null && endDate != null) {
+            if (startDate.isAfter(endDate)) {
+                throw new DuckException("Start Date cannot be after End Date");
+            } else if (startDate.isEqual(endDate)) {
+                if (startTime == null || endTime == null) {
+                    throw new DuckException("Time Info Missing");
+                } else {
+                    if (startTime.isAfter(endTime)) {
                         throw new DuckException("Start Time cannot be after End Time");
                     }
                 }
             }
+        } else {
+            if (startTime.isAfter(endTime)) {
+                throw new DuckException("Start Time cannot be after End Time");
+            }
+        }
+        return new Item(description, startDate, startTime, endDate, endTime);
+    }
+
+    /**
+     * Add an item in tasks (TaskList) as an 'Event' item.
+     * Throws exception if unable to create new Item to store in tasklist
+     *
+     * @param tasks List of tasks.
+     * @param ui User Interface.
+     * @param storage Deals with storing information to hard disk.
+     * @throws DuckException Self-defined Exception Class which identifies Error.
+     */
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
+        if (byDatetimePos == -1 && startDatetimePos != -1 && endDatetimePos != -1) {
+            String startDatetime = this.argument.substring(startDatetimePos + 5, endDatetimePos - 1);
+            String endDatetime = this.argument.substring(endDatetimePos + 3);
+            String description = this.argument.substring(0, startDatetimePos);
+            // check if description / start / end field are blank
+            if (startDatetime.isBlank() || endDatetime.isBlank() || description.isBlank()) {
+                throw new ParserException("Description / End / Start cannot be empty");
+            } else {
+                String result = tasks.addItem(
+                        generateEventItem(description.trim(), startDatetime.trim(), endDatetime.trim()));
+                Item newItem = tasks.getItem(tasks.size() - 1);
+                storage.addToFile(newItem.toStringFile() + '\n');
+                this.setDuckResponse(ui.showOperationOutput(result));
+                this.setCommandType(CommandType.Event);
+            }
         } else { // error if (by) appears or if (start) or (end) are not in the user input
-            throw new DuckException("Event task must have a start and end date (keywords: start, end)."
-                    + " It also should not have a deadline");
+            throw new ParserException("Event task must have a start and end date (keywords: start, end). "
+                    + "It also should not have a deadline (keyword: by).");
         }
     }
 }
