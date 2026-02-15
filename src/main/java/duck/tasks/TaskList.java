@@ -1,4 +1,4 @@
-package duck;
+package duck.tasks;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -6,36 +6,39 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import duck.exception.DuckException;
+
 /**
  * Manages a list of all tasks
  */
 public class TaskList {
-    private List<Item> tasklist;
+    private List<Item> tasks;
 
     /**
-     * Constructor Class if no pre-existing data from hard disk
-     * Creates empty tasklist instead
+     * Constructor Class if no pre-existing data from hard disk.
+     * Creates empty tasks.
      */
     public TaskList() {
-        this.tasklist = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
-     * Constructor Class where there is pre-existing data from hard disk
-     * Creates tasklist and loads data to tasklist using loadTasks() method
-     * @param oldTasks data from hard disk (data format: list of strings)
+     * Constructor Class when there is pre-existing data from hard disk.
+     * Creates tasks and loads data to tasks using loadTasks() method.
+     *
+     * @param oldTasks Data from hard disk (data format: list of strings).
      */
-    public TaskList(List<String> oldTasks) {
-        this.tasklist = new ArrayList<>();
+    public TaskList(List<String> oldTasks) throws DuckException {
+        this.tasks = new ArrayList<>();
         this.loadTasks(oldTasks);
     }
 
     /**
-     * Takes output of storage.load() and processes it (by classifying into todo, deadline, event and mark/unmark)
-     * before adding Item (tasks) back into tasklist
-     * @param oldTasks data from hard disk (data format: list of strings)
+     * Add pre-existing tasks to current tasklist.
+     *
+     * @param oldTasks Data from hard disk (data format: list of strings).
      */
-    public void loadTasks(List<String> oldTasks) {
+    public void loadTasks(List<String> oldTasks) throws DuckException {
         int count = 0;
         for (String line : oldTasks) {
             String[] splitString = line.split("\\s\\|\\s");
@@ -78,35 +81,37 @@ public class TaskList {
     }
 
     /**
-     * Add a new task to the list
-     * @param item instance of Item class
+     * Add a new task to the list.
+     *
+     * @param item Instance of Item class.
      */
     public String addItem(Item item) {
-        String totalStr = "";
-        this.tasklist.add(item);
-        totalStr = totalStr + "Quack! I've added this task:" + '\n';
+        this.tasks.add(item);
+        String totalStr = "Quack! I've added this task:" + '\n';
         totalStr = totalStr + item.toString() + '\n';
         totalStr = totalStr + "Now you have " + this.size() + " tasks in the list" + '\n';
         return totalStr;
     }
 
     /**
-     * Retrieves item at specific index
-     * @param index integer
+     * Retrieves task (Item) at specific index.
+     *
+     * @param index Retrieve task from this location.
      * @return Item (at specific index)
      */
     public Item getItem(int index) {
-        return this.tasklist.get(index);
+        return this.tasks.get(index);
     }
 
     /**
-     * Deletes task at index index from list
-     * @param index integer
+     * Deletes task from list.
+     *
+     * @param index Location of task to be deleted.
      */
     public String deleteItem(int index) {
         String totalStr = "";
-        Item i = this.tasklist.get(index);
-        this.tasklist.remove(index);
+        Item i = this.tasks.get(index);
+        this.tasks.remove(index);
         totalStr = totalStr + "Quack! I've removed this task:" + '\n';
         totalStr = totalStr + i.toString() + '\n';
         totalStr = totalStr + "Now you have " + this.size() + " tasks in the list" + '\n';
@@ -114,25 +119,27 @@ public class TaskList {
     }
 
     /**
-     * returns number of tasks in list
-     * @return size integer
+     * Returns number of tasks in list.
+     *
+     * @return size Integer representing number of tasks in list.
      */
     public int size() {
-        return this.tasklist.size();
+        return this.tasks.size();
     }
 
     /**
-     * uses toString method in item class to print the whole list of tasks
-     * @return total_str list of tasks (with string formatting)
+     * Print list of tasks.
+     *
+     * @return total_str List of tasks (with string formatting).
      */
     public String toString() {
         String totalStr = "";
         if (this.size() > 0) {
             int count = 0;
             System.out.println("Here are the tasks in your list:");
-            for (Item i : this.tasklist) {
+            for (Item i : this.tasks) {
                 count++;
-                totalStr = totalStr + Integer.toString(count) + ". " + i.toString() + '\n';
+                totalStr = totalStr + count + ". " + i.toString() + '\n';
             }
         } else {
             totalStr = "Relax! You have no tasks";
@@ -141,43 +148,45 @@ public class TaskList {
     }
 
     /**
-     * Marks / Unmarks Item at index as done / not done
-     * @param mark mark w X if true ; leave blank if false
-     * @param index integer (row number)
+     * Marks / Unmarks Item at index as done / not done.
+     *
+     * @param mark Mark w X if true ; leave blank if false.
+     * @param index Location of task to be marked.
      */
-    public List<String> markUnmarkItem(boolean mark, int index) {
+    public List<String> markUnmarkItem(boolean mark, int index) throws DuckException {
         List<String> returnArray = new ArrayList<>();
         String totalStr = "";
-        Item i = this.tasklist.get(index);
+        Item i = this.tasks.get(index);
         if (mark) { // mark as done
             if (!i.getDone()) {
                 i.setDone(true);
                 totalStr = totalStr + "Quack-ity! I've marked this task as done:\n";
-                totalStr = totalStr + i.toString() + '\n';
+                totalStr = totalStr + i + '\n';
                 returnArray.add(totalStr);
                 returnArray.add(i.toStringFile());
                 return returnArray;
             } else {
-                throw new IllegalArgumentException(("Item Already Marked as Done!"));
+                throw new DuckException("Item Already Marked as Done!");
             }
         } else { // unmark to show not done
             if (i.getDone()) {
                 i.setDone(false);
                 totalStr = totalStr + "Aww! I've marked this task as not done yet:\n";
-                totalStr = totalStr + i.toString() + '\n';
+                totalStr = totalStr + i + '\n';
                 returnArray.add(totalStr);
                 returnArray.add(i.toStringFile());
                 return returnArray;
             } else {
-                throw new IllegalArgumentException(("Item Already Marked as Not Done!"));
+                throw new DuckException("Item Already Marked as Not Done!");
             }
         }
     }
 
     /**
-     * Traverse through tasks tasklist and extract Items with the keyword word
-     * @param word keyword
-     * @return string (with formatting) of 'find' results
+     * Traverse through tasks and extract Items with the keyword.
+     *
+     * @param word Keyword.
+     * @return Formatted String of 'find' results.
      */
     public String findWord(String word) {
         String totalStr = "";

@@ -1,18 +1,21 @@
 package duck.command;
-
-import duck.DuckException;
-import duck.Storage;
-import duck.TaskList;
-import duck.Ui;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import duck.exception.DuckException;
+import duck.storage.Storage;
+import duck.exception.StorageException;
+import duck.tasks.TaskList;
+import duck.userinteraction.Ui;
+
+
 
 public class DeadlineCommandTest {
 
     @Test
-    public void no_error_test(){
+    public void no_error_test() {
         try {
             TaskList tasks = new TaskList();
             Ui ui = new Ui();
@@ -26,7 +29,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void missing_info_error() {
+    public void missing_info_error() throws StorageException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");
@@ -37,7 +40,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void wrong_date_format_error() {
+    public void wrong_date_format_error() throws StorageException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");
@@ -48,14 +51,13 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void no_by_keyword() {
+    public void no_by_keyword() throws StorageException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("test");
         DeadlineCommand deadline = new DeadlineCommand(-1, -1, -1,"walk dog start 14-02-2025 end 24-02-2025");
         DuckException e = assertThrows(DuckException.class,
                 () -> deadline.execute(tasks, ui, storage));
-        assertEquals("Deadline task must have a Deadline (keyword: by). It also should not have a start or end date", e.getMessage());
+        assertEquals("Deadline task must have a Deadline (keyword: by). It also should not have a start or end date (keywords: start, end).", e.getMessage());
     }
-
 }

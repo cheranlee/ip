@@ -1,30 +1,31 @@
 package duck.command;
 
-import duck.Storage;
-import duck.TaskList;
-import duck.Ui;
+import duck.storage.Storage;
+import duck.tasks.TaskList;
+import duck.userinteraction.Ui;
 
 /**
- * Class created by Parser when user input = 'Bye'
+ * Class created by Parser when user input = 'Bye'.
  */
 public class ByeCommand extends Command {
-    private String output;
 
     /**
-     * Print Bye Message
-     * @param tasks list of all tasks
-     * @param ui User Interface
-     * @param storage Deals with storing to hard disk
+     * Print Bye Message.
+     *
+     * @param tasks List of Tasks.
+     * @param ui User Interface.
+     * @param storage Deals with storing information to hard disk.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        this.setString(ui.showBye());
+        this.setDuckResponse(ui.showBye());
         this.setCommandType(CommandType.Bye);
     }
 
     /**
-     * Breaks out of while loop in Duck Class
-     * @return boolean [only true when bye is called]
+     * Breaks out of While loop in Duck Class.
+     *
+     * @return boolean true <= bye is called.
      */
     @Override
     public boolean isExit() {

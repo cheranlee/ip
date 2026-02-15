@@ -12,7 +12,7 @@
     -fx-border-radius: 1em 1em 1em 0;
 }
 
-/* Paste this below reply-label */
+
 .add-label {
     -fx-background-color: yellow;
 }

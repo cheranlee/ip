@@ -1,3 +1,5 @@
+package gui;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -64,7 +66,8 @@ public class DialogBox extends HBox {
             dialog.getStyleClass().add("delete-label");
             break;
         default:
-                // Do nothing
+            dialog.getStyleClass().add("reply-label");
+            break;
         }
     }
 

@@ -1,24 +1,24 @@
 package duck.command;
 
-import duck.Storage;
-import duck.TaskList;
-import duck.Ui;
+import duck.storage.Storage;
+import duck.tasks.TaskList;
+import duck.userinteraction.Ui;
 
 /**
- * Class created by Parser when user input = 'list'
+ * Class created by Parser when user input = 'list'.
  */
 public class ListCommand extends Command {
-    private String output;
 
     /**
-     * Print List using toString method in TaskList
-     * @param tasks list of tasks
-     * @param ui User Interface
-     * @param storage Deals with storing information to hard disk
+     * Print tasks (TaskList) using toString method in TaskList.
+     *
+     * @param tasks List of tasks.
+     * @param ui User Interface.
+     * @param storage Deals with storing information to hard disk.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        this.setString(ui.showList(tasks.toString()));
+        this.setDuckResponse(ui.showOperationOutput(tasks.toString()));
         this.setCommandType(CommandType.List);
     }
 

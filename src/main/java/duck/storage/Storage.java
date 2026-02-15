@@ -1,4 +1,5 @@
-package duck;
+package duck.storage;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,30 +9,42 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Random;
 
+import duck.exception.DuckException;
+import duck.exception.StorageException;
+
 /**
- * Class which interfaces with hard disk (by writing to a txt file)
+ * Class which interfaces with hard disk (by writing to a txt file).
  */
 public class Storage {
+
+    // Constants
+    private static final String FOLDER_NAME = "data";
+    private static final String FILE_NAME = "duck.txt";
+    private static final String CHEER_FILE_NAME = "cheer.txt";
+
+
+    // Instance Attributes
     private Path folderPath;
     private Path filePath;
     private Path filePathCheer;
 
     /**
-     * Constructor Class to define directories
-     * Calls onStartup() method to initialise all required files
-     * @param home current directory (e.g. src/main/java)
+     * Constructor Class to define directories.
+     * Calls onStartup() method to initialise all required files.
+     *
+     * @param home current directory (e.g. src/main/java).
      */
-    public Storage(String home) {
-        this.folderPath = Paths.get(home, "data");
-        this.filePath = this.folderPath.resolve("duck.txt");
-        this.filePathCheer = this.folderPath.resolve("cheer.txt");
+    public Storage(String home) throws StorageException {
+        this.folderPath = Paths.get(home, FOLDER_NAME);
+        this.filePath = this.folderPath.resolve(FILE_NAME);
+        this.filePathCheer = this.folderPath.resolve(CHEER_FILE_NAME);
         onStartup();
     }
 
     /**
-     * Create empty Directory and File to store tasks in Hard Disk
+     * Check if directory and file exists. If not, create empty directory and file.
      */
-    public void onStartup() {
+    public void onStartup() throws StorageException {
         // check if file exists
         boolean directoryExists = Files.exists(this.folderPath);
         if (!directoryExists) {
@@ -39,52 +52,52 @@ public class Storage {
             try {
                 Files.createDirectories(this.folderPath);
             } catch (IOException folderError) {
-                System.out.println("Unable to create directory: " + folderError.getMessage());
+                throw new StorageException("Unable to create directory: " + folderError.getMessage());
             }
         }
         boolean fileExists = Files.exists(this.filePath);
         if (!fileExists) {
             // file does not exist -- create file
             try {
-                System.out.println("CREATING FILE");
                 Files.createFile((this.filePath));
             } catch (IOException fileError) {
-                System.out.println("Unable to create file: " + fileError.getMessage());
+                throw new StorageException("Unable to create file: " + fileError.getMessage());
             }
         }
-        System.out.println("FILE SETUP COMPLETE -- DUCK.TXT file in data folder");
     }
 
     /**
-     * Stores hard disk data to current sessions's MasterList
+     * Store hard disk data to current session MasterList
      */
-    public List<String> load() throws DuckException {
+    public List<String> load() throws StorageException {
         try {
             return Files.readAllLines(this.filePath);
         } catch (IOException loadError) {
-            throw new DuckException("No Existing Task Data");
+            throw new StorageException("No Existing Task Data");
         }
     }
 
 
     /**
-     * Helper Function to add new task entry to hard disk
-     * Called by todoMethod, deadlineMethod, eventMethod
-     * @param content appends this string to hard disk
+     * Add new task entry to hard disk.
+     * Called by todoMethod, deadlineMethod, eventMethod.
+     *
+     * @param content Entry to be appended to file.
      */
-    public void addToFile(String content) {
+    public void addToFile(String content) throws StorageException {
         try {
             // Write content to file
             Files.writeString(this.filePath, content, StandardOpenOption.APPEND);
         } catch (IOException appendError) {
-            System.out.println("Unable to append to file: " + appendError.getMessage());
+            throw new StorageException("Unable to append to file: " + appendError.getMessage());
         }
     }
 
     /**
-     * Helper function to delete task entry from hard disk
-     * Called by deleteItemMethod(command, MasterList)
-     * @param lineNumber deletes content at lineNumber from hard disk
+     * Delete task entry from hard disk.
+     * Called by deleteItemMethod(command, MasterList).
+     *
+     * @param lineNumber Delete content at lineNumber from hard disk.
      */
     public void deleteFromFile(int lineNumber) {
         try {
@@ -101,10 +114,11 @@ public class Storage {
     }
 
     /**
-     * Helper function to edit (mark / unmark task as done) a task entry in hard disk
-     * Called by markUnmarkItemMethod(command, MasterList)
-     * @param lineNumber target lineNumber to change data
-     * @param editedEntry new data to replace old data
+     * Mark / unmark a task entry in hard disk.
+     * Called by markUnmarkItemMethod(command, MasterList).
+     *
+     * @param lineNumber Row number where task will be marked as done/undone.
+     * @param editedEntry New data to replace existing data.
      */
     public void editFile(int lineNumber, String editedEntry) {
         try {
@@ -121,10 +135,11 @@ public class Storage {
     }
 
     /**
-     * Randomly chooses a motivational quote from cheer.txt
+     * Randomly selects motivational quote from cheer.txt.
+     *
      * @return String --> the motivational quote
-     * @throws DuckException error if cheer.txt is empty
-     * @throws IOException error if unable to open cheer.txt
+     * @throws DuckException error if cheer.txt is empty.
+     * @throws IOException error if unable to open cheer.txt.
      */
     public String cheer() throws DuckException, IOException {
         Random rand = new Random();

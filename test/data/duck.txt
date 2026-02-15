@@ -7,3 +7,12 @@ D | 0 | walk dog | Apr 23 2025 | 01:00 pm
 T | 0 | borrow book
 T | 0 | borrow book
 D | 0 | walk dog | Apr 23 2025 | 01:00 pm
+D | 0 | walk dog | Apr 23 2025 | 01:00 pm
+D | 0 | walk dog | Apr 23 2025 | 01:00 pm
+T | 0 | borrow book
+T | 0 | borrow book
+D | 0 | walk dog | Apr 23 2025 | 01:00 pm
+T | 0 | borrow book
+T | 0 | borrow book
+D | 0 | walk dog | Apr 23 2025 | 01:00 pm
+T | 0 | borrow book

@@ -1,29 +1,29 @@
 package duck.command;
 import java.io.IOException;
 
-import duck.DuckException;
-import duck.Storage;
-import duck.TaskList;
-import duck.Ui;
+import duck.exception.DuckException;
+import duck.storage.Storage;
+import duck.tasks.TaskList;
+import duck.userinteraction.Ui;
 
 /**
- * Class created by Parser when user input = 'cheer'
+ * Class created by Parser when user input = 'cheer'.
  */
 public class CheerCommand extends Command {
-    private String output;
 
     /**
-     * Shows Motivational Quote
-     * @param tasks list of tasks
-     * @param ui User Interface
-     * @param storage Deals with storing information to hard disk
-     * @throws DuckException Self-defined Exception Class which identifies Error
+     * Shows Motivational Quote.
+     *
+     * @param tasks List of tasks.
+     * @param ui User Interface.
+     * @param storage Deals with storing information to hard disk.
+     * @throws DuckException Self-defined Exception Class which identifies Error.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
         try {
             String cheerPhrase = storage.cheer();
-            this.setString(ui.showCheer(cheerPhrase));
+            this.setDuckResponse(ui.showOperationOutput(cheerPhrase));
             this.setCommandType(CommandType.Cheer);
         } catch (DuckException | IOException e) {
             throw new DuckException("Unable to Open File / Empty File!");
