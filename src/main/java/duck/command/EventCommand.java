@@ -60,6 +60,8 @@ public class EventCommand extends Command {
             throw new DuckException(INVALID_FORMAT);
         }
 
+        assert splitString.length > 0 : "datetime missing, error not caught previously!";
+
         try {
             for (String part : splitString) {
                 if (part.contains("-")) {
