@@ -1,7 +1,5 @@
 package duck.command;
 
-import java.util.List;
-
 import duck.exception.DuckException;
 import duck.storage.Storage;
 import duck.tasks.TaskList;

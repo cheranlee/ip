@@ -87,10 +87,8 @@ public class TaskList {
      */
     public String addItem(Item item) {
         this.tasks.add(item);
-        String totalStr = "Quack! I've added this task:" + '\n';
-        totalStr = totalStr + item.toString() + '\n';
-        totalStr = totalStr + "Now you have " + this.size() + " tasks in the list" + '\n';
-        return totalStr;
+        return "Quack! I've added this task: \n" + item + '\n'
+                + "Now you have " + this.size() + " tasks in the list\n";
     }
 
     /**
@@ -109,13 +107,9 @@ public class TaskList {
      * @param index Location of task to be deleted.
      */
     public String deleteItem(int index) {
-        String totalStr = "";
-        Item i = this.tasks.get(index);
-        this.tasks.remove(index);
-        totalStr = totalStr + "Quack! I've removed this task:" + '\n';
-        totalStr = totalStr + i.toString() + '\n';
-        totalStr = totalStr + "Now you have " + this.size() + " tasks in the list" + '\n';
-        return totalStr;
+        Item removed = this.tasks.remove(index);
+        return "Quack! I've removed this task:\n" + removed + '\n'
+                + "Now you have " + this.size() + "tasks in the list\n";
     }
 
     /**
