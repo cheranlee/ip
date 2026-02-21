@@ -150,32 +150,25 @@ public class TaskList {
     /**
      * Marks / Unmarks Item at index as done / not done.
      *
-     * @param mark Mark w X if true ; leave blank if false.
+     * @param markAsDone Mark w X if true ; leave blank if false.
      * @param index Location of task to be marked.
      */
-    public List<String> markUnmarkItem(boolean mark, int index) throws DuckException {
-        List<String> returnArray = new ArrayList<>();
-        String totalStr = "";
+    public String[] markUnmarkItem(boolean markAsDone, int index) throws DuckException {
         Item i = this.tasks.get(index);
-        if (mark) { // mark as done
-            if (!i.getDone()) {
+        boolean isDone = i.getDone();
+        if (markAsDone) { // mark as done
+            if (!isDone) {
                 i.setDone(true);
-                totalStr = totalStr + "Quack-ity! I've marked this task as done:\n";
-                totalStr = totalStr + i + '\n';
-                returnArray.add(totalStr);
-                returnArray.add(i.toStringFile());
-                return returnArray;
+                String totalStr = "Quack-ity! I've marked this task as done:\n" + i + '\n';
+                return new String[]{totalStr, i.toStringFile()};
             } else {
                 throw new DuckException("Item Already Marked as Done!");
             }
         } else { // unmark to show not done
-            if (i.getDone()) {
+            if (isDone) {
                 i.setDone(false);
-                totalStr = totalStr + "Aww! I've marked this task as not done yet:\n";
-                totalStr = totalStr + i + '\n';
-                returnArray.add(totalStr);
-                returnArray.add(i.toStringFile());
-                return returnArray;
+                String totalStr = "Aww! I've marked this task as not done yet:\n" + i + '\n';
+                return new String[]{totalStr, i.toStringFile()};
             } else {
                 throw new DuckException("Item Already Marked as Not Done!");
             }
