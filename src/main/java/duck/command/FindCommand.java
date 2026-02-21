@@ -1,5 +1,6 @@
 package duck.command;
 
+import java.util.List;
 import java.util.Objects;
 
 import duck.exception.DuckException;
@@ -32,7 +33,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DuckException {
-        String result = tasks.findWord(this.word);
+        List<String> result = tasks.findWord(this.word);
         if (Objects.equals(result, "")) {
             throw new DuckException("No Records Found");
         } else {

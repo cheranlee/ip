@@ -1,5 +1,9 @@
 package duck.userinteraction;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import duck.exception.ParserException;
 import duck.exception.StorageException;
 
@@ -79,12 +83,13 @@ public class Ui {
     /**
      * Wrapper for printing list of results when 'find' keyword is used.
      *
-     * @param string list of 'find' results from FindCommand.execute()
+     * @param foundResult list of 'find' results from FindCommand.execute()
      */
-    public String showWord(String string) {
-        String totalStr = "Here are the matching tasks in your list: \n";
-        totalStr = totalStr + string;
-        return totalStr;
+    public String showWord(List<String> foundResult) {
+        return "Here are the matching tasks in your list:\n"
+                + IntStream.range(0, foundResult.size())
+                .mapToObj(i -> (i + 1) + ". " + foundResult.get(i))
+                .collect(Collectors.joining("\n"));
     }
 
 }
