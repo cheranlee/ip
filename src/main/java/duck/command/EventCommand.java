@@ -108,10 +108,8 @@ public class EventCommand extends Command {
             } else if (startDate.isEqual(endDate)) {
                 if (startTime == null || endTime == null) {
                     throw new DuckException("Time Info Missing");
-                } else {
-                    if (startTime.isAfter(endTime)) {
-                        throw new DuckException("Start Time cannot be after End Time");
-                    }
+                } else if (startTime.isAfter(endTime)) {
+                    throw new DuckException("Start Time cannot be after End Time");
                 }
             }
         } else {
@@ -141,11 +139,10 @@ public class EventCommand extends Command {
             if (startDatetime.isBlank() || endDatetime.isBlank() || description.isBlank()) {
                 throw new ParserException("Description / End / Start cannot be empty");
             } else {
-                String result = tasks.addItem(
-                        generateEventItem(description.trim(), startDatetime.trim(), endDatetime.trim()));
-                Item newItem = tasks.getItem(tasks.size() - 1);
+                Item newItem = this.generateEventItem(description.trim(), startDatetime.trim(), endDatetime.trim());
+                String response = tasks.addItem(newItem);
                 storage.addToFile(newItem.toStringFile() + '\n');
-                this.setDuckResponse(ui.showOperationOutput(result));
+                this.setDuckResponse(ui.showOperationOutput(response));
                 this.setCommandType(CommandType.Event);
             }
         } else { // error if (by) appears or if (start) or (end) are not in the user input

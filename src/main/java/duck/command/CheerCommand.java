@@ -25,8 +25,8 @@ public class CheerCommand extends Command {
             String cheerPhrase = storage.cheer();
             this.setDuckResponse(ui.showOperationOutput(cheerPhrase));
             this.setCommandType(CommandType.Cheer);
-        } catch (DuckException | IOException e) {
-            throw new DuckException("Unable to Open File / Empty File!");
+        } catch (IOException fileError) {
+            throw new DuckException("Unable to Open File!");
         }
     }
 }

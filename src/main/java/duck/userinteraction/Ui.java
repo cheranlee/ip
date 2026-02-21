@@ -25,28 +25,18 @@ public class Ui {
     * Print Instructions for user.
     */
     public String printInfo() {
-        String totalStr = "";
-        totalStr = totalStr + "Command List:\n";
-        totalStr = totalStr + "1. list : Print out task list\n";
-        totalStr = totalStr + "2. mark X : Mark task X (integer) as done\n";
-        totalStr = totalStr + "3. unmark X : Mark task X (integer) as not done\n";
-        totalStr = totalStr + "4. todo task : Add tasks without any date/time attached to it\n";
-        totalStr = totalStr + "5. deadline task by DATE TIME: Add task that needs to be done by a specific date/time\n";
-        totalStr = totalStr + "6. event task start DATE1 TIME1 end DATE2 TIME2 : Add task that start"
-                + " and end at specific dates/times\n";
-        totalStr = totalStr + "7. delete X : Delete task X (integer) from list\n";
-        totalStr = totalStr + "8. bye : End the Program\n";
-        totalStr = totalStr + "DATE format: DD-MM-YYYY ; TIME format: HH:MM (24-hr clock)\n";
-        totalStr = totalStr + "May input 1) TIME ONLY ; 2) DATE ONLY ; 3) TIME & DATE\n";
-        return totalStr;
-    }
-
-    /**
-     * Error shown when there is no previously stored data in Hard Disk.
-     */
-    public String showLoadingError() {
-        String totalStr = "No Previously stored tasks. Creating New TaskList";
-        return totalStr;
+        return "Command List:\n"
+                + "1. list : Print out task list\n"
+                + "2. mark X : Mark task X (integer) as done\n"
+                + "3. unmark X : Mark task X (integer) as not done\n"
+                + "4. todo task : Add tasks without any date/time attached to it\n"
+                + "5. deadline task by DATE TIME: Add task that needs to be done by a specific date/time\n"
+                + "6. event task start DATE1 TIME1 end DATE2 TIME2 : Add task that start"
+                + " and end at specific dates/times\n"
+                + "7. delete X : Delete task X (integer) from list\n"
+                + "8. bye : End the Program\n"
+                + "DATE format: DD-MM-YYYY ; TIME format: HH:MM (24-hr clock)\n"
+                + "May input 1) TIME ONLY ; 2) DATE ONLY ; 3) TIME & DATE\n";
     }
 
     /**

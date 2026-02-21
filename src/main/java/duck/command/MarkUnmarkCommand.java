@@ -1,7 +1,5 @@
 package duck.command;
 
-import java.util.List;
-
 import duck.exception.DuckException;
 import duck.storage.Storage;
 import duck.tasks.TaskList;
@@ -46,15 +44,16 @@ public class MarkUnmarkCommand extends Command {
             int index = Integer.parseInt(this.fullCommand);
             index = index - 1;
             if (index < tasks.size() && index >= 0) {
-                List<String> returnArray = tasks.markUnmarkItem(this.mark, index);
-                String editedItemString = returnArray.get(1);
-                storage.editFile(index, editedItemString);
-                this.setDuckResponse(ui.showOperationOutput(returnArray.get(0)));
+                String[] output = tasks.markUnmarkItem(this.mark, index);
+                String editedFileString = output[1];
+                storage.editFile(index, editedFileString);
+                String response = output[0];
+                this.setDuckResponse(ui.showOperationOutput(response));
                 this.setCommandType(CommandType.MarkUnmark);
             } else {
                 throw new DuckException("Item Number out of range");
             }
-        } catch (NumberFormatException ex2) {
+        } catch (NumberFormatException indexNotValid) {
             throw new DuckException("Index not a valid number");
         }
     }

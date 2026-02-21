@@ -86,11 +86,10 @@ public class DeadlineCommand extends Command {
             if (description.isBlank() || byDatetime.isBlank()) { // check if by or description field are blank
                 throw new ParserException("Description / Deadline of Task cannot be empty");
             } else {
-                String result = tasks.addItem(
-                        this.generateDeadlineItem(description.trim(), byDatetime.trim()));
-                Item newItem = tasks.getItem(tasks.size() - 1);
+                Item newItem = this.generateDeadlineItem(description.trim(), byDatetime.trim());
+                String response = tasks.addItem(newItem);
                 storage.addToFile(newItem.toStringFile() + '\n');
-                this.setDuckResponse(ui.showOperationOutput(result));
+                this.setDuckResponse(ui.showOperationOutput(response));
                 this.setCommandType(CommandType.Deadline);
             }
         } else { // error if (by) does not appear of if (start) or (end) are in user input

@@ -38,7 +38,6 @@ public class Duck {
         try {
             tasks = new TaskList(storage.load()); // load prev tasks
         } catch (StorageException noPrevRecordError) {
-            ui.showLoadingError();
             tasks = new TaskList();
         } catch (DuckException markError) {
             assert false : "Should not have any mark errors! Problem in file!";

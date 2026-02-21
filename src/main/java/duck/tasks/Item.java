@@ -85,28 +85,53 @@ public class Item {
     }
 
     /**
+     * String Formatting for Deadline Task.
+     *
+     * @param date LocalDate.
+     * @param time LocalTime.
+     * @return String.
+     */
+    private String formatDeadline(LocalDate date, LocalTime time) {
+        return " (by: " + this.formatDate(date) + " " + this.formatTime(time) + ")";
+    }
+
+    /**
+     * String Formatting for Event Task.
+     *
+     * @param dateOne Start Date.
+     * @param dateTwo End Date.
+     * @param timeOne Start Time.
+     * @param timeTwo End Time.
+     * @return String.
+     */
+    private String formatEvent(LocalDate dateOne, LocalDate dateTwo, LocalTime timeOne, LocalTime timeTwo) {
+        return " (start: " + this.formatDate(dateOne) + " " + this.formatTime(timeOne)
+                + ") (end: " + this.formatDate(dateTwo) + " " + this.formatTime(timeTwo) + ")";
+    }
+
+    /**
      * Represent Item as a String for printing to JavaFX Console.
      *
      * @return Formatted string  e.g. [ ] [X] Do Homework
      */
     public String toString() {
-        String totalStr = "[" + this.stringType() + "]" + this.stringDone() + " " + this.getText();
+        String base = "[" + this.stringType() + "]" + this.stringDone() + " " + this.getText();
         switch(this.getType()) {
+        case TaskType.ToDos -> {
+            return base;
+        }
         case TaskType.Deadlines -> {
-            totalStr = totalStr + " (by: " + this.formatDate(this.getFirstDate())
-                    + " " + this.formatTime(this.getFirstTime()) + ")";
+            return base + formatDeadline(this.getFirstDate(), this.getFirstTime());
         }
         case TaskType.Events -> {
-            totalStr = totalStr + " (start: " + this.formatDate(this.getFirstDate())
-                    + " " + this.formatTime(this.getFirstTime());
-            totalStr = totalStr + ") (end: " + this.formatDate(this.getSecondDate())
-                    + " " + this.formatTime(this.getSecondTime()) + ")";
+            return base + formatEvent(this.getFirstDate(), this.getSecondDate(),
+                    this.getFirstTime(), this.getSecondTime());
         }
         default -> {
             assert false : "Unexpected TaskType: " + this.getType();
+            return "";
         }
         }
-        return totalStr;
     }
 
     /**
@@ -115,28 +140,25 @@ public class Item {
      * @return Formatted string e.g. T | 0 | Do Homework or E | 0 | School | 24-02-2025 | 13:00 | 24-02-2025 | 18:00.
      */
     public String toStringFile() {
-        String totalStr = "";
+        String base = this.stringType() + " | " + stringDoneInt() + " | " + this.getText();
         switch(this.getType()) {
         case TaskType.ToDos -> {
-            totalStr = totalStr + this.stringType() + " | " + stringDoneInt() + " | " + this.getText();
+            return base;
         }
         case TaskType.Deadlines -> {
-            totalStr = totalStr + this.stringType() + " | " + stringDoneInt() + " | " + this.getText() + " | ";
-            totalStr = totalStr + this.formatDate(this.getFirstDate()) + " | "
+            return base + " | " + this.formatDate(this.getFirstDate()) + " | "
                     + this.formatTime(this.getFirstTime());
         }
         case TaskType.Events -> {
-            totalStr = totalStr + this.stringType() + " | " + stringDoneInt() + " | " + this.getText() + " | ";
-            totalStr = totalStr + this.formatDate(this.getFirstDate()) + " | "
-                    + this.formatTime(this.getFirstTime());
-            totalStr = totalStr + " | " + this.formatDate(this.getSecondDate())
+            return base + " | " + this.formatDate(this.getFirstDate()) + " | "
+                    + this.formatTime(this.getFirstTime()) + " | " + this.formatDate(this.getSecondDate())
                     + " | " + this.formatTime(this.getSecondTime());
         }
         default -> {
             assert false : "Unexpected TaskType: " + this.getType();
+            return "";
         }
         }
-        return totalStr;
     }
 
 
