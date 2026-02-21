@@ -133,19 +133,14 @@ public class TaskList {
      *
      * @return total_str List of tasks (with string formatting).
      */
+    @Override
     public String toString() {
-        String totalStr = "";
-        if (this.size() > 0) {
-            int count = 0;
-            System.out.println("Here are the tasks in your list:");
-            for (Item i : this.tasks) {
-                count++;
-                totalStr = totalStr + count + ". " + i.toString() + '\n';
-            }
-        } else {
-            totalStr = "Relax! You have no tasks";
+        if (this.tasks.isEmpty()) {
+            return "Relax! You have no tasks";
         }
-        return totalStr;
+        return java.util.stream.IntStream.range(0, this.tasks.size())
+                        .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i))
+                        .collect(java.util.stream.Collectors.joining("\n"));
     }
 
     /**
@@ -189,18 +184,10 @@ public class TaskList {
      * @param word Keyword.
      * @return Formatted String of 'find' results.
      */
-    public String findWord(String word) {
-        String totalStr = "";
-        int count = 0;
-        for (int i = 0; i < this.size(); i++) {
-            Item item = this.getItem(i);
-            if (item.getText().contains(word.trim())) {
-                count = count + 1;
-                totalStr = totalStr + count + ". " + item + '\n';
-            }
-        }
-        return totalStr;
+    public List<String> findWord(String word) {
+        return this.tasks.stream()
+                .filter(item -> item.getText().contains(word))
+                .map(Item::toString)
+                .toList();
     }
-
-
 }
