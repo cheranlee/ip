@@ -41,6 +41,7 @@ public class Duck {
             ui.showLoadingError();
             tasks = new TaskList();
         } catch (DuckException markError) {
+            assert false : "Should not have any mark errors! Problem in file!";
             ui.showError(markError);
         }
     }

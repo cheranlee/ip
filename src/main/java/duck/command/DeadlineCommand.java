@@ -6,9 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import duck.exception.DuckException;
-import duck.tasks.Item;
 import duck.exception.ParserException;
 import duck.storage.Storage;
+import duck.tasks.Item;
 import duck.tasks.TaskList;
 import duck.userinteraction.Ui;
 
@@ -37,6 +37,7 @@ public class DeadlineCommand extends Command {
         this.argument = argument;
     }
 
+    @SuppressWarnings("checkstyle:Regexp")
     private Item generateDeadlineItem(String description, String datetime) throws DuckException {
         String[] splitString = datetime.split("\\s");
 
@@ -49,6 +50,8 @@ public class DeadlineCommand extends Command {
         if (splitString.length > 2) {
             throw new DuckException(INVALID_FORMAT);
         }
+
+        assert splitString.length > 0 : "datetime missing, error not caught previously!";
 
         try {
             for (String part : splitString) {

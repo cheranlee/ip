@@ -71,6 +71,7 @@ public class TaskList {
                 this.addItem(new Item(description, dateOne, timeOne, dateTwo, timeTwo));
             }
             default -> {
+                assert false : "Unexpected TaskType: " + taskTypeChar;
             }
             }
             if (doneChar.equals("1")) {

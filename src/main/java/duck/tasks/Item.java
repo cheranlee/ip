@@ -103,6 +103,7 @@ public class Item {
                     + " " + this.formatTime(this.getSecondTime()) + ")";
         }
         default -> {
+            assert false : "Unexpected TaskType: " + this.getType();
         }
         }
         return totalStr;
@@ -132,6 +133,7 @@ public class Item {
                     + " | " + this.formatTime(this.getSecondTime());
         }
         default -> {
+            assert false : "Unexpected TaskType: " + this.getType();
         }
         }
         return totalStr;
@@ -269,7 +271,10 @@ public class Item {
         case TaskType.ToDos -> "T";
         case TaskType.Events -> "E";
         case TaskType.Deadlines -> "D";
-        default -> " ";
+        default -> {
+            assert false : "Unexpected TaskType: " + this.getType();
+            yield " ";
+        }
         };
     }
 }
