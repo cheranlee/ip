@@ -124,6 +124,18 @@ public class TaskList {
     }
 
     /**
+     * Reorder tasks in File.
+     *
+     * @return List of ordered tasks (for saving in Hard Disk).
+     */
+    public String sort() {
+        Collections.sort(this.tasks);
+        return java.util.stream.IntStream.range(0, this.tasks.size())
+                .mapToObj(i -> this.tasks.get(i).toStringFile())
+                .collect(java.util.stream.Collectors.joining("\n"));
+    }
+
+    /**
      * Print list of tasks.
      *
      * @return total_str List of tasks (with string formatting).
@@ -133,7 +145,6 @@ public class TaskList {
         if (this.tasks.isEmpty()) {
             return "Relax! You have no tasks";
         }
-        Collections.sort(this.tasks);
         return java.util.stream.IntStream.range(0, this.tasks.size())
                         .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i))
                         .collect(java.util.stream.Collectors.joining("\n"));

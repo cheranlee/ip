@@ -141,7 +141,7 @@ public class EventCommand extends Command {
             } else {
                 Item newItem = this.generateEventItem(description.trim(), startDatetime.trim(), endDatetime.trim());
                 String response = tasks.addItem(newItem);
-                storage.addToFile(newItem.toStringFile() + '\n');
+                storage.addToFile(newItem.toStringFile());
                 this.setDuckResponse(ui.showOperationOutput(response));
                 this.setCommandType(CommandType.Event);
             }
