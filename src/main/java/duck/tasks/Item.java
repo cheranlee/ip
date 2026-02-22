@@ -3,12 +3,17 @@ package duck.tasks;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.Map;
 
 /**
  * Class which defines a task.
  * Each task is one Item object.
  */
-public class Item {
+public class Item implements Comparable<Item> {
+
+    private static final Map<TaskType, Integer> ORDER =
+            Map.of(TaskType.ToDos, 0, TaskType.Deadlines, 1, TaskType.Events, 2);
     private String text;
     private boolean done = false;
     private TaskType type;
@@ -16,6 +21,7 @@ public class Item {
     private LocalTime firstTime = null;
     private LocalDate secondDate = null;
     private LocalTime secondTime = null;
+
 
     /**
      * Constructor Class for Todo.
@@ -69,8 +75,12 @@ public class Item {
      * @param date LocalDate datatype.
      * @return String (which will be used in printing to console + storing to hard disk) e.g. "null" or "Mar 23 2024".
      */
-    private String formatDate(LocalDate date) {
-        return date == null ? "null" : this.getDateString(date);
+    private String formatDate(LocalDate date, boolean file) {
+        if (file) {
+            return date == null ? "null" : this.getDateString(date);
+        } else {
+            return date == null ? "" : this.getDateString(date);
+        }
     }
 
     /**
@@ -80,8 +90,12 @@ public class Item {
      * @param time LocalTime datatype.
      * @return String (which will be used in printing to console + storing to hard disk) e.g. "null" or "12:00pm".
      */
-    private String formatTime(LocalTime time) {
-        return time == null ? "null" : this.getTimeString(time);
+    private String formatTime(LocalTime time, boolean file) {
+        if (file) {
+            return time == null ? "null" : this.getTimeString(time);
+        } else {
+            return time == null ? "" : this.getTimeString(time);
+        }
     }
 
     /**
@@ -92,7 +106,7 @@ public class Item {
      * @return String.
      */
     private String formatDeadline(LocalDate date, LocalTime time) {
-        return " (by: " + this.formatDate(date) + " " + this.formatTime(time) + ")";
+        return " (by: " + this.formatDate(date, false) + " " + this.formatTime(time, false) + ")";
     }
 
     /**
@@ -105,8 +119,8 @@ public class Item {
      * @return String.
      */
     private String formatEvent(LocalDate dateOne, LocalDate dateTwo, LocalTime timeOne, LocalTime timeTwo) {
-        return " (start: " + this.formatDate(dateOne) + " " + this.formatTime(timeOne)
-                + ") (end: " + this.formatDate(dateTwo) + " " + this.formatTime(timeTwo) + ")";
+        return " (start: " + this.formatDate(dateOne, false) + " " + this.formatTime(timeOne, false)
+                + ") (end: " + this.formatDate(dateTwo, false) + " " + this.formatTime(timeTwo, false) + ")";
     }
 
     /**
@@ -146,13 +160,14 @@ public class Item {
             return base;
         }
         case TaskType.Deadlines -> {
-            return base + " | " + this.formatDate(this.getFirstDate()) + " | "
-                    + this.formatTime(this.getFirstTime());
+            return base + " | " + this.formatDate(this.getFirstDate(), true) + " | "
+                    + this.formatTime(this.getFirstTime(), true);
         }
         case TaskType.Events -> {
-            return base + " | " + this.formatDate(this.getFirstDate()) + " | "
-                    + this.formatTime(this.getFirstTime()) + " | " + this.formatDate(this.getSecondDate())
-                    + " | " + this.formatTime(this.getSecondTime());
+            return base + " | " + this.formatDate(this.getFirstDate(), true) + " | "
+                    + this.formatTime(this.getFirstTime(), true) + " | "
+                    + this.formatDate(this.getSecondDate(), true)
+                    + " | " + this.formatTime(this.getSecondTime(), true);
         }
         default -> {
             assert false : "Unexpected TaskType: " + this.getType();
@@ -298,5 +313,30 @@ public class Item {
             yield " ";
         }
         };
+    }
+
+    /**
+     * Place Items in tasklist in the following order: Todo, Deadline, Event.
+     * For Deadline and Event tasks: Compare by start date and time.
+     * Note: If date is null for two objects, place null as higher priority.
+     *
+     * @param item the object to be compared.
+     * @return Comparator result of comparing two objects
+     */
+    @Override
+    public int compareTo(Item item) {
+        return Comparator
+            .comparing((Item i) -> ORDER.get(i.getType()))
+            .thenComparing(i -> i.getFirstDate(),
+                    Comparator.nullsFirst(Comparator.naturalOrder()))
+            .thenComparing(i -> i.getFirstTime(),
+                    Comparator.nullsFirst(Comparator.naturalOrder()))
+            .thenComparing(i -> i.getFirstDate(),
+                    Comparator.nullsFirst(Comparator.naturalOrder()))
+            .thenComparing(i -> i.getSecondDate(),
+                    Comparator.nullsFirst(Comparator.naturalOrder()))
+            .thenComparing(i -> i.getSecondTime(),
+                    Comparator.nullsFirst(Comparator.naturalOrder()))
+            .compare(this, item);
     }
 }
