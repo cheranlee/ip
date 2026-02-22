@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import duck.exception.DuckException;
@@ -110,7 +111,7 @@ public class TaskList {
     public String deleteItem(int index) {
         Item removed = this.tasks.remove(index);
         return "Quack! I've removed this task:\n" + removed + '\n'
-                + "Now you have " + this.size() + "tasks in the list\n";
+                + "Now you have " + this.size() + " tasks in the list\n";
     }
 
     /**
@@ -132,6 +133,7 @@ public class TaskList {
         if (this.tasks.isEmpty()) {
             return "Relax! You have no tasks";
         }
+        Collections.sort(this.tasks);
         return java.util.stream.IntStream.range(0, this.tasks.size())
                         .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i))
                         .collect(java.util.stream.Collectors.joining("\n"));
