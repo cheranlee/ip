@@ -1,4 +1,5 @@
+T | 0 | borrow book
+D | 1 | return book | null | 01:00 pm
 D | 0 | return book | Feb 24 2024 | null
-T | 0 | go schooo l
-D | 0 | return book | null | 01:00 pm
-E | 0 | school | Feb 23 2023 | null | Feb 24 2024 | null
+E | 1 | school | Feb 23 2023 | null | Feb 24 2024 | null
+E | 0 | book club | Feb 23 2024 | 01:00 pm | Feb 23 2024 | 03:00 pm

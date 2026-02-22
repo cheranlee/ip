@@ -180,9 +180,6 @@ public class Item implements Comparable<Item> {
     public String getText() {
         return this.text;
     }
-
-
-
     void setText(String text) {
         this.text = text;
     }
@@ -191,8 +188,6 @@ public class Item implements Comparable<Item> {
     LocalDate getFirstDate() {
         return this.firstDate;
     }
-
-
 
     void setFirstDate(LocalDate date) {
         this.firstDate = date;

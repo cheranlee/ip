@@ -93,7 +93,7 @@ public class Storage {
     public void addToFile(String content) throws StorageException {
         try {
             // Write content to file
-            Files.writeString(this.filePath, content, StandardOpenOption.APPEND);
+            Files.writeString(this.filePath, '\n' + content, StandardOpenOption.APPEND);
         } catch (IOException appendError) {
             throw new StorageException("Unable to append to file: " + appendError.getMessage());
         }
@@ -127,6 +127,20 @@ public class Storage {
             List<String> lines = Files.readAllLines(this.filePath);
             lines.set(lineNumber, editedEntry);
             Files.write(this.filePath, lines);
+        } catch (IOException editError) {
+            throw new StorageException("Unable to edit file: " + editError.getMessage());
+        }
+    }
+
+    /**
+     * Rewrite content in file. Used when sorting tasks in Ascending Order.
+     *
+     * @param newContent newly ordered tasklist
+     * @throws StorageException
+     */
+    public void rewriteFile(String newContent) throws StorageException {
+        try {
+            Files.write(this.filePath, newContent.getBytes());
         } catch (IOException editError) {
             throw new StorageException("Unable to edit file: " + editError.getMessage());
         }

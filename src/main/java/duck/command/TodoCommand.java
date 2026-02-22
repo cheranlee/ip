@@ -46,7 +46,7 @@ public class TodoCommand extends Command {
         if (this.byDatetimePos == -1 && this.startDatetimePos == -1 && this.endDatetimePos == -1) {
             String result = tasks.addItem(new Item(this.argument));
             Item newItem = tasks.getItem(tasks.size() - 1);
-            storage.addToFile(newItem.toStringFile() + '\n');
+            storage.addToFile(newItem.toStringFile());
             this.setDuckResponse(ui.showOperationOutput(result));
             this.setCommandType(CommandType.Todo);
         } else { // error if (by), (start), (end) are in user input

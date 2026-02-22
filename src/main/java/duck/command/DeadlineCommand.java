@@ -37,7 +37,7 @@ public class DeadlineCommand extends Command {
         this.argument = argument;
     }
 
-    @SuppressWarnings("checkstyle:Regexp")
+
     private Item generateDeadlineItem(String description, String datetime) throws DuckException {
         String[] splitString = datetime.split("\\s");
 
@@ -88,7 +88,7 @@ public class DeadlineCommand extends Command {
             } else {
                 Item newItem = this.generateDeadlineItem(description.trim(), byDatetime.trim());
                 String response = tasks.addItem(newItem);
-                storage.addToFile(newItem.toStringFile() + '\n');
+                storage.addToFile(newItem.toStringFile());
                 this.setDuckResponse(ui.showOperationOutput(response));
                 this.setCommandType(CommandType.Deadline);
             }
