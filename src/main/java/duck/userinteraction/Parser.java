@@ -3,6 +3,7 @@ package duck.userinteraction;
 import duck.command.ByeCommand;
 import duck.command.CheerCommand;
 import duck.command.Command;
+import duck.command.DateSearchCommand;
 import duck.command.DeadlineCommand;
 import duck.command.DeleteCommand;
 import duck.command.EventCommand;
@@ -25,8 +26,18 @@ public class Parser {
             throw new ParserException("Mark/Unmark userInput must have an integer index behind");
         } else {
             String argument = userInput.substring(spacePos + 1);
-            argument = argument.trim();
-            return new MarkUnmarkCommand(argument, userInput.contains("unmark"));
+            return new MarkUnmarkCommand(argument.trim(), userInput.contains("unmark"));
+        }
+    }
+
+    private Command parseDateSearch(String userInput) throws ParserException {
+        userInput = userInput.trim();
+        int spacePos = userInput.indexOf(" ");
+        if (spacePos == -1) {
+            throw new ParserException("Datesearch userInput must have a Date behind");
+        } else {
+            String argument = userInput.substring(spacePos + 1);
+            return new DateSearchCommand(argument.trim());
         }
     }
 
@@ -83,6 +94,7 @@ public class Parser {
      * @throws ParserException Self-defined Exception Class which identifies error (using error message).
      */
     public Command parse(String userInput) throws ParserException {
+        userInput = userInput.trim().toLowerCase();
         if (userInput.contains("bye")) {
             return new ByeCommand();
         } else if (userInput.contains("list") || userInput.startsWith("pond")) {
@@ -99,6 +111,8 @@ public class Parser {
             return new CheerCommand();
         } else if (userInput.contains("help")) {
             return new HelpCommand();
+        } else if (userInput.contains("datesearch")) {
+            return parseDateSearch(userInput);
         } else {
             throw new ParserException("Invalid Command.");
         }
