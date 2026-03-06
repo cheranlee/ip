@@ -1,5 +1,7 @@
 package duck.userinteraction;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -17,7 +19,7 @@ public class Ui {
     */
     public String printInfo() {
         return "Command List:\n"
-                + "1. list : Print out task list\n"
+                + "1. list / pond: Print out task list\n"
                 + "2. mark X : Mark task X (integer) as done\n"
                 + "3. unmark X : Mark task X (integer) as not done\n"
                 + "4. todo task : Add tasks without any date/time attached to it\n"
@@ -25,7 +27,10 @@ public class Ui {
                 + "6. event task start DATE1 TIME1 end DATE2 TIME2 : Add task that start"
                 + " and end at specific dates/times\n"
                 + "7. delete X : Delete task X (integer) from list\n"
-                + "8. bye : End the Program\n"
+                + "8. cheer : Print a random motivational quote\n"
+                + "9. find X : Print all tasks with find keyword\n"
+                + "10. datesearch X : Print all tasks before and on specified date\n"
+                + "11. bye : End the Program\n"
                 + "DATE format: DD-MM-YYYY ; TIME format: HH:MM (24-hr clock)\n"
                 + "May input 1) TIME ONLY ; 2) DATE ONLY ; 3) TIME & DATE\n";
     }
@@ -73,4 +78,28 @@ public class Ui {
                 .collect(Collectors.joining("\n"));
     }
 
+    /**
+     * Wrapper for printing list of results when 'datesearch' keyword is used.
+     *
+     * @param date LocalDate.
+     * @param tasksOnDate Tasks that fall on date. List of Strings.
+     * @param tasksBefDate Tasks that fall before date. List of Strings.
+     * @return output to be printed in GUI.
+     */
+    public String showDateSearch(LocalDate date, List<String> tasksOnDate, List<String> tasksBefDate) {
+        String dateString = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        System.out.println(tasksOnDate);
+        String onString = tasksOnDate.isEmpty() ? "No Tasks due!"
+                : IntStream.range(0, tasksOnDate.size())
+                .mapToObj(i -> (i + 1) + ". " + tasksOnDate.get(i))
+                .collect(Collectors.joining("\n"));
+        String befString = tasksBefDate.isEmpty() ? "No Tasks due!"
+                : IntStream.range(0, tasksBefDate.size())
+                .mapToObj(i -> (i + 1) + ". " + tasksBefDate.get(i))
+                .collect(Collectors.joining("\n"));
+        return "Here are the tasks due on " + dateString + ":\n"
+                + onString + "\n" + "\n"
+                + "Here are the tasks due before " + dateString + ":\n"
+                + befString;
+    }
 }

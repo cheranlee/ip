@@ -190,4 +190,32 @@ public class TaskList {
                 .map(Item::toString)
                 .toList();
     }
+
+    /**
+     * Traverse through tasks and extracts Items with date before the specified date.
+     *
+     * @param date
+     * @return
+     */
+    public List<String> findBefDate(LocalDate date) {
+        return this.tasks.stream()
+                .filter(item -> item.getFirstDate() != null && item.getFirstDate().isBefore(date)
+                        || item.getSecondDate() != null && item.getSecondDate().isBefore(date))
+                .map(Item::toString)
+                .toList();
+    }
+
+    /**
+     * Traverse through tasks and extracts Items with date which falls on the specified date.
+     *
+     * @param date
+     * @return
+     */
+    public List<String> findOnDate(LocalDate date) {
+        return this.tasks.stream()
+                .filter(item -> item.getFirstDate() != null && item.getFirstDate().isEqual(date)
+                        || item.getSecondDate() != null && item.getSecondDate().isEqual(date))
+                .map(Item::toString)
+                .toList();
+    }
 }
