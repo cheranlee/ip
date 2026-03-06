@@ -89,8 +89,8 @@ public class TaskList {
      */
     public String addItem(Item item) {
         this.tasks.add(item);
-        return "Quack! I've added this task: \n" + item + '\n'
-                + "Now you have " + this.size() + " tasks in the list\n";
+        return "Quack! Added Task to Pond: \n" + item + '\n'
+                + "Now you have " + this.size() + " tasks in the Pond.\n";
     }
 
     /**
@@ -110,8 +110,8 @@ public class TaskList {
      */
     public String deleteItem(int index) {
         Item removed = this.tasks.remove(index);
-        return "Quack! I've removed this task:\n" + removed + '\n'
-                + "Now you have " + this.size() + " tasks in the list\n";
+        return "Quack! Removed from Pond:\n" + removed + '\n'
+                + "Now you have " + this.size() + " tasks in the Pond.\n";
     }
 
     /**

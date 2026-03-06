@@ -22,7 +22,7 @@ public class ListCommand extends Command {
         String newFileContent = tasks.sort();
         storage.rewriteFile(newFileContent);
         String output = tasks.toString();
-        this.setDuckResponse(ui.showOperationOutput(output));
+        this.setDuckResponse(ui.showOperationOutput("These are the tasks in your Pond: \n" + output));
         this.setCommandType(CommandType.List);
     }
 
