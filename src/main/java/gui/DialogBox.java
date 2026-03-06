@@ -65,6 +65,9 @@ public class DialogBox extends HBox {
         case CommandType.Delete:
             dialog.getStyleClass().add("delete-label");
             break;
+        case CommandType.NoCommand:
+            dialog.getStyleClass().add("error-label");
+            break;
         default:
             dialog.getStyleClass().add("reply-label");
             break;

@@ -13,15 +13,6 @@ import duck.exception.StorageException;
 public class Ui {
 
     /**
-     * Welcome message shown upon startup.
-     */
-    public String showWelcome() {
-        String totalStr = "";
-        totalStr = totalStr + "Quack! I'm Duck.\nWhat can I do for you?";
-        return totalStr;
-    }
-
-    /**
     * Print Instructions for user.
     */
     public String printInfo() {
@@ -43,7 +34,7 @@ public class Ui {
      * Message shown when Exiting Program.
      */
     public String showBye() {
-        return "Bye Quack! Hope to see you again soon!";
+        return "Happy paddling, see you again soon!";
     }
 
     /**

@@ -85,7 +85,7 @@ public class Parser {
     public Command parse(String userInput) throws ParserException {
         if (userInput.contains("bye")) {
             return new ByeCommand();
-        } else if (userInput.contains("list")) {
+        } else if (userInput.contains("list") || userInput.startsWith("pond")) {
             return new ListCommand();
         } else if (userInput.contains("mark") || userInput.contains("unmark")) {
             return parseMark(userInput);
