@@ -18,21 +18,11 @@ public class Ui {
     * Print Instructions for user.
     */
     public String printInfo() {
-        return "Command List:\n"
-                + "1. list / pond: Print out task list\n"
-                + "2. mark X : Mark task X (integer) as done\n"
-                + "3. unmark X : Mark task X (integer) as not done\n"
-                + "4. todo task : Add tasks without any date/time attached to it\n"
-                + "5. deadline task by DATE TIME: Add task that needs to be done by a specific date/time\n"
-                + "6. event task start DATE1 TIME1 end DATE2 TIME2 : Add task that start"
-                + " and end at specific dates/times\n"
-                + "7. delete X : Delete task X (integer) from list\n"
-                + "8. cheer : Print a random motivational quote\n"
-                + "9. find X : Print all tasks with find keyword\n"
-                + "10. datesearch X : Print all tasks before and on specified date\n"
-                + "11. bye : End the Program\n"
-                + "DATE format: DD-MM-YYYY ; TIME format: HH:MM (24-hr clock)\n"
-                + "May input 1) TIME ONLY ; 2) DATE ONLY ; 3) TIME & DATE\n";
+        return "Command List: "
+                + "list/pond  mark/unmark  todo  deadline  event  delete  cheer"
+                + "find  datesearch  bye  help\n"
+                + "DATE: dd-MM-yyyy       time: HH:mm (24-hr)\n\n"
+                + "User Guide: https://cheranlee.github.io/ip/";
     }
 
     /**

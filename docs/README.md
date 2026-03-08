@@ -27,7 +27,9 @@ Its simple and intuitive Graphical User Interface (GUI) allows for quick managem
 
 Format: `help` 
 
-Prints link to user guide. Shows summary of all commands. 
+Prints link to user guide. Shows summary of all commands.
+
+&nbsp;
 
 ### View all tasks : `list` / `pond`
 
@@ -37,7 +39,9 @@ Format: `list` / `pond`
 
 Tasks are sorted by (in ascending order):
 - Todo, Deadline, Event 
-- Date 
+- Date
+
+&nbsp;
 
 ### Mark a task as done / not done : `mark` / `unmark`
 
@@ -59,6 +63,8 @@ Examples:
 |   `mark 3`   | `3. [T][X] Borrow Book`  |
 | `unmark 2 `  | `2. [T][ ] Borrow book`  |
 
+&nbsp;
+
 ### Add a new Todo Task : `todo`
 
 Adds a new Todo task to the list of tasks. Todo tasks do not have an associated date or time. 
@@ -76,6 +82,8 @@ Examples:
 | `todo borrow book`  | `3. [T][ ] Borrow Book` |
 | `todo return book ` | `7. [T][ ] Return book` |
 
+&nbsp;
+
 ### Add a new Deadline Task : `deadline`
 
 Adds a new Deadline task to the list of tasks. Deadline tasks have an associated date/time/datetime. 
@@ -84,11 +92,11 @@ Format: `deadline TASK by DATETIME`
 - Adds a task with description `TASK` and deadline `DATETIME`, where `DATETIME`
 can be a date of format `dd-MM-yyyy`, time of format `HH:mm (24-hr clock)` or datetime of format `dd-MM-yyyy HH:mm`. 
 - Accepted DateTime formats: 
-  - | DateTime Format | DateTime |       Example        |
-    |:----------------|:--------:|:--------------------:|
-    | DATE            |   `24-02-2024`   |   24 February 2024   |
-    | TIME            |      `13:00`       |     1 pm (Today)     |
-    | DATETIME        | `24-02-2024 13:00` | 24 February 2024 1pm |
+  - | DateTime Format  | DateTime |       Example        |
+    |:----------------:|:--------:|:--------------------:|
+    |       DATE       |   `24-02-2024`   |   24 February 2024   |
+    |       TIME       |      `13:00`       |     1 pm (Today)     |
+    |     DATETIME     | `24-02-2024 13:00` | 24 February 2024 1pm |
 - An error will be raised if `by` keyword is missing. 
 - An error will be raised if `start` / `end` keywords are used. 
 - An error will be raised if `DATETIME` is not in the above accepted formats. 
@@ -100,6 +108,8 @@ Examples:
 | `deadline return book by 24-02-2024` |     `3. [D][ ] return book (by: Feb 24 2024)`     |
 | `deadline submit homework by 14:00`  |    `7. [D][ ] submit homework (by: 14:00 pm)`    |
 | `deadline submit form by 24-02-2024 14:00`|`9. [D][ ] submit form (by: Feb 24 2024 02:00pm)` |
+
+&nbsp;
 
 ### Add a new Event Task : `event`
 
@@ -122,6 +132,8 @@ Examples:
 |     `event fundraising start 13:00 end 15:00`      |           `7. [E][ ] fundraising (start: 01:00 pm) (end: 03:00pm)`            |
 | `event book fair start 24-02-2024 14:00 end 15:00` | `9. [E][ ] book fair (start: Feb 24 2024 02:00pm) (end: Feb 24 2024 03:00pm)` |
 
+&nbsp;
+
 ### Delete a Task : `delete`
 
 Deletes a task from the list of tasks. 
@@ -137,6 +149,8 @@ Examples:
 |:-----------:|:-------------------------------:| 
 | `delete 3`  | removes `3. [T][X] Borrow Book` |
 
+&nbsp;
+
 ### Print a motivational quote: `cheer` 
 
 Prints a random motivational quote. 
@@ -149,6 +163,8 @@ Examples:
 |:-------:|:---------------------------:| 
 | `cheer` | `All good things take time!` |
 
+&nbsp;
+
 ### Find all tasks with a keyword : `find` 
 
 Finds and prints all tasks with a specified keyword. 
@@ -157,7 +173,9 @@ Format: `find KEYWORD`
 - Prints all tasks with `KEYWORD` in its description.
 - Returns an error if there are no tasks with `KEYWORD` in its description.
 
-Example: `find homework` , `find book` 
+Example: `find homework` , `find book`
+
+&nbsp;
 
 ### Find all tasks on or before a date: `datesearch`
 
@@ -167,6 +185,8 @@ Format: `datesearch DATE`
 - Only accepts a DATE. Returns an error if TIME or DATETIME is given. 
 
 Example: `datesearch 24-01-2023` , `datesearch 06-05-2023`
+
+&nbsp;
 
 ### Close the program: `bye`
 
