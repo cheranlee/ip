@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import duck.exception.ParserException;
-import duck.exception.StorageException;
-
 /**
  * User Interface Class. Outputs messages to be printed on console.
  */
@@ -38,13 +35,7 @@ public class Ui {
      * @param error Error Message.
      */
     public String showError(Exception error) {
-        if (error instanceof StorageException) {
-            return "[StorageError] : " + error.getMessage();
-        } else if (error instanceof ParserException) {
-            return "[ParserError] : " + error.getMessage();
-        } else {
-            return "[DuckError] : " + error.getMessage();
-        }
+        return error.getMessage();
     }
 
     /**

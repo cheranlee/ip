@@ -17,6 +17,7 @@ Its simple and intuitive Graphical User Interface (GUI) allows for quick managem
   - [Find all tasks on or before a date: `datesearch`](#find-all-tasks-on-or-before-a-date-datesearch)
   - [Close the program: `bye`](#close-the-program-bye)
 - [Command Summary](#command-summary-)
+- [Response Colours](#response-colours-)
 
 
 ***
@@ -212,3 +213,15 @@ Format: `bye`
 |Search by Date| `datesearch DATE`| 
 |Close| `bye`|
 
+*** 
+
+## Response Colours 
+
+Depending on the command, the colour of the response dialog box of DuckTask would change. 
+
+| Colour | Response Type                                         | 
+|:------:|:------------------------------------------------------| 
+| Yellow | A task is added. `todo`, `deadline`, `event`          | 
+| Green  | A task is marked as done / not done. `mark` , `unmark |
+| Brown  | A task is deleted. `delete`                           | 
+| Red    | When an error is raised.                              |

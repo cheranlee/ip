@@ -142,9 +142,6 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        if (this.tasks.isEmpty()) {
-            return "Relax! You have no tasks";
-        }
         return java.util.stream.IntStream.range(0, this.tasks.size())
                         .mapToObj(i -> (i + 1) + ". " + this.tasks.get(i))
                         .collect(java.util.stream.Collectors.joining("\n"));
