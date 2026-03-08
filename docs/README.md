@@ -17,8 +17,8 @@ Even after closing the GUI, DuckTask remembers your tasks and reloads it upon re
   - [Find all tasks with a keyword: `find`](#find-all-tasks-with-a-keyword--find-)
   - [Find all tasks on or before a date: `datesearch`](#find-all-tasks-on-or-before-a-date-datesearch)
   - [Close the program: `bye`](#close-the-program-bye)
-- [Command Summary](#command-summary-)
-- [Response Colours](#response-colours-)
+- [Command Summary](#command-summary)
+- [Response Colours](#response-colours)
 
 
 ***
@@ -212,7 +212,7 @@ Format: `bye`
 
 *** 
 
-## Command Summary 
+## Command Summary
 
 | Action | Command Format                           | 
 |:------:|:-----------------------------------------| 
@@ -230,7 +230,7 @@ Format: `bye`
 
 *** 
 
-## Response Colours 
+## Response Colours
 
 Depending on the command, the colour of the response dialog box of DuckTask would change. 
 
