@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import duck.exception.DuckException;
 import duck.exception.StorageException;
 
 /**
@@ -93,7 +94,7 @@ public class Storage {
     public void addToFile(String content) throws StorageException {
         try {
             // Write content to file
-            Files.writeString(this.filePath, '\n' + content, StandardOpenOption.APPEND);
+            Files.writeString(this.filePath, content + '\n', StandardOpenOption.APPEND);
         } catch (IOException appendError) {
             throw new StorageException("Unable to append to file: " + appendError.getMessage());
         }
@@ -105,13 +106,13 @@ public class Storage {
      *
      * @param lineNumber Delete content at lineNumber from hard disk.
      */
-    public void deleteFromFile(int lineNumber) {
+    public void deleteFromFile(int lineNumber) throws StorageException {
         try {
             List<String> lines = Files.readAllLines(this.filePath);
             lines.remove(lineNumber);
             Files.write(this.filePath, lines);
         } catch (IOException deleteError) {
-            System.out.println("Unable to delete from file: " + deleteError.getMessage());
+            throw new StorageException("Unable to delete from file: " + deleteError.getMessage());
         }
     }
 

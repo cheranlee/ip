@@ -60,7 +60,7 @@ application {
 shadowJar {
     archiveBaseName = "duck"
     archiveClassifier = null
-    archiveFileName = 'duck.jar'
+    archiveFileName = 'DuckTask.jar'
 }
 
 java {

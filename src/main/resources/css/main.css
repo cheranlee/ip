@@ -2,7 +2,7 @@
     main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: rgba(255, 255, 255, 0.5); /* main-color; */
     -fx-background-image: url("../images/background.png");
-    -fx-background-size: 400px 600px;
+    -fx-background-size: cover;
     -fx-background-repeat: round;
 }
 

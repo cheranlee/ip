@@ -69,18 +69,17 @@ public class Ui {
      */
     public String showDateSearch(LocalDate date, List<String> tasksOnDate, List<String> tasksBefDate) {
         String dateString = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        System.out.println(tasksOnDate);
-        String onString = tasksOnDate.isEmpty() ? "No Tasks due!"
+        String onString = tasksOnDate.isEmpty() ? "No Tasks!"
                 : IntStream.range(0, tasksOnDate.size())
                 .mapToObj(i -> (i + 1) + ". " + tasksOnDate.get(i))
                 .collect(Collectors.joining("\n"));
-        String befString = tasksBefDate.isEmpty() ? "No Tasks due!"
+        String befString = tasksBefDate.isEmpty() ? "No Tasks!"
                 : IntStream.range(0, tasksBefDate.size())
                 .mapToObj(i -> (i + 1) + ". " + tasksBefDate.get(i))
                 .collect(Collectors.joining("\n"));
-        return "Here are the tasks due on " + dateString + ":\n"
+        return "Here are the tasks happening on " + dateString + ":\n"
                 + onString + "\n" + "\n"
-                + "Here are the tasks due before " + dateString + ":\n"
+                + "Here are the tasks happening before " + dateString + ":\n"
                 + befString;
     }
 }

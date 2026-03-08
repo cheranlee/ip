@@ -2,6 +2,7 @@
 
 DuckTask is a chatbot for managing your tasks. 
 Its simple and intuitive Graphical User Interface (GUI) allows for quick management of your tasks.
+Even after closing the GUI, DuckTask remembers your tasks and reloads it upon restarting the program.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
@@ -21,6 +22,16 @@ Its simple and intuitive Graphical User Interface (GUI) allows for quick managem
 
 
 ***
+
+## Quick Start
+1. Ensure you have Java `21` installed on your computer. 
+2. Download the JAR File [here](https://github.com/cheranlee/ip/releases/tag/A-Release)
+3. Move the JAR File to an empty folder. 
+4. Run the JAR File by double-clicking on the `DuckTask.jar` file.
+   Alternatively, in your command terminal, after navigating into the folder you put the JAR file in, run `java -jar "DuckTask.jar"`.
+5. A GUI should appear. Type the command in the light blue box at the bottom and press Enter or click `Send` to input a user command.
+6. The following sample has been populated with some user input: ![Alt text](Ui.png)
+
 
 ## Features
 
@@ -123,6 +134,7 @@ Format: `event TASK start DATETIME end DATETIME`
 - An error will be raised if `by` keyword is used. 
 - An error will be raised if `DATETIME` is not in the above accepted formats. 
 - An error will be raised if `end` datetime is before `start` datetime. 
+- An error will be raised if `start` datetime is equal to `end` datetime. Time information should be given in this case.
 - If date and time is given for `start` but only time is given for `end`, it is assumed that end has the same date (and vice versa). 
 
 Examples:

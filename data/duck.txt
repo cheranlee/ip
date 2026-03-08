@@ -1,3 +1,2 @@
 T | 1 | borrow book
-D | 0 | submit homework | null | 01:00 pm
 E | 1 | school | Jun 25 2024 | 01:00 pm | Jun 25 2024 | 03:00 pm
