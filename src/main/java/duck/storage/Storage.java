@@ -93,8 +93,12 @@ public class Storage {
      */
     public void addToFile(String content) throws StorageException {
         try {
-            // Write content to file
-            Files.writeString(this.filePath, content + '\n', StandardOpenOption.APPEND);
+            if (Files.size(this.filePath) == 0) {
+                Files.writeString(this.filePath, content, StandardOpenOption.APPEND);
+            } else {
+                // Write content to file
+                Files.writeString(this.filePath, '\n' + content, StandardOpenOption.APPEND);
+            }
         } catch (IOException appendError) {
             throw new StorageException("Unable to append to file: " + appendError.getMessage());
         }

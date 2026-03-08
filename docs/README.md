@@ -53,6 +53,9 @@ Tasks are sorted by (in ascending order):
 - Todo, Deadline, Event 
 - Date
 
+>Note that tasks are only sorted in ascending order when `list` is called. 
+Therefore, for commands that use indexing, remember to call `list` to see the sorted index before calling the command.
+
 &nbsp;
 
 ### Mark a task as done / not done : `mark` / `unmark`
